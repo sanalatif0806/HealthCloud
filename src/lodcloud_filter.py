@@ -71,6 +71,34 @@ class LODCloudFilter:
             }
             If the dataset is not part of the Cultural Heritage category, do not enter the "category" key. If the dataset is of type Cultural Heritage, but you cannot define the sub category, do not enter the key “sub_category”.
         '''
+        tasks = []
+        for index, kg in enumerate(self.lodcloud_data.keys()):
+            kg_metadata = self.lodcloud_data[kg]
+            kg_data_prompt = f"dataset_id: {kg}\nTitle: {kg_metadata.title}\nDescription: {kg_metadata.description}"
+            task = {
+                "custom_id": f"task-{index}",
+                "method": "POST",
+                "url": "/v1/chat/completions",
+                "body": {
+                    # This is what you would have in your Chat Completions API call
+                    "model": "gpt-4o-mini",
+                    "temperature": 0.1,
+                    "response_format": { 
+                        "type": "json_object"
+                    },
+                    "messages": [
+                        {
+                            "role": "system",
+                            "content": categorize_prompt
+                        },
+                        {
+                            "role": "user",
+                            "content": kg_data_prompt
+                        }
+                    ],
+                }
+            }
+
 
 l = LODCloudFilter()
 l.filter_by_keywords()
