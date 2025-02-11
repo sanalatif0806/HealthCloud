@@ -74,7 +74,7 @@ class LODCloudFilter:
         tasks = []
         for index, kg in enumerate(self.lodcloud_data.keys()):
             kg_metadata = self.lodcloud_data[kg]
-            kg_data_prompt = f"dataset_id: {kg}\nTitle: {kg_metadata.title}\nDescription: {kg_metadata.description}"
+            kg_data_prompt = f"dataset_id: {kg}\nTitle: {kg_metadata.title}\nDescription: {kg_metadata.description.en}"
             task = {
                 "custom_id": f"task-{index}",
                 "method": "POST",
