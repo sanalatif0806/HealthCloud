@@ -170,3 +170,6 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 .devcontainer/
+gpt_tasks.jsonl
+gpt_results.json
+batch_job_results.jsonl
