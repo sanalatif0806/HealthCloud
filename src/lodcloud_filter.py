@@ -11,6 +11,15 @@ here = os.path.dirname(os.path.abspath(__file__))
 
 class LODCloudFilter:
     def __init__(self):
+        """
+        Initializes the instance by attempting to fetch the latest LOD cloud data from the specified URL.
+        
+        If the data is successfully fetched, it is saved to a local JSON file. If the fetch fails, 
+        the method attempts to load the data from the local JSON file instead.
+
+        Attributes:
+            lodcloud_data (dict): The LOD cloud data loaded from the URL or local file.
+        """
         try:
             response = requests.get("https://lod-cloud.net/versions/latest/lod-data.json")
             self.lodcloud_data = response.json()
@@ -21,10 +30,28 @@ class LODCloudFilter:
                 self.lodcloud_data = json.load(file)
     
     def write_filtered_data(self, data, filter_type):
+        """
+        Writes the filtered data to a JSON file.
+
+        Args:
+            data (dict): The data to be written to the file.
+            filter_type (str): The type of filter applied to the data, used to name the output file.
+        """
         with open(os.path.join(here,f'../data/CHlodcloud_data_{filter_type}.json'), "w", encoding="utf-8") as file:
+            json.dump(data, file)
+    
+    def update_lodcloud_data(self, data):
+        with open(os.path.join(here,'../data/CH_lodcloud_data.json'), "w", encoding="utf-8") as file:
             json.dump(data, file)
 
     def filter_by_keywords(self):
+        """
+        Filters the LOD cloud data by keywords specified in CH_keywords and updates the metadata.
+        This method reads a list of keywords from a JSON file located at '../data/CH_keywords.json'.
+        It then iterates through the LOD cloud data and checks if any of the keywords are present
+        in the metadata of each knowledge graph (KG). If a keyword is found, the KG is added to the
+        filtered results and the keyword 'cultural-heritage' is appended to its metadata keywords.
+        """
         filtered_kgs = {}
         ch_keywords = json.load(open(os.path.join(here,'../data/CH_keywords.json'), "r", encoding="utf-8"))
         ch_keywords = ch_keywords['keywords']
@@ -34,11 +61,23 @@ class LODCloudFilter:
             kg_metadata_keywords = kg_metadata['keywords']
             for keyword in ch_keywords:
                 if keyword in kg_metadata_keywords:
-                    filtered_kgs[kg] = kg_metadata       
+                    filtered_kgs[kg] = kg_metadata
+                    kg_metadata['keywords'].append("cultural-heritage")
+                    self.lodcloud_data[kg] = kg_metadata
+
         print(f"Extracted {len(filtered_kgs.keys())} resources by analyzing keywords in the dataset metadata")
-        self.write_filtered_data(filtered_kgs, "keyword")    
+        self.write_filtered_data(filtered_kgs, "keyword")
+        self.update_lodcloud_data(self.lodcloud_data)    
 
     def filter_by_title_and_description(self):
+        """
+        Filters the LOD cloud data by checking if any of the keywords from the 
+        'CH_keywords.json' file are present in the title or description of each 
+        knowledge graph's metadata. If a keyword is found, the knowledge graph 
+        is added to the filtered results and tagged with "cultural-heritage".
+        The filtered results are then written to a file and the LOD cloud data 
+        is updated accordingly.
+        """
         filtered_kgs = {}
         ch_keywords = json.load(open(os.path.join(here,'../data/CH_keywords.json'), "r", encoding="utf-8"))
         ch_keywords = ch_keywords['keywords']
@@ -48,11 +87,21 @@ class LODCloudFilter:
             kg_metadata_description = kg_metadata['description']
             for keyword in ch_keywords:
                 if keyword in kg_metadata_title or keyword in kg_metadata_description:
-                    filtered_kgs[kg] = kg_metadata       
+                    filtered_kgs[kg] = kg_metadata 
+                    kg_metadata['keywords'].append("cultural-heritage")
+                    self.lodcloud_data[kg] = kg_metadata
+
         print(f"Extracted {len(filtered_kgs.keys())} resources by analyzing title and description in the dataset metadata")
         self.write_filtered_data(filtered_kgs, "title_description")    
+        self.update_lodcloud_data(self.lodcloud_data)
 
     def ch_lodcloud_intersection(self,path_of_data_to_intersect):
+        """
+        Intersects the provided data in order to create a JSON file with only the cultural-heritage resources extracted with the different filter methods.
+
+        Args:
+            path_of_data_to_intersect (list): A list of file paths containing the data to be intersected with the LOD cloud data.
+        """
         intersected_data = {}
         for path in path_of_data_to_intersect:
             ch_lodcloud_data = json.load(open(os.path.join(here,path), "r", encoding="utf-8"))
@@ -64,6 +113,9 @@ class LODCloudFilter:
 
 
     def filter_with_gpt(self):
+        """
+        Creates a batch job using the OpenAI API to filter the LOD cloud data using the GPT-4o mini model.
+        """
         client = OpenAI(api_key=openai_api_key)
         categorize_prompt = '''
             I give you some description and title about dataset in the Linked Open Data Cloud, I have to categorize it as Cultural Heritage or Not.  
@@ -124,7 +176,12 @@ class LODCloudFilter:
         batch_job = client.batches.retrieve(batch_job.id)
         print(batch_job)
 
+        return batch_job.id
+
     def retrieve_and_save_job_result(self, job_id):
+        """
+        Retrieves the results of a batch job created with the OpenAI API and saves them to a local JSON file.
+        """
         client = OpenAI(api_key=openai_api_key)
         batch_job = client.batches.retrieve(job_id)
         result_file_id = batch_job.output_file_id
@@ -149,6 +206,9 @@ class LODCloudFilter:
             json.dump(json_results, file)
     
     def from_gpt_response_to_lodcloud_data(self):
+        """
+        Transforms the GPT response into LOD Cloud data by applying the categories to the datasets metadata.
+        """
         filtered_kgs = {}
         gpt_results = json.load(open(os.path.join(here,'../data/gpt_results.json'), "r", encoding="utf-8"))
         for result in gpt_results:
@@ -156,17 +216,13 @@ class LODCloudFilter:
             if 'category' in result:
                 kg_metadata = self.lodcloud_data[kg_id]
                 category = result['category']
-                kg_metadata['keywords'].append(category)
+                kg_metadata['keywords'].append('cultural-heritage')
                 if 'sub_category' in result:
                     sub_category = result['sub_category']
-                    kg_metadata['keywords'].append(sub_category)
+                    kg_metadata['keywords'].append(f"cultural-heritage-{sub_category.lower()}")
                 filtered_kgs[kg_id] = kg_metadata
-        
+                self.lodcloud_data[kg_id] = kg_metadata
+
+        print(f"Extracted {len(filtered_kgs.keys())} resources by using GPT-4o mini to categorize the datasets")
         self.write_filtered_data(filtered_kgs, "gpt_filtered")
-
-
-l = LODCloudFilter()
-# l.filter_by_keywords()
-# l.filter_by_title_and_description()
-# l.ch_lodcloud_intersection(['../data/CHlodcloud_data_keyword.json','../data/CHlodcloud_data_title_description.json'])
-l.filter_with_gpt()
+        self.update_lodcloud_data(self.lodcloud_data)
