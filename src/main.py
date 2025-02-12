@@ -17,11 +17,15 @@ def main(create_jobs=False):
         # Retrieve the results of the jobs created by the filter_with_gpt method
         lod_cloud_filter.retrieve_and_save_job_result(batch_job_id)
 
+    # Create a JSON file with only cultural heritage dataset extracted with the different methods
+    lod_cloud_filter.ch_lodcloud_merge(['../data/CHlodcloud_data_keyword.json','../data/CHlodcloud_data_title_description.json'])
+    
     # Transform the GPT response into LOD Cloud data by applying the categories to the datasets metadata
     lod_cloud_filter.from_gpt_response_to_lodcloud_data()
 
-    # Create a JSON file with only cultural heritage  dataset extracted with the different methods
-    lod_cloud_filter.ch_lodcloud_intersection(['../data/CHlodcloud_data_keyword.json','../data/CHlodcloud_data_title_description.json','../data/CHlodcloud_data_gpt_filtered.json'])
+    # Insert in the final JSON file the datasets that also for the GPT filter are cultural heritage datasets
+    lod_cloud_filter.review_filtered_resources_with_gpt()
+
 
 if __name__ == "__main__":
     main()

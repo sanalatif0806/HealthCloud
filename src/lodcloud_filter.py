@@ -60,14 +60,13 @@ class LODCloudFilter:
             kg_metadata = self.lodcloud_data[kg]
             kg_metadata_keywords = kg_metadata['keywords']
             for keyword in ch_keywords:
-                if keyword in kg_metadata_keywords:
-                    filtered_kgs[kg] = kg_metadata
+                if keyword in kg_metadata_keywords and 'cultural-heritage' not in kg_metadata_keywords:
                     kg_metadata['keywords'].append("cultural-heritage")
-                    self.lodcloud_data[kg] = kg_metadata
+                    filtered_kgs[kg] = kg_metadata
 
         print(f"Extracted {len(filtered_kgs.keys())} resources by analyzing keywords in the dataset metadata")
         self.write_filtered_data(filtered_kgs, "keyword")
-        self.update_lodcloud_data(self.lodcloud_data)    
+        #self.update_lodcloud_data(self.lodcloud_data)    
 
     def filter_by_title_and_description(self):
         """
@@ -86,30 +85,30 @@ class LODCloudFilter:
             kg_metadata_title = kg_metadata['title']
             kg_metadata_description = kg_metadata['description']
             for keyword in ch_keywords:
-                if keyword in kg_metadata_title or keyword in kg_metadata_description:
-                    filtered_kgs[kg] = kg_metadata 
+                if keyword in kg_metadata_title or keyword in kg_metadata_description and 'cultural-heritage' not in kg_metadata['keywords']:
                     kg_metadata['keywords'].append("cultural-heritage")
-                    self.lodcloud_data[kg] = kg_metadata
+                    filtered_kgs[kg] = kg_metadata 
 
         print(f"Extracted {len(filtered_kgs.keys())} resources by analyzing title and description in the dataset metadata")
         self.write_filtered_data(filtered_kgs, "title_description")    
-        self.update_lodcloud_data(self.lodcloud_data)
+        #self.update_lodcloud_data(self.lodcloud_data)
 
-    def ch_lodcloud_intersection(self,path_of_data_to_intersect):
+    def ch_lodcloud_merge(self,path_of_data_to_intersect):
         """
-        Intersects the provided data in order to create a JSON file with only the cultural-heritage resources extracted with the different filter methods.
+        Mergs the provided data in order to create a JSON file with only the cultural-heritage resources extracted with the different filter methods.
 
         Args:
             path_of_data_to_intersect (list): A list of file paths containing the data to be intersected with the LOD cloud data.
         """
-        intersected_data = {}
+        merged_data = {}
         for path in path_of_data_to_intersect:
             ch_lodcloud_data = json.load(open(os.path.join(here,path), "r", encoding="utf-8"))
             for kg in ch_lodcloud_data.keys():
                 if kg in self.lodcloud_data.keys():
-                    intersected_data[kg] = self.lodcloud_data[kg]
-        print(f"Extracted {len(intersected_data.keys())} resources by intersecting all methods used")
-        self.write_filtered_data(intersected_data, "intersection")
+                    self.lodcloud_data[kg]["keywords"] = list(dict.fromkeys(self.lodcloud_data[kg]["keywords"]))
+                    merged_data[kg] = self.lodcloud_data[kg]
+        print(f"Extracted {len(merged_data.keys())} resources by joining all methods used")
+        self.write_filtered_data(merged_data, "union")
 
 
     def filter_with_gpt(self):
@@ -205,6 +204,18 @@ class LODCloudFilter:
         with open(os.path.join(here,'../data/gpt_results.json'), "w", encoding="utf-8") as file:
             json.dump(json_results, file)
     
+    def review_filtered_resources_with_gpt(self):
+        reviwed_data = {}
+        union_data = json.load(open(os.path.join(here,'../data/CHlodcloud_data_union.json'), "r", encoding="utf-8"))
+        gpt_filtered_data = json.load(open(os.path.join(here,'../data/CHlodcloud_data_gpt_filtered.json'), "r", encoding="utf-8"))  
+        for kg in union_data.keys():
+            if kg in gpt_filtered_data.keys():
+                reviwed_data[kg] = gpt_filtered_data[kg]
+        print(f"Extracted {len(reviwed_data.keys())} resources by intersecting the GPT-4o mini results with the union of all methods used")
+
+        self.write_filtered_data(reviwed_data, "reviewed_by_chatgpt")
+        self.update_lodcloud_data(reviwed_data)
+    
     def from_gpt_response_to_lodcloud_data(self):
         """
         Transforms the GPT response into LOD Cloud data by applying the categories to the datasets metadata.
@@ -215,14 +226,13 @@ class LODCloudFilter:
             kg_id = result['id']
             if 'category' in result:
                 kg_metadata = self.lodcloud_data[kg_id]
-                category = result['category']
-                kg_metadata['keywords'].append('cultural-heritage')
+                if 'cultural-heritage' not in kg_metadata['keywords']:
+                    kg_metadata['keywords'].append('cultural-heritage')
                 if 'sub_category' in result:
                     sub_category = result['sub_category']
                     kg_metadata['keywords'].append(f"cultural-heritage-{sub_category.lower()}")
                 filtered_kgs[kg_id] = kg_metadata
-                self.lodcloud_data[kg_id] = kg_metadata
 
         print(f"Extracted {len(filtered_kgs.keys())} resources by using GPT-4o mini to categorize the datasets")
         self.write_filtered_data(filtered_kgs, "gpt_filtered")
-        self.update_lodcloud_data(self.lodcloud_data)
+        #self.update_lodcloud_data(self.lodcloud_data)
