@@ -62,6 +62,7 @@ class LODCloudFilter:
             for keyword in ch_keywords:
                 if keyword in kg_metadata_keywords and 'cultural-heritage' not in kg_metadata_keywords:
                     kg_metadata['keywords'].append("cultural-heritage")
+                    kg_metadata['domain'] = 'cultural-heritage'
                     filtered_kgs[kg] = kg_metadata
 
         print(f"Extracted {len(filtered_kgs.keys())} resources by analyzing keywords in the dataset metadata")
@@ -87,6 +88,7 @@ class LODCloudFilter:
             for keyword in ch_keywords:
                 if keyword in kg_metadata_title or keyword in kg_metadata_description and 'cultural-heritage' not in kg_metadata['keywords']:
                     kg_metadata['keywords'].append("cultural-heritage")
+                    kg_metadata['domain'] = 'cultural-heritage'
                     filtered_kgs[kg] = kg_metadata 
 
         print(f"Extracted {len(filtered_kgs.keys())} resources by analyzing title and description in the dataset metadata")
@@ -228,6 +230,7 @@ class LODCloudFilter:
                 kg_metadata = self.lodcloud_data[kg_id]
                 if 'cultural-heritage' not in kg_metadata['keywords']:
                     kg_metadata['keywords'].append('cultural-heritage')
+                    kg_metadata['domain'] = 'cultural-heritage'
                 if 'sub_category' in result:
                     sub_category = result['sub_category']
                     kg_metadata['keywords'].append(f"cultural-heritage-{sub_category.lower()}")
