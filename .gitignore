@@ -173,3 +173,4 @@ cython_debug/
 gpt_tasks.jsonl
 gpt_results.json
 batch_job_results.jsonl
+.DS_Store
