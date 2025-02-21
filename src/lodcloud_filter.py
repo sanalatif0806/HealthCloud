@@ -3,6 +3,7 @@ import requests
 import os
 from openai import OpenAI
 from dotenv import load_dotenv
+import utils
 
 load_dotenv()
 openai_api_key = os.getenv('OPENAI_API_KEY')
@@ -94,6 +95,53 @@ class LODCloudFilter:
         print(f"Extracted {len(filtered_kgs.keys())} resources by analyzing title and description in the dataset metadata")
         self.write_filtered_data(filtered_kgs, "title_description")    
         #self.update_lodcloud_data(self.lodcloud_data)
+
+    def find_optimal_subset_of_keywords(self):
+        filtered_kgs = {}
+        results = {}
+        ch_keywords = json.load(open(os.path.join(here,'../data/CH_keywords.json'), "r", encoding="utf-8"))
+        ch_keywords = ch_keywords['keywords']
+        keyword_subsets = utils.generate_subsets(ch_keywords)
+
+        for subset in keyword_subsets:
+            subset_key = ", ".join(subset)  # Convert subset to a readable string
+            filtered_kgs = {}
+
+            for kg in self.lodcloud_data.keys():
+                kg_metadata = self.lodcloud_data[kg]
+                kg_metadata_title = kg_metadata.get('title', '').lower()
+                kg_metadata_description = kg_metadata.get('description', '')
+                if isinstance(kg_metadata_description, dict):
+                    kg_metadata_description = kg_metadata_description.get('en','')
+                else:
+                    kg_metadata_description = ''
+                if isinstance(kg_metadata_description, str):
+                    kg_metadata_description = kg_metadata_description.lower()
+                else:
+                    kg_metadata_description = ''
+                kg_metadata_keywords = [kw.lower() for kw in kg_metadata.get('keywords', [])]
+            
+                if any(keyword.lower() in kg_metadata_title or 
+                    keyword.lower() in kg_metadata_description or 
+                    keyword.lower() in kg_metadata_keywords for keyword in subset):
+                    #kg_metadata['keywords'].append("cultural-heritage")
+                    #kg_metadata['domain'] = 'cultural-heritage'
+                    filtered_kgs[kg] = kg_metadata
+
+            # Store the count of datasets retrieved for this subset
+            results[subset_key] = len(filtered_kgs)
+        
+        # Find the maximum dataset retrieval count
+        max_datasets = max(results.values(), default=0)
+
+        # Find the smallest subset that retrieves this max number of datasets
+        optimal_subset = min(
+            [subset for subset, count in results.items() if count == max_datasets], 
+            key=len
+        )
+        print(f"Optimal keyword set: {optimal_subset} -> Datasets Retrieved: {max_datasets}")
+
+        return optimal_subset
 
     def ch_lodcloud_merge(self,path_of_data_to_intersect):
         """
@@ -239,3 +287,7 @@ class LODCloudFilter:
         print(f"Extracted {len(filtered_kgs.keys())} resources by using GPT-4o mini to categorize the datasets")
         self.write_filtered_data(filtered_kgs, "gpt_filtered")
         #self.update_lodcloud_data(self.lodcloud_data)
+
+l = LODCloudFilter()
+
+l.find_optimal_subset_of_keywords()
