@@ -62,6 +62,9 @@
         "geological",
         "biological",
         "GLAM",
-        "document"
+        "document",
+        "landscape",
+        "sea",
+        "park"
     ]
 }
