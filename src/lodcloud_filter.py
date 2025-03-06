@@ -96,12 +96,10 @@ class LODCloudFilter:
         self.write_filtered_data(filtered_kgs, "title_description")    
         #self.update_lodcloud_data(self.lodcloud_data)
 
-    def find_optimal_subset_of_keywords(self):
+    def find_optimal_subset_of_keywords(self,keywords):
         filtered_kgs = {}
         results = {}
-        ch_keywords = json.load(open(os.path.join(here,'../data/CH_keywords.json'), "r", encoding="utf-8"))
-        ch_keywords = ch_keywords['keywords']
-        keyword_subsets = utils.generate_subsets(ch_keywords)
+        keyword_subsets = utils.generate_subsets(keywords)
         for subset in keyword_subsets:
             print("Processing subset:", subset)
             subset_key = ", ".join(subset)  # Convert subset to a readable string
@@ -141,7 +139,7 @@ class LODCloudFilter:
         )
         print(f"Optimal keyword set: {optimal_subset} -> Datasets Retrieved: {max_datasets}")
 
-        return optimal_subset
+        return optimal_subset, max_datasets
 
     def ch_lodcloud_merge(self,path_of_data_to_intersect):
         """
@@ -290,4 +288,6 @@ class LODCloudFilter:
 
 l = LODCloudFilter()
 
-l.find_optimal_subset_of_keywords()
+ch_keywords = json.load(open(os.path.join(here,'../data/CH_keywords.json'), "r", encoding="utf-8"))
+
+l.find_optimal_subset_of_keywords(ch_keywords['intangible_cultural_heritage'])
