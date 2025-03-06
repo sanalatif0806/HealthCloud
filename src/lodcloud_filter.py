@@ -104,6 +104,7 @@ class LODCloudFilter:
         keyword_subsets = utils.generate_subsets(ch_keywords)
 
         for subset in keyword_subsets:
+            print('Evaluating subset:', subset)
             subset_key = ", ".join(subset)  # Convert subset to a readable string
             filtered_kgs = {}
 
@@ -121,8 +122,8 @@ class LODCloudFilter:
                     kg_metadata_description = ''
                 kg_metadata_keywords = [kw.lower() for kw in kg_metadata.get('keywords', [])]
             
-                if any(keyword.lower() in kg_metadata_title or 
-                    keyword.lower() in kg_metadata_description or 
+                if any(keyword.lower() in kg_metadata_title.lower() or 
+                    keyword.lower() in kg_metadata_description.lower() or 
                     keyword.lower() in kg_metadata_keywords for keyword in subset):
                     #kg_metadata['keywords'].append("cultural-heritage")
                     #kg_metadata['domain'] = 'cultural-heritage'
