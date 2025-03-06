@@ -102,11 +102,10 @@ class LODCloudFilter:
         ch_keywords = json.load(open(os.path.join(here,'../data/CH_keywords.json'), "r", encoding="utf-8"))
         ch_keywords = ch_keywords['keywords']
         keyword_subsets = utils.generate_subsets(ch_keywords)
-
         for subset in keyword_subsets:
-            print('Evaluating subset:', subset)
+            print("Processing subset:", subset)
             subset_key = ", ".join(subset)  # Convert subset to a readable string
-            filtered_kgs = {}
+            filtered_kgs = []
 
             for kg in self.lodcloud_data.keys():
                 kg_metadata = self.lodcloud_data[kg]
@@ -127,7 +126,7 @@ class LODCloudFilter:
                     keyword.lower() in kg_metadata_keywords for keyword in subset):
                     #kg_metadata['keywords'].append("cultural-heritage")
                     #kg_metadata['domain'] = 'cultural-heritage'
-                    filtered_kgs[kg] = kg_metadata
+                    filtered_kgs.append(kg_metadata['_id'])
 
             # Store the count of datasets retrieved for this subset
             results[subset_key] = len(filtered_kgs)
