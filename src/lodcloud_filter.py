@@ -4,6 +4,8 @@ import os
 from openai import OpenAI
 from dotenv import load_dotenv
 import utils
+from itertools import combinations
+import re
 
 load_dotenv()
 openai_api_key = os.getenv('OPENAI_API_KEY')
@@ -99,11 +101,13 @@ class LODCloudFilter:
     def find_optimal_subset_of_keywords(self,keywords):
         filtered_kgs = {}
         results = {}
+        kgs_recovered_by_keywords = {}
         keyword_subsets = utils.generate_subsets(keywords)
         for subset in keyword_subsets:
             print("Processing subset:", subset)
-            subset_key = ", ".join(subset)  # Convert subset to a readable string
+            subset_key = ", ".join(subset) 
             filtered_kgs = []
+            kgs_recovered_by_keywords[subset] = {}
 
             for kg in self.lodcloud_data.keys():
                 kg_metadata = self.lodcloud_data[kg]
@@ -119,11 +123,18 @@ class LODCloudFilter:
                     kg_metadata_description = ''
                 kg_metadata_keywords = [kw.lower() for kw in kg_metadata.get('keywords', [])]
             
-                if any(keyword.lower() in kg_metadata_title.lower() or 
-                    keyword.lower() in kg_metadata_description.lower() or 
-                    keyword.lower() in kg_metadata_keywords for keyword in subset):
-                    #kg_metadata['keywords'].append("cultural-heritage")
-                    #kg_metadata['domain'] = 'cultural-heritage'
+                matched = False
+                for keyword in subset:
+                    keyword_lower = keyword.lower()
+                    pattern = r'\b' + re.escape(keyword_lower) + r'\b' 
+
+                    if (re.search(pattern, kg_metadata_title, re.IGNORECASE) or 
+                        re.search(pattern, kg_metadata_description, re.IGNORECASE) or
+                        any(re.search(pattern, kw, re.IGNORECASE) for kw in kg_metadata_keywords)):
+                        
+                        kgs_recovered_by_keywords[subset][keyword] = kgs_recovered_by_keywords[subset].get(keyword, 0) + 1
+                        matched = True  
+                if matched:
                     filtered_kgs.append(kg_metadata['_id'])
 
             # Store the count of datasets retrieved for this subset
@@ -137,9 +148,14 @@ class LODCloudFilter:
             [subset for subset, count in results.items() if count == max_datasets], 
             key=len
         )
+        
+        optimal_subset_tuple = tuple(keyword.strip() for keyword in optimal_subset.split(","))
+        number_kg_by_keywords = kgs_recovered_by_keywords[optimal_subset_tuple]
+        
         print(f"Optimal keyword set: {optimal_subset} -> Datasets Retrieved: {max_datasets}")
+        print(f"Number of datasets retrieved by each keyword in the optimal subset: {number_kg_by_keywords}")
 
-        return optimal_subset, max_datasets
+        return optimal_subset, max_datasets, number_kg_by_keywords
 
     def ch_lodcloud_merge(self,path_of_data_to_intersect):
         """
@@ -289,5 +305,15 @@ class LODCloudFilter:
 l = LODCloudFilter()
 
 ch_keywords = json.load(open(os.path.join(here,'../data/CH_keywords.json'), "r", encoding="utf-8"))
+ch_optimal_subset = json.load(open(os.path.join(here,'../data/CH_optimal_subsets.json'), "r", encoding="utf-8"))
 
-l.find_optimal_subset_of_keywords(ch_keywords['intangible_cultural_heritage'])
+optimal_subset, max_datasets, number_kg_by_keywords = l.find_optimal_subset_of_keywords(ch_keywords['tangible_cultural_heritage']['movable_heritage'])
+ch_optimal_subset.setdefault('tangible_cultural_heritage', {}).setdefault('movable_heritage', {})
+ch_optimal_subset['tangible_cultural_heritage']['movable_heritage'] = {
+    "optimal_subset" : optimal_subset,
+    "KGs retrieved" : max_datasets,
+    "KGs by keywords" : number_kg_by_keywords
+}
+
+with open(os.path.join(here,'../data/CH_optimal_subsets.json'), "w", encoding="utf-8") as file:
+    json.dump(ch_optimal_subset, file,indent=4)
