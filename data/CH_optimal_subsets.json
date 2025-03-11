@@ -39,5 +39,17 @@
             "coastal": 3,
             "geological": 5
         }
+    },
+    "generic": {
+        "optimal_subset": "art, historic, history, historical, catalog, catalogues",
+        "KGs retrieved": 86,
+        "KGs by keywords": {
+            "catalog": 23,
+            "historical": 22,
+            "history": 33,
+            "historic": 5,
+            "catalogues": 5,
+            "art": 14
+        }
     }
 }

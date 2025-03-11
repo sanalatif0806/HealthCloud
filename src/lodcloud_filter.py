@@ -307,9 +307,9 @@ l = LODCloudFilter()
 ch_keywords = json.load(open(os.path.join(here,'../data/CH_keywords.json'), "r", encoding="utf-8"))
 ch_optimal_subset = json.load(open(os.path.join(here,'../data/CH_optimal_subsets.json'), "r", encoding="utf-8"))
 
-optimal_subset, max_datasets, number_kg_by_keywords = l.find_optimal_subset_of_keywords(ch_keywords['tangible_cultural_heritage']['movable_heritage'])
-ch_optimal_subset.setdefault('tangible_cultural_heritage', {}).setdefault('movable_heritage', {})
-ch_optimal_subset['tangible_cultural_heritage']['movable_heritage'] = {
+optimal_subset, max_datasets, number_kg_by_keywords = l.find_optimal_subset_of_keywords(ch_keywords['intangible_cultural_heritage'])
+ch_optimal_subset.setdefault('intangible_cultural_heritage', {})
+ch_optimal_subset['intangible_cultural_heritage'] = {
     "optimal_subset" : optimal_subset,
     "KGs retrieved" : max_datasets,
     "KGs by keywords" : number_kg_by_keywords
