@@ -6,6 +6,7 @@ import os
 from sklearn.metrics import cohen_kappa_score
 
 here = os.path.dirname(os.path.abspath(__file__))
+import pandas as pd
 
 def lodcloudjson_to_csv(lodcloud_json_file, csv_filename):
 
@@ -79,3 +80,36 @@ def calculate_cohen_kappa(csv_file1,csv_file2):
 
 #combine_csv_files(os.path.join(here,"../data/lodcloud_manual_tagged/Maria_Angela_manual_tagged.csv"),os.path.join(here,"../data/lodcloud_manual_tagged/Gabriele_manual_tagged.csv"),os.path.join(here, "../data/lodcloud_manual_tagged/lodcloud_manual_tagged_merged.csv"))
 calculate_cohen_kappa(os.path.join(here,"../data/lodcloud_manual_tagged/Maria_Angela_manual_tagged.csv"),os.path.join(here,"../data/lodcloud_manual_tagged/Gabriele_manual_tagged.csv"))
+
+def compare_csv_topics(file1, file2,file3, output_file,topic_disagrement_to_check):
+    # Load the CSV files
+    gabriele = pd.read_csv(file1).sort_values(by='_id').reset_index(drop=True)
+    mariangela = pd.read_csv(file2).sort_values(by='_id').reset_index(drop=True)
+    sana = pd.read_csv(file3).sort_values(by='_id').reset_index(drop=True)
+    
+
+    comparison_df = mariangela.copy()
+    comparison_df = comparison_df.rename(columns={'topic': 'Mariangela_topic'})
+
+    comparison_df['Gabriele_topic'] = gabriele['topic']
+    comparison_df['Sana_topic'] = sana['Topic']
+
+
+    disagreement_rows = comparison_df[
+        (comparison_df['Gabriele_topic'] != comparison_df['Mariangela_topic']) |
+        (comparison_df['Gabriele_topic'] != comparison_df['Sana_topic']) |
+        (comparison_df['Mariangela_topic'] != comparison_df['Sana_topic'])
+    ]
+
+    cultural_heritage_disagreement = disagreement_rows[
+        (disagreement_rows['Gabriele_topic'] == topic_disagrement_to_check) |
+        (disagreement_rows['Mariangela_topic'] == topic_disagrement_to_check) |
+        (disagreement_rows['Sana_topic'] == topic_disagrement_to_check)
+    ]
+
+    # Save to output CSV
+    cultural_heritage_disagreement.to_csv(output_file, index=False)
+    
+
+# Example usage
+compare_csv_topics("../data/manually_annotated_kgs/LODCloud_annotation_Gabriele.csv", "../data/manually_annotated_kgs/LODCloud_annotation_Maria Angela.csv","../data/manually_annotated_kgs/LODCloud_annotation_Sana.csv","../data/manually_annotated_kgs/mismatches_gab_mary_sana_HEALTH.csv", 'health')
