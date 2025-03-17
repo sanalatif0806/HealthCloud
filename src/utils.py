@@ -1,6 +1,11 @@
 import json
 import csv
 from itertools import chain, combinations
+import pandas as pd
+import os
+from sklearn.metrics import cohen_kappa_score
+
+here = os.path.dirname(os.path.abspath(__file__))
 
 def lodcloudjson_to_csv(lodcloud_json_file, csv_filename):
 
@@ -32,3 +37,45 @@ def lodcloudjson_to_csv(lodcloud_json_file, csv_filename):
 def generate_subsets(keywords):
     """Generate all possible non-empty subsets of the keyword list."""
     return chain.from_iterable(combinations(keywords, r) for r in range(1, len(keywords) + 1))
+
+def combine_csv_files(csv_file1,csv_file2,output_csv):
+    csv1 = pd.read_csv(csv_file1)
+    csv2 = pd.read_csv(csv_file2)
+
+    csv1 = csv1.rename(columns={"topic": "Maria_Angela_Topic"})
+
+    sort_column = "_id"
+
+    csv1 = csv1.sort_values(by=sort_column).reset_index(drop=True)
+    csv2 = csv2.sort_values(by=sort_column).reset_index(drop=True)
+
+    csv1["Gabriele_Topic"] = csv2["topic"]
+
+    csv1["Final_decision"] = ""
+
+    csv1.to_csv(output_csv, index=False)
+
+def calculate_cohen_kappa(csv_file1,csv_file2):
+
+    df1 = pd.read_csv(csv_file1) 
+    df2 = pd.read_csv(csv_file2)  
+
+    # Specify the column name where annotations are stored
+    maria_angela_topic = "topic"  # Replace with actual column name in annotator1.csv
+    gabriele_topic = "topic"  # Replace with actual column name in annotator2.csv
+
+    df1 = df1.sort_values(by='_id').reset_index(drop=True)
+    df2 = df2.sort_values(by='_id').reset_index(drop=True)
+
+    print(df1.shape, df2.shape)
+    # Extract annotations
+    annotator1 = df1[maria_angela_topic].tolist()
+    annotator2 = df2[gabriele_topic].tolist()
+
+    # Compute Cohen’s Kappa
+    kappa = cohen_kappa_score(annotator1, annotator2)
+
+    print(f"Cohen's Kappa: {kappa:.4f}")
+
+#combine_csv_files(os.path.join(here,"../data/lodcloud_manual_tagged/Maria_Angela_manual_tagged.csv"),os.path.join(here,"../data/lodcloud_manual_tagged/Gabriele_manual_tagged.csv"),os.path.join(here, "../data/lodcloud_manual_tagged/lodcloud_manual_tagged_merged.csv"))
+calculate_cohen_kappa(os.path.join(here,"../data/lodcloud_manual_tagged/Maria_Angela_manual_tagged.csv"),os.path.join(here,"../data/lodcloud_manual_tagged/Gabriele_manual_tagged.csv"))
