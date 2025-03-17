@@ -41,15 +41,30 @@
         }
     },
     "generic": {
-        "optimal_subset": "art, historic, history, historical, catalog, catalogues",
-        "KGs retrieved": 86,
+        "optimal_subset": "heritage, cultural, art, historic, history, historical, catalog, catalogues",
+        "KGs retrieved": 103,
         "KGs by keywords": {
             "catalog": 23,
+            "heritage": 18,
+            "cultural": 28,
             "historical": 22,
             "history": 33,
             "historic": 5,
             "catalogues": 5,
             "art": 14
+        }
+    },
+    "intangible_cultural_heritage": {
+        "optimal_subset": "intangible, food, wine, music, stories, poem, tradition",
+        "KGs retrieved": 48,
+        "KGs by keywords": {
+            "wine": 2,
+            "food": 16,
+            "music": 26,
+            "intangible": 1,
+            "tradition": 1,
+            "poem": 1,
+            "stories": 1
         }
     }
 }

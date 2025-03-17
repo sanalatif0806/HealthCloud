@@ -41,7 +41,7 @@ class LODCloudFilter:
             filter_type (str): The type of filter applied to the data, used to name the output file.
         """
         with open(os.path.join(here,f'../data/CHlodcloud_data_{filter_type}.json'), "w", encoding="utf-8") as file:
-            json.dump(data, file)
+            json.dump(data, file,indent=4)
     
     def update_lodcloud_data(self, data):
         with open(os.path.join(here,'../data/CH_lodcloud_data.json'), "w", encoding="utf-8") as file:
@@ -88,8 +88,9 @@ class LODCloudFilter:
             kg_metadata = self.lodcloud_data[kg]
             kg_metadata_title = kg_metadata['title']
             kg_metadata_description = kg_metadata['description']
+            kg_metadata_keywords = kg_metadata['keywords']
             for keyword in ch_keywords:
-                if keyword in kg_metadata_title or keyword in kg_metadata_description and 'cultural-heritage' not in kg_metadata['keywords']:
+                if keyword in kg_metadata_title or keyword in kg_metadata_description or keyword in kg_metadata_keywords:
                     kg_metadata['keywords'].append("cultural-heritage")
                     kg_metadata['domain'] = 'cultural-heritage'
                     filtered_kgs[kg] = kg_metadata 
@@ -97,6 +98,50 @@ class LODCloudFilter:
         print(f"Extracted {len(filtered_kgs.keys())} resources by analyzing title and description in the dataset metadata")
         self.write_filtered_data(filtered_kgs, "title_description")    
         #self.update_lodcloud_data(self.lodcloud_data)
+    
+
+    def filter_by_title_description_and_keywords(self,keywords):
+        """
+        Filters the LOD cloud data by checking if any of the keywords are present in the title, description or keywords
+        of each knowledge graph's metadata. If a keyword is found, the knowledge graph 
+        is added to the filtered results and tagged with "cultural-heritage".
+        The filtered results are then written to a file and the LOD cloud data 
+        is updated accordingly.
+        """
+        filtered_kgs = {}
+        for kg in self.lodcloud_data.keys():
+            kg_metadata = self.lodcloud_data[kg]
+            kg_metadata_title = kg_metadata.get('title', '').lower()
+            kg_metadata_description = kg_metadata.get('description', '')
+            if isinstance(kg_metadata_description, dict):
+                kg_metadata_description = kg_metadata_description.get('en','')
+            else:
+                kg_metadata_description = ''
+            if isinstance(kg_metadata_description, str):
+                kg_metadata_description = kg_metadata_description.lower()
+            else:
+                kg_metadata_description = ''
+            kg_metadata_keywords = [kw.lower() for kw in kg_metadata.get('keywords', [])]
+
+            matched = False
+            for keyword in keywords:
+                    keyword_lower = keyword.lower()
+                    pattern = r'\b' + re.escape(keyword_lower) + r'\b' 
+
+                    if (re.search(pattern, kg_metadata_title, re.IGNORECASE) or 
+                        re.search(pattern, kg_metadata_description, re.IGNORECASE) or
+                        any(re.search(pattern, kw, re.IGNORECASE) for kw in kg_metadata_keywords)):
+        
+                        matched = True
+            if matched:
+                kg_metadata['keywords'].append("cultural-heritage")
+                kg_metadata['domain'] = 'cultural-heritage'
+                filtered_kgs[kg] = kg_metadata 
+
+        print(f"Extracted {len(filtered_kgs.keys())} resources by analyzing title and description in the dataset metadata")
+        self.write_filtered_data(filtered_kgs, "title_description_optimal_keywords")    
+        #self.update_lodcloud_data(self.lodcloud_data)
+
 
     def find_optimal_subset_of_keywords(self,keywords):
         filtered_kgs = {}
@@ -303,17 +348,21 @@ class LODCloudFilter:
         #self.update_lodcloud_data(self.lodcloud_data)
 
 l = LODCloudFilter()
-
+'''
 ch_keywords = json.load(open(os.path.join(here,'../data/CH_keywords.json'), "r", encoding="utf-8"))
 ch_optimal_subset = json.load(open(os.path.join(here,'../data/CH_optimal_subsets.json'), "r", encoding="utf-8"))
 
-optimal_subset, max_datasets, number_kg_by_keywords = l.find_optimal_subset_of_keywords(ch_keywords['intangible_cultural_heritage'])
-ch_optimal_subset.setdefault('intangible_cultural_heritage', {})
-ch_optimal_subset['intangible_cultural_heritage'] = {
+optimal_subset, max_datasets, number_kg_by_keywords = l.find_optimal_subset_of_keywords(ch_keywords['generic'])
+ch_optimal_subset.setdefault('generic', {})
+ch_optimal_subset['generic'] = {
     "optimal_subset" : optimal_subset,
     "KGs retrieved" : max_datasets,
     "KGs by keywords" : number_kg_by_keywords
 }
 
 with open(os.path.join(here,'../data/CH_optimal_subsets.json'), "w", encoding="utf-8") as file:
-    json.dump(ch_optimal_subset, file,indent=4)
+    json.dump(ch_optimal_subset, file,indent=4)'
+'''
+optimal_keywords = json.load(open(os.path.join(here,'../data/CH_optimal_keywords.json'), "r", encoding="utf-8"))
+optimal_keywords = optimal_keywords['optimal_keywords']
+l.filter_by_title_description_and_keywords(keywords=optimal_keywords)
