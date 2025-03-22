@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 import utils
 from itertools import combinations
 import re
+import csv
 
 load_dotenv()
 openai_api_key = os.getenv('OPENAI_API_KEY')
@@ -347,6 +348,77 @@ class LODCloudFilter:
         self.write_filtered_data(filtered_kgs, "gpt_filtered")
         #self.update_lodcloud_data(self.lodcloud_data)
 
+    def convert_final_CSV_annotated(self, input_csv_path):
+        
+        with open(input_csv_path, 'r', encoding='utf-8') as file:
+            
+            reader = csv.DictReader(file)
+            CH_KGs = set()
+
+            ch_lodcloud_filtered = {}
+
+            for row in reader:
+                kg_id = row["_id"]
+                for key in self.lodcloud_data.keys():
+                    if kg_id == self.lodcloud_data[key]['_id']:
+                        kg_metadata = self.lodcloud_data[key]
+                        kg_metadata['domain'] = 'cultural-heritage'
+                        kg_metadata['keywords'].append('cultural-heritage')
+
+                        # TODO: Also the subcategory we have to choose
+                        #kg_metadata['keywords'].append(f"cultural-heritage-{sub_category.lower()}")
+
+                        #KGs Metadata enrichment based on manual inspection
+                        is_ontology = row["Only ontology?"]
+                        if is_ontology == "Yes":  
+                            if 'ontology' not in kg_metadata['keywords']:
+                                kg_metadata['keywords'].append('ontology')
+
+                        links_status = row["GAB - Decision after inspection of the dataset"]
+                        if links_status == 'no working links':
+                            kg_metadata['keywords'].append('no_working_links')
+                        if links_status == 'ch no links available':
+                            kg_metadata['keywords'].append('no_links_provided')
+
+                        no_ld = row["No LD"]
+                        if no_ld == 'Yes':
+                            kg_metadata['keywords'].append('no_linked_data')
+                
+                        # Update KGs with the new links founded
+                        new_link = row["New link for the resource"]
+                        if new_link != '':
+                            kg_metadata['website'] = new_link.strip()
+                
+                        new_sparql_endpoint = row["New SPARQL URL"]
+                        if new_sparql_endpoint != '':
+                            lodcloud_sparql_endpoint = [{
+                                "title": "SPARQL Endpoint",
+                                "description": "",
+                                "access_url": new_sparql_endpoint.strip(),
+                                "status" : "OK"
+                            }]
+                            kg_metadata['sparql'] = lodcloud_sparql_endpoint
+                
+                        new_rdf_dump = row["New RDF Dump"]
+                        lodcloud_other_downloads = kg_metadata.get('other_download', [])
+                        if new_rdf_dump != '':
+                            new_rdf_dump_links = new_rdf_dump.split(";")
+                            for link in new_rdf_dump_links:
+                                lodcloud_rdf_dump = {
+                                    "media_type": "",
+                                    "description": "RDF dump manually discovered",
+                                    "access_url": link.strip(),
+                                    "status" : "OK",
+                                    "title": "RDF Dump",
+                                    "mirror" : [],
+                                }
+                                lodcloud_other_downloads.append(lodcloud_rdf_dump)
+                            kg_metadata['other_download'] = lodcloud_other_downloads
+
+                        ch_lodcloud_filtered[key] = self.lodcloud_data[key]
+
+                        break
+        self.write_filtered_data(ch_lodcloud_filtered, "manual_selected")
 l = LODCloudFilter()
 '''
 ch_keywords = json.load(open(os.path.join(here,'../data/CH_keywords.json'), "r", encoding="utf-8"))
@@ -363,6 +435,8 @@ ch_optimal_subset['generic'] = {
 with open(os.path.join(here,'../data/CH_optimal_subsets.json'), "w", encoding="utf-8") as file:
     json.dump(ch_optimal_subset, file,indent=4)'
 '''
-optimal_keywords = json.load(open(os.path.join(here,'../data/CH_optimal_keywords.json'), "r", encoding="utf-8"))
-optimal_keywords = optimal_keywords['optimal_keywords']
-l.filter_by_title_description_and_keywords(keywords=optimal_keywords)
+#optimal_keywords = json.load(open(os.path.join(here,'../data/CH_optimal_keywords.json'), "r", encoding="utf-8"))
+#optimal_keywords = optimal_keywords['optimal_keywords']
+#l.filter_by_title_description_and_keywords(keywords=optimal_keywords)
+
+l.convert_final_CSV_annotated(os.path.join(here,'../data/manually_annotated_kgs/LODCloud_CH_Final_Selection.csv'))
