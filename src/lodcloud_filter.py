@@ -432,7 +432,8 @@ class LODCloudFilter:
             json.dump(self.lodcloud_data, file,indent=4)
 
 l = LODCloudFilter()
-l.merge_cultural_heritage_datasets_with_other_from_lodcloud('../data/CHlodcloud_data_title_description_optimal_keywords.json')
+#l.convert_final_CSV_annotated(os.path.join(here,'../data/manually_annotated_kgs/LODCloud_CH_Final_Selection.csv'))
+l.merge_cultural_heritage_datasets_with_other_from_lodcloud('../data/CHlodcloud_data_manual_selected(Eligible).json')
 '''
 ch_keywords = json.load(open(os.path.join(here,'../data/CH_keywords.json'), "r", encoding="utf-8"))
 ch_optimal_subset = json.load(open(os.path.join(here,'../data/CH_optimal_subsets.json'), "r", encoding="utf-8"))
