@@ -106,6 +106,26 @@ def compare_csv_topics(file1, file2,file3, output_file,topic_disagrement_to_chec
 
     # Save to output CSV
     cultural_heritage_disagreement.to_csv(output_file, index=False)
+
+def calculate_precision_recall(gold_standard_path, dataset_to_verify_path):
+
+    with open("gold_standard.json") as f:
+        gold_standard = json.load(f)
+
+    with open("predicted.json") as f:
+        predicted = json.load(f)
+
+    # Assuming both JSONs have a list of labels (adjust extraction as needed)
+    y_true = gold_standard["labels"]  # Modify key as per your JSON structure
+    y_pred = predicted["labels"]      # Modify key as per your JSON structure
+
+    # Compute precision and recall
+    precision = precision_score(y_true, y_pred, average="macro")  # Change "macro" if needed
+    recall = recall_score(y_true, y_pred, average="macro")
+
+    print(f"Precision: {precision:.4f}")
+    print(f"Recall: {recall:.4f}")   
+
     
 
 #compare_csv_topics("../data/manually_annotated_kgs/LODCloud_annotation_Gabriele.csv", "../data/manually_annotated_kgs/LODCloud_annotation_Maria Angela.csv","../data/manually_annotated_kgs/LODCloud_annotation_Sana.csv","../data/manually_annotated_kgs/mismatches_gab_mary_sana_HEALTH.csv", 'health')
