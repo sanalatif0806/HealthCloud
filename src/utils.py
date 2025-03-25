@@ -3,7 +3,7 @@ import csv
 from itertools import chain, combinations
 import pandas as pd
 import os
-from sklearn.metrics import cohen_kappa_score
+from sklearn.metrics import cohen_kappa_score, precision_score, recall_score
 
 here = os.path.dirname(os.path.abspath(__file__))
 import pandas as pd
@@ -107,26 +107,56 @@ def compare_csv_topics(file1, file2,file3, output_file,topic_disagrement_to_chec
     # Save to output CSV
     cultural_heritage_disagreement.to_csv(output_file, index=False)
 
-def calculate_precision_recall(gold_standard_path, dataset_to_verify_path):
-
-    with open("gold_standard.json") as f:
-        gold_standard = json.load(f)
-
-    with open("predicted.json") as f:
-        predicted = json.load(f)
-
-    # Assuming both JSONs have a list of labels (adjust extraction as needed)
-    y_true = gold_standard["labels"]  # Modify key as per your JSON structure
-    y_pred = predicted["labels"]      # Modify key as per your JSON structure
-
-    # Compute precision and recall
-    precision = precision_score(y_true, y_pred, average="macro")  # Change "macro" if needed
-    recall = recall_score(y_true, y_pred, average="macro")
-
-    print(f"Precision: {precision:.4f}")
-    print(f"Recall: {recall:.4f}")   
-
+def create_list_of_domains(lodcloud_data):
+    domains = []
+    for key in lodcloud_data:
+        domains.append(lodcloud_data[key]['domain'])
     
+    return domains
+
+def calculate_precision_recall(gold_standard_path, dataset_to_verify_path):
+    with open(os.path.join(here, gold_standard_path)) as f:
+        gold_standard = json.load(f)
+        gold_standard = {key: gold_standard[key] for key in sorted(gold_standard)}
+        gold_standard_domains = create_list_of_domains(gold_standard)
+
+    with open(os.path.join(here, dataset_to_verify_path)) as f:
+        to_verify = json.load(f)
+        to_verify = {key: to_verify[key] for key in sorted(to_verify)}
+        to_verify_domains = create_list_of_domains(to_verify)
+
+    # Find misclassified samples
+    errors_tuple = []
+    matched_tuple = []
+    true_positive = []
+    false_positive = []
+    false_negative = []
+
+    for kg, true_label, predicted_label in zip(sorted(gold_standard.keys()), gold_standard_domains, to_verify_domains):
+        if true_label != predicted_label and predicted_label == 'cultural-heritage':
+            false_positive.append(predicted_label)
+            errors_tuple.append((kg, true_label, predicted_label))
+        if true_label != predicted_label and true_label == 'cultural-heritage':
+            false_negative.append(predicted_label)
+            errors_tuple.append((kg, true_label, predicted_label))
+        if true_label == predicted_label and 'cultural-heritage' in true_label:
+            true_positive.append(predicted_label)
+            matched_tuple.append((kg, true_label, predicted_label))
+    
+    precision_score = len(true_positive) / (len(true_positive) + len(false_positive))
+    recall_score = len(true_positive) / (len(true_positive) + len(false_negative))
+    
+    print(f"Precision: {precision_score:.4f}")
+    print(f"Recall: {recall_score:.4f}")
+
+    # Print or return misclassified samples
+    print("\nMisclassified Samples:")
+    for kg, true_label, predicted_label in errors_tuple:
+        print(f"KG: {kg}, Expected: {true_label}, Predicted: {predicted_label}")
+
+    return errors_tuple
+
+#calculate_precision_recall("../data/Complete-CHlodcloud_data_manual_selected.json", "../data/Complete-CHlodcloud_data_gpt_filtered.json")
 
 #compare_csv_topics("../data/manually_annotated_kgs/LODCloud_annotation_Gabriele.csv", "../data/manually_annotated_kgs/LODCloud_annotation_Maria Angela.csv","../data/manually_annotated_kgs/LODCloud_annotation_Sana.csv","../data/manually_annotated_kgs/mismatches_gab_mary_sana_HEALTH.csv", 'health')
 #combine_csv_files(os.path.join(here,"../data/lodcloud_manual_tagged/Maria_Angela_manual_tagged.csv"),os.path.join(here,"../data/lodcloud_manual_tagged/Gabriele_manual_tagged.csv"),os.path.join(here, "../data/lodcloud_manual_tagged/lodcloud_manual_tagged_merged.csv"))

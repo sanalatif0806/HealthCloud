@@ -140,7 +140,7 @@ class LODCloudFilter:
                 filtered_kgs[kg] = kg_metadata 
 
         print(f"Extracted {len(filtered_kgs.keys())} resources by analyzing title and description in the dataset metadata")
-        self.write_filtered_data(filtered_kgs, "title_description_optimal_keywords")    
+        self.write_filtered_data(filtered_kgs, "title_description_optimal_keywords_no_history")    
         #self.update_lodcloud_data(self.lodcloud_data)
 
 
@@ -433,7 +433,7 @@ class LODCloudFilter:
 
 l = LODCloudFilter()
 #l.convert_final_CSV_annotated(os.path.join(here,'../data/manually_annotated_kgs/LODCloud_CH_Final_Selection.csv'))
-l.merge_cultural_heritage_datasets_with_other_from_lodcloud('../data/CHlodcloud_data_manual_selected(Eligible).json')
+l.merge_cultural_heritage_datasets_with_other_from_lodcloud('../data/CHlodcloud_data_title_description_optimal_keywords_no_history.json')
 '''
 ch_keywords = json.load(open(os.path.join(here,'../data/CH_keywords.json'), "r", encoding="utf-8"))
 ch_optimal_subset = json.load(open(os.path.join(here,'../data/CH_optimal_subsets.json'), "r", encoding="utf-8"))
@@ -449,8 +449,8 @@ ch_optimal_subset['generic'] = {
 with open(os.path.join(here,'../data/CH_optimal_subsets.json'), "w", encoding="utf-8") as file:
     json.dump(ch_optimal_subset, file,indent=4)'
 '''
-#optimal_keywords = json.load(open(os.path.join(here,'../data/CH_optimal_keywords.json'), "r", encoding="utf-8"))
-#optimal_keywords = optimal_keywords['optimal_keywords']
-#l.filter_by_title_description_and_keywords(keywords=optimal_keywords)
+# optimal_keywords = json.load(open(os.path.join(here,'../data/CH_optimal_keywords_no_history.json'), "r", encoding="utf-8"))
+# optimal_keywords = optimal_keywords['optimal_keywords']
+# l.filter_by_title_description_and_keywords(keywords=optimal_keywords)
 
 #l.convert_final_CSV_annotated(os.path.join(here,'../data/manually_annotated_kgs/LODCloud_CH_Final_Selection.csv'))
