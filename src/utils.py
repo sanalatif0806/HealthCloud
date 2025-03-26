@@ -156,6 +156,22 @@ def calculate_precision_recall(gold_standard_path, dataset_to_verify_path):
 
     return errors_tuple
 
+def filter_quality_data(lodcloud_data, quality_data_path):
+    kg_to_extract = []
+    with open(lodcloud_data, "r", encoding="utf-8") as file:
+        lodcloud_data = json.load(file)
+        for key in lodcloud_data:
+            kg_to_extract.append(key)
+
+    df = pd.read_csv(quality_data_path)
+
+    # Filter the DataFrame based on the 'id' column
+    filtered_df = df[df['KG id'].isin(kg_to_extract)]
+
+    # Save the filtered DataFrame to a new CSV file (optional)
+    filtered_df.to_csv('../data/CHe_cloud_quality_data.csv', index=False)
+
+
 calculate_precision_recall("../data/Complete-CHlodcloud_data_manual_selected(Eligible).json", "../data/Complete-CHlodcloud_data_gpt_filtered.json")
 
 #compare_csv_topics("../data/manually_annotated_kgs/LODCloud_annotation_Gabriele.csv", "../data/manually_annotated_kgs/LODCloud_annotation_Maria Angela.csv","../data/manually_annotated_kgs/LODCloud_annotation_Sana.csv","../data/manually_annotated_kgs/mismatches_gab_mary_sana_HEALTH.csv", 'health')
