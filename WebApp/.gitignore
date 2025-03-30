@@ -134,6 +134,4 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
-mongo_data/*
-!mongo_data/CHe_cloud_data.json
-!mongo_data/init-mongo.sh
+mongo_data/
