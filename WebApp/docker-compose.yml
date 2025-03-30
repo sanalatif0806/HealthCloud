@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  node-backend:
+    build: ./backend 
+    ports:
+      - "3000:3000"  
+    depends_on:
+      - mongodb
+    environment:
+      MONGO_URI: "mongodb://mongodb:27017/mydatabase"
+    networks:
+      - app-network
+
+  mongodb:
+    image: mongo:6.0
+    container_name: mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+      - ./mongo_data:/mongo_data
+    networks:
+      - app-network
+    command: >
+      bash -c "
+      mongosh --eval 'print(\"MongoDB is ready!\")' &&
+      sleep 5 &&
+      mongoimport --host mongodb --db mydatabase --collection CHe_cloud_data --file /mongo-seed/CHe_cloud_data.json --jsonArray
+      echo 'Data import complete!'"
+volumes:
+  mongo-data:
+
+networks:
+  app-network:
