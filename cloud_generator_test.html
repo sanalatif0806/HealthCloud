@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Graph (SVG Export)</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        .link { stroke: #aaa; stroke-width: 2; transition: stroke 0.3s; }
+        .highlighted { stroke: orange !important; stroke-width: 4 !important; }
+        .legend { font-size: 12px; }
+    </style>
+</head>
+<body>
+    <button id="download">Download SVG</button>
+    <svg id="graph" width="600" height="400"></svg>
+
+    <script>
+        const nodes = [
+            { id: "A", url: "https://example.com/A", category: "Type 1" },
+            { id: "B", url: "https://example.com/B", category: "Type 2" },
+            { id: "C", url: "https://example.com/C", category: "Type 1" }
+        ];
+
+        const links = [
+            { source: "A", target: "B" },
+            { source: "B", target: "C" },
+            { source: "A", target: "C" }
+        ];
+
+        const width = 600, height = 400;
+        const svg = d3.select("#graph");
+
+        const categories = ["Type 1", "Type 2"];
+        const colorScale = d3.scaleOrdinal(d3.schemeCategory10).domain(categories);
+
+        // Draw color legend
+        const legend = svg.append("g")
+            .attr("transform", "translate(10, 10)");
+
+        legend.selectAll("rect")
+            .data(categories)
+            .enter().append("rect")
+            .attr("x", 0)
+            .attr("y", (d, i) => i * 20)
+            .attr("width", 20)
+            .attr("height", 15)
+            .attr("fill", d => colorScale(d));
+
+        legend.selectAll("text")
+            .data(categories)
+            .enter().append("text")
+            .attr("x", 30)
+            .attr("y", (d, i) => i * 20 + 12)
+            .text(d => d)
+            .attr("class", "legend");
+
+        const simulation = d3.forceSimulation(nodes)
+            .force("link", d3.forceLink(links).id(d => d.id).distance(100))
+            .force("charge", d3.forceManyBody().strength(-300))
+            .force("center", d3.forceCenter(width / 2, height / 2));
+
+        // Draw edges with connection data
+        const linkElements = svg.append("g")
+            .selectAll("line")
+            .data(links)
+            .enter().append("line")
+            .attr("class", "link")
+            .attr("data-source", d => d.source.id || d.source)
+            .attr("data-target", d => d.target.id || d.target);
+
+        // Create groups for each node (circle + text together)
+        const nodeGroup = svg.append("g")
+            .selectAll("g")
+            .data(nodes)
+            .enter().append("g")
+            .attr("class", "node-group")
+            .attr("data-id", d => d.id);
+
+        // Use a wrapper group for node links instead of <a> tags for better compatibility
+        const linkGroup = nodeGroup.append("g")
+            .attr("data-url", d => d.url)
+            .style("cursor", "pointer")
+            .on("click", (event, d) => {
+                window.open(d.url, "_blank");
+            });
+
+        // Append circles with color based on category
+        linkGroup.append("circle")
+            .attr("r", 20)
+            .attr("fill", d => colorScale(d.category));
+
+        // Append text
+        linkGroup.append("text")
+            .attr("fill", "white")
+            .attr("font-size", "14px")
+            .attr("font-weight", "bold")
+            .attr("text-anchor", "middle")
+            .attr("dy", ".35em")
+            .text(d => d.id);
+
+        // Apply simulation updates and store final positions
+        simulation.on("tick", () => {
+            linkElements
+                .attr("x1", d => d.source.x)
+                .attr("y1", d => d.source.y)
+                .attr("x2", d => d.target.x)
+                .attr("y2", d => d.target.y);
+
+            nodeGroup
+                .attr("transform", d => `translate(${d.x},${d.y})`);
+        });
+
+        // Highlight links when hovering over a node
+        nodeGroup.on("mouseover", (event, d) => {
+            // Highlight links connected to this node
+            linkElements.classed("highlighted", link => 
+                (link.source.id === d.id || link.source === d.id) || 
+                (link.target.id === d.id || link.target === d.id)
+            );
+        })
+        .on("mouseout", () => {
+            // Remove highlight when mouse leaves the node
+            linkElements.classed("highlighted", false);
+        });
+
+        // Function to download SVG
+        document.getElementById("download").addEventListener("click", function () {
+            // Finish simulation first
+            simulation.stop();
+            
+            // Create a copy of the SVG for export to preserve interactivity
+            const originalSvg = document.getElementById("graph");
+            const clonedSvg = originalSvg.cloneNode(true);
+            
+            // Ensure the SVG has the right namespaces
+            clonedSvg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+            clonedSvg.setAttribute("xmlns:xlink", "http://www.w3.org/1999/xlink");
+            
+            // Add necessary styling for exported SVG
+            const styleElement = document.createElementNS("http://www.w3.org/2000/svg", "style");
+            styleElement.textContent = `
+                .link { stroke: #aaa; stroke-width: 2; transition: stroke 0.3s; }
+                .highlighted { stroke: orange !important; stroke-width: 4 !important; }
+                .legend { font-size: 12px; }
+            `;
+            clonedSvg.insertBefore(styleElement, clonedSvg.firstChild);
+            
+            // Create a script element for interactivity
+            const scriptContent = `
+                // This script adds interactivity to the SVG when opened in a browser
+                (function() {
+                    // Wait for SVG to be loaded in viewer
+                    document.addEventListener('DOMContentLoaded', function() {
+                        init();
+                    });
+                    
+                    // Also try to init immediately for some viewers
+                    setTimeout(init, 100);
+                    
+                    function init() {
+                        const nodes = document.querySelectorAll('.node-group');
+                        const links = document.querySelectorAll('.link');
+                        
+                        nodes.forEach(node => {
+                            const nodeId = node.getAttribute('data-id');
+                            
+                            node.addEventListener('mouseover', () => {
+                                links.forEach(link => {
+                                    const source = link.getAttribute('data-source');
+                                    const target = link.getAttribute('data-target');
+                                    
+                                    if (source === nodeId || target === nodeId) {
+                                        link.classList.add('highlighted');
+                                    }
+                                });
+                            });
+                            
+                            node.addEventListener('mouseout', () => {
+                                links.forEach(link => {
+                                    link.classList.remove('highlighted');
+                                });
+                            });
+                        });
+                    }
+                })();
+            `;
+            
+            // Add foreign object to include script within SVG
+            const foreignObject = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
+            foreignObject.setAttribute("width", "0");
+            foreignObject.setAttribute("height", "0");
+            
+            // Create HTML div to hold script
+            const div = document.createElementNS("http://www.w3.org/1999/xhtml", "div");
+            const script = document.createElementNS("http://www.w3.org/1999/xhtml", "script");
+            script.textContent = scriptContent;
+            div.appendChild(script);
+            foreignObject.appendChild(div);
+            
+            // Add foreign object to SVG
+            clonedSvg.appendChild(foreignObject);
+            
+            // Convert data-url attributes to actual href links in the export
+            const nodeGroups = clonedSvg.querySelectorAll("g[data-url]");
+            nodeGroups.forEach(group => {
+                const url = group.getAttribute("data-url");
+                const a = document.createElementNS("http://www.w3.org/2000/svg", "a");
+                a.setAttribute("href", url);
+                a.setAttribute("target", "_blank");
+                
+                // Move all children to the anchor element
+                while (group.firstChild) {
+                    a.appendChild(group.firstChild);
+                }
+                
+                group.appendChild(a);
+            });
+            
+            const serializer = new XMLSerializer();
+            const svgData = serializer.serializeToString(clonedSvg);
+            
+            // Create the downloadable SVG blob
+            const blob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
+            const url = URL.createObjectURL(blob);
+
+            const link = document.createElement("a");
+            link.href = url;
+            link.download = "interactive-graph.svg";
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+    </script>
+</body>
+</html>
