@@ -234,7 +234,7 @@
         "license": "",
         "other_download": [
             {
-                "media_type": "",
+                "media_type": "text/html; charset=UTF-8",
                 "description": "",
                 "status": "",
                 "title": "",
@@ -603,7 +603,7 @@
         "triples": 0,
         "full_download": [
             {
-                "media_type": "",
+                "media_type": "text/turtle",
                 "description": "",
                 "status": "",
                 "title": "",
@@ -611,7 +611,7 @@
                 "download_url": "https://data.bibliotheken.nl/KB/Production/assets/67ca92c1e3db98faece0b350"
             },
             {
-                "media_type": "",
+                "media_type": "text/turtle",
                 "description": "",
                 "status": "",
                 "title": "",
@@ -619,7 +619,7 @@
                 "download_url": "https://data.bibliotheken.nl/KB/Production/assets/67989eff13a71b95bbce02a4"
             },
             {
-                "media_type": "",
+                "media_type": "text/turtle",
                 "description": "",
                 "status": "",
                 "title": "",
@@ -646,7 +646,7 @@
         "license": "https://creativecommons.org/publicdomain/zero/1.0/",
         "other_download": [
             {
-                "media_type": "",
+                "media_type": "text/turtle",
                 "description": "",
                 "status": "",
                 "title": "",
@@ -654,7 +654,7 @@
                 "access_url": "https://data.bibliotheken.nl/KB/Production/assets/67ca92c1e3db98faece0b350"
             },
             {
-                "media_type": "",
+                "media_type": "text/turtle",
                 "description": "",
                 "status": "",
                 "title": "",
@@ -662,7 +662,7 @@
                 "access_url": "https://data.bibliotheken.nl/KB/Production/assets/67989eff13a71b95bbce02a4"
             },
             {
-                "media_type": "",
+                "media_type": "text/turtle",
                 "description": "",
                 "status": "",
                 "title": "",
@@ -860,7 +860,7 @@
         "license": "https://creativecommons.org/licenses/by/4.0/legalcode",
         "other_download": [
             {
-                "media_type": "",
+                "media_type": "text/html; charset=iso-8859-1",
                 "description": "",
                 "status": "",
                 "title": "",
@@ -1163,7 +1163,7 @@
         "triples": 0,
         "full_download": [
             {
-                "media_type": "",
+                "media_type": "application/x-tar",
                 "description": "",
                 "status": "",
                 "title": "",
@@ -1295,7 +1295,7 @@
         "triples": 0,
         "full_download": [
             {
-                "media_type": "",
+                "media_type": "application/zip",
                 "description": "",
                 "status": "",
                 "title": "",
@@ -1559,7 +1559,7 @@
         "triples": 0,
         "full_download": [
             {
-                "media_type": "",
+                "media_type": "text/plain; charset=utf-8",
                 "description": "",
                 "status": "",
                 "title": "",
@@ -1652,7 +1652,7 @@
         "license": "Open Data Commons Attribution License (ODC-By) 1.0",
         "other_download": [
             {
-                "media_type": "",
+                "media_type": "text/html;charset=utf-8",
                 "description": "",
                 "status": "",
                 "title": "",
@@ -1718,7 +1718,7 @@
         "license": "",
         "other_download": [
             {
-                "media_type": "",
+                "media_type": "text/html; charset=UTF-8",
                 "description": "",
                 "status": "",
                 "title": "",
@@ -1850,7 +1850,7 @@
         "license": "https://creativecommons.org/licenses/by/4.0/",
         "other_download": [
             {
-                "media_type": "",
+                "media_type": "text/html; charset=utf-8",
                 "description": "",
                 "status": "",
                 "title": "",
@@ -1916,7 +1916,7 @@
         "license": "https://creativecommons.org/licenses/by-nc/4.0/",
         "other_download": [
             {
-                "media_type": "",
+                "media_type": "text/html;charset=UTF-8",
                 "description": "",
                 "status": "",
                 "title": "",
@@ -1982,7 +1982,7 @@
         "license": "http://creativecommons.org/licenses/by/3.0/legalcode",
         "other_download": [
             {
-                "media_type": "",
+                "media_type": "text/html; charset=UTF-8",
                 "description": "",
                 "status": "",
                 "title": "",
@@ -2048,7 +2048,7 @@
         "license": "",
         "other_download": [
             {
-                "media_type": "",
+                "media_type": "text/html; charset=utf-8",
                 "description": "",
                 "status": "",
                 "title": "",
@@ -2351,7 +2351,7 @@
         "triples": 0,
         "full_download": [
             {
-                "media_type": "",
+                "media_type": "application/x-zip-compressed",
                 "description": "",
                 "status": "",
                 "title": "",
@@ -2359,7 +2359,7 @@
                 "download_url": "https://nlsfoundry.s3.amazonaws.com/metadata/nls-moving-image-archive-2024.zip"
             },
             {
-                "media_type": "",
+                "media_type": "application/x-zip-compressed",
                 "description": "",
                 "status": "",
                 "title": "",
@@ -2367,7 +2367,7 @@
                 "download_url": "https://nlsfoundry.s3.amazonaws.com/metadata/nls-nbs-v5.zip"
             },
             {
-                "media_type": "",
+                "media_type": "application/zip",
                 "description": "",
                 "status": "",
                 "title": "",
@@ -2433,7 +2433,7 @@
         "triples": 0,
         "full_download": [
             {
-                "media_type": "",
+                "media_type": "application/zip",
                 "description": "",
                 "status": "",
                 "title": "",
@@ -2499,7 +2499,7 @@
         "triples": 0,
         "full_download": [
             {
-                "media_type": "",
+                "media_type": "text/html; charset=utf-8",
                 "description": "",
                 "status": "",
                 "title": "",
@@ -2565,7 +2565,7 @@
         "triples": 0,
         "full_download": [
             {
-                "media_type": "",
+                "media_type": "text/html; charset=utf-8",
                 "description": "",
                 "status": "",
                 "title": "",
@@ -2573,7 +2573,7 @@
                 "download_url": "https://github.com/dfsantamaria/OntoCeramic-1.0/blob/master/OntoLoc.owl"
             },
             {
-                "media_type": "",
+                "media_type": "text/html; charset=utf-8",
                 "description": "",
                 "status": "",
                 "title": "",
@@ -2705,7 +2705,7 @@
         "triples": 0,
         "full_download": [
             {
-                "media_type": "",
+                "media_type": "text/turtle;charset=UTF-8",
                 "description": "",
                 "status": "",
                 "title": "",
@@ -2771,7 +2771,7 @@
         "triples": 0,
         "full_download": [
             {
-                "media_type": "",
+                "media_type": "application/ld+json",
                 "description": "",
                 "status": "",
                 "title": "",
@@ -2779,7 +2779,7 @@
                 "download_url": "https://br0ast.github.io/ICON/ICONOntologyDocumentationcurrent/ontology.jsonld"
             },
             {
-                "media_type": "",
+                "media_type": "application/rdf+xml",
                 "description": "",
                 "status": "",
                 "title": "",
@@ -2787,7 +2787,7 @@
                 "download_url": "https://br0ast.github.io/ICON/ICONOntologyDocumentationcurrent/ontology.rdf"
             },
             {
-                "media_type": "",
+                "media_type": "application/n-triples",
                 "description": "",
                 "status": "",
                 "title": "",
@@ -2795,7 +2795,7 @@
                 "download_url": "https://br0ast.github.io/ICON/ICONOntologyDocumentationcurrent/ontology.nt"
             },
             {
-                "media_type": "",
+                "media_type": "text/turtle; charset=utf-8",
                 "description": "",
                 "status": "",
                 "title": "",
@@ -2861,7 +2861,7 @@
         "triples": 0,
         "full_download": [
             {
-                "media_type": "",
+                "media_type": "text/html; charset=utf-8",
                 "description": "",
                 "status": "",
                 "title": "",
@@ -2927,7 +2927,7 @@
         "triples": 0,
         "full_download": [
             {
-                "media_type": "",
+                "media_type": "text/plain;charset=UTF-8",
                 "description": "",
                 "status": "",
                 "title": "",
@@ -2993,7 +2993,7 @@
         "triples": 0,
         "full_download": [
             {
-                "media_type": "",
+                "media_type": "text/html; charset=utf-8",
                 "description": "",
                 "status": "",
                 "title": "",
@@ -3001,7 +3001,7 @@
                 "download_url": "https://github.com/andreamust/music_note_pattern/blob/main/data.owl"
             },
             {
-                "media_type": "",
+                "media_type": "text/html; charset=utf-8",
                 "description": "",
                 "status": "",
                 "title": "",
@@ -3009,7 +3009,7 @@
                 "download_url": "https://github.com/andreamust/music_note_pattern/blob/main/musicalobject.owl"
             },
             {
-                "media_type": "",
+                "media_type": "text/html; charset=utf-8",
                 "description": "",
                 "status": "",
                 "title": "",
@@ -3017,7 +3017,7 @@
                 "download_url": "https://github.com/andreamust/music_note_pattern/blob/main/notepattern-aligns.owl"
             },
             {
-                "media_type": "",
+                "media_type": "text/html; charset=utf-8",
                 "description": "",
                 "status": "",
                 "title": "",
@@ -3025,7 +3025,7 @@
                 "download_url": "https://github.com/andreamust/music_note_pattern/blob/main/notepattern.owl"
             },
             {
-                "media_type": "",
+                "media_type": "text/html; charset=utf-8",
                 "description": "",
                 "status": "",
                 "title": "",
@@ -3091,7 +3091,7 @@
         "triples": 0,
         "full_download": [
             {
-                "media_type": "",
+                "media_type": "text/plain; charset=utf-8",
                 "description": "",
                 "status": "",
                 "title": "",
@@ -3157,7 +3157,7 @@
         "triples": 0,
         "full_download": [
             {
-                "media_type": "",
+                "media_type": "application/xml",
                 "description": "",
                 "status": "",
                 "title": "",
@@ -3223,7 +3223,7 @@
         "triples": 0,
         "full_download": [
             {
-                "media_type": "",
+                "media_type": "application/ld+json",
                 "description": "",
                 "status": "",
                 "title": "",
@@ -3231,7 +3231,7 @@
                 "download_url": "https://dh-atlas.github.io/deliverables/ontology/serializations/ontology.jsonld"
             },
             {
-                "media_type": "",
+                "media_type": "application/rdf+xml",
                 "description": "",
                 "status": "",
                 "title": "",
@@ -3239,7 +3239,7 @@
                 "download_url": "https://dh-atlas.github.io/deliverables/ontology/serializations/ontology.owl"
             },
             {
-                "media_type": "",
+                "media_type": "application/n-triples",
                 "description": "",
                 "status": "",
                 "title": "",
@@ -3247,7 +3247,7 @@
                 "download_url": "https://dh-atlas.github.io/deliverables/ontology/serializations/ontology.nt"
             },
             {
-                "media_type": "",
+                "media_type": "text/turtle; charset=utf-8",
                 "description": "",
                 "status": "",
                 "title": "",

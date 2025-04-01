@@ -83,7 +83,7 @@
                 "access_url": "http://www.w3.org/2000/01/rdf-schema#"
             },
             {
-                "media_type": "",
+                "media_type": "text/html; charset=utf-8",
                 "description": "RDF dump manually discovered",
                 "access_url": "https://dictionary.sutta.org/",
                 "status": "OK",
@@ -134,7 +134,7 @@
             {
                 "media_type": "",
                 "description": "The BLL Ontology represents an ontological model of the BLL Thesaurus (subset), manually reorganized and remodeled by rigidly applying OWL/DL constraints.",
-                "status": "OK",
+                "status": "FAIL (Read timed out)",
                 "title": "BLL Ontology",
                 "mirror": [],
                 "access_url": "http://data.linguistik.de/bll/bll-ontology"
@@ -142,7 +142,7 @@
             {
                 "media_type": "",
                 "description": "This is a SKOS version of the BLL Thesaurus.",
-                "status": "OK",
+                "status": "FAIL (Read timed out)",
                 "title": "BLL Thesaurus",
                 "mirror": [],
                 "access_url": "http://data.linguistik.de/bll/bll-thesaurus"
@@ -150,7 +150,7 @@
             {
                 "media_type": "",
                 "description": "Download links for the BLL Thesaurus (SKOS) and its ontological model (BLL Ontology).",
-                "status": "OK",
+                "status": "FAIL (Read timed out)",
                 "title": "Documentation",
                 "mirror": [],
                 "access_url": "http://data.linguistik.de/bll"
@@ -410,7 +410,7 @@
                 "media_type": "application/octet-stream",
                 "download_url": "https://data.cinematheque.qc.ca/doc/datasets/cmtq-dataset.ttl.gz",
                 "mirror": [],
-                "status": "FAIL (Connect timed out)"
+                "status": "FAIL (Connection refused)"
             },
             {
                 "_id": "aac26b16-d6cc-da23-366c-4320fc97c830",
@@ -420,7 +420,7 @@
                 "media_type": "application/octet-stream",
                 "download_url": "https://data.cinematheque.qc.ca/doc/datasets/cmtq-dataset.nt.gz",
                 "mirror": [],
-                "status": "FAIL (Connect timed out)"
+                "status": "FAIL (Connection refused)"
             },
             {
                 "_id": "16734507-8fe2-8e15-bbbe-665ee1eed63a",
@@ -430,7 +430,7 @@
                 "media_type": "application/octet-stream",
                 "download_url": "https://data.cinematheque.qc.ca/doc/datasets/cmtq-dataset.hdt",
                 "mirror": [],
-                "status": "FAIL (Connect timed out)"
+                "status": "FAIL (Connection refused)"
             },
             {
                 "_id": "e57601b8-41a7-e703-3088-f4b0c65255e3",
@@ -440,7 +440,7 @@
                 "media_type": "asdasd",
                 "download_url": "https://data.cinematheque.qc.ca/doc/lod/datasets",
                 "mirror": [],
-                "status": "FAIL (Connect timed out)"
+                "status": "FAIL (Connection refused)"
             }
         ],
         "keywords": [
@@ -462,7 +462,7 @@
                 "title": "entity node for Pierre Falardeau",
                 "description": "",
                 "access_url": "https://data.cinematheque.qc.ca/resource/Person28485",
-                "status": "FAIL (Connect timed out)",
+                "status": "FAIL (Connection refused)",
                 "media_type": "application/rdf+xml"
             },
             {
@@ -470,7 +470,7 @@
                 "title": "data node for Pierre Falardeau",
                 "description": "",
                 "access_url": "https://data.cinematheque.qc.ca/data/Person28485",
-                "status": "FAIL (Connect timed out)",
+                "status": "FAIL (Connection refused)",
                 "media_type": "application/rdf+xml"
             },
             {
@@ -478,7 +478,7 @@
                 "title": "wiki page for Pierre Falardeau",
                 "description": "",
                 "access_url": "https://data.cinematheque.qc.ca/page/Person28485",
-                "status": "FAIL (Connect timed out)",
+                "status": "FAIL (Connection refused)",
                 "media_type": "text/html; charset=utf-8"
             },
             {
@@ -486,7 +486,7 @@
                 "title": "Turtle data for Pierre Falardeau",
                 "description": "",
                 "access_url": "https://data.cinematheque.qc.ca/data/Person28485.ttl",
-                "status": "FAIL (Connect timed out)",
+                "status": "FAIL (Connection refused)",
                 "media_type": "text/turtle"
             },
             {
@@ -494,7 +494,7 @@
                 "title": "N-Triples data for Pierre Falardeau",
                 "description": "",
                 "access_url": "https://data.cinematheque.qc.ca/data/Person28485.nt",
-                "status": "FAIL (Connect timed out)",
+                "status": "FAIL (Connection refused)",
                 "media_type": "application/n-triples"
             },
             {
@@ -502,7 +502,7 @@
                 "title": "RDF/XML data for Pierre Falardeau",
                 "description": "",
                 "access_url": "https://data.cinematheque.qc.ca/data/Person28485.rdf",
-                "status": "FAIL (Connect timed out)",
+                "status": "FAIL (Connection refused)",
                 "media_type": "application/rdf+xml"
             },
             {
@@ -510,7 +510,7 @@
                 "title": "VoID dataset description",
                 "description": "Description of published datasets using the VoID ontology. Can also be accessed with https://data.cinematheque.qc.ca/.well-known/void",
                 "access_url": "https://data.cinematheque.qc.ca/void/Dataset",
-                "status": "FAIL (Connect timed out)",
+                "status": "FAIL (Connection refused)",
                 "media_type": "application/rdf+xml"
             }
         ],
@@ -523,7 +523,7 @@
                 "access_url": "https://data.cinematheque.qc.ca/doc/sparql",
                 "media_type": "asdasd",
                 "mirror": [],
-                "status": "FAIL (Connect timed out)"
+                "status": "FAIL (Connection refused)"
             }
         ],
         "domain": "cultural-heritage",
@@ -543,7 +543,7 @@
                 "title": "SPARQL Query Service",
                 "description": "The Query Service has a hard timeout of 60s.",
                 "access_url": "https://data.cinematheque.qc.ca/sparql",
-                "status": "FAIL (Connect timed out)"
+                "status": "FAIL (Connection refused)"
             }
         ],
         "contact_point": {
@@ -688,7 +688,7 @@
                 "access_url": "http://archive.org/download/kasabi/moseley-folk-festival-data.gz"
             },
             {
-                "media_type": "",
+                "media_type": "application/octet-stream",
                 "description": "RDF dump manually discovered",
                 "access_url": "https://archive.org/download/kasabi/moseley-folk-festival-data.gz",
                 "status": "OK",
@@ -769,7 +769,7 @@
         "sparql": [],
         "other_download": [
             {
-                "media_type": "",
+                "media_type": "application/zip",
                 "description": "RDF dump manually discovered",
                 "access_url": "http://dbtropes.org/static/dbtropes.zip",
                 "status": "OK",
@@ -927,7 +927,7 @@
                 "access_url": "http://www.gutenberg.org/feeds/catalog.rdf.bz2"
             },
             {
-                "media_type": "",
+                "media_type": "text/html; charset=utf-8",
                 "description": "RDF dump manually discovered",
                 "access_url": "https://github.com/alexdma/gutenberg-ld?tab=readme-ov-file",
                 "status": "OK",
@@ -1116,7 +1116,7 @@
         "license": "https://creativecommons.org/licenses/by-sa/3.0/",
         "other_download": [
             {
-                "media_type": "",
+                "media_type": "text/html; charset=utf-8",
                 "description": "RDF dump manually discovered",
                 "access_url": "https://zenodo.org/records/3333540",
                 "status": "OK",
@@ -1230,7 +1230,7 @@
                 "access_url": "http://www.askosi.org/jita/void.rdf"
             },
             {
-                "media_type": "",
+                "media_type": "text/html; charset=utf-8",
                 "description": "RDF dump manually discovered",
                 "access_url": "https://github.com/gbv/JITA?tab=readme-ov-file",
                 "status": "OK",
@@ -2148,7 +2148,7 @@
         "sparql": [],
         "other_download": [
             {
-                "media_type": "",
+                "media_type": "text/html; charset=utf-8",
                 "description": "RDF dump manually discovered",
                 "access_url": "https://openlibrary.org/developers/dumps",
                 "status": "OK",
@@ -2201,7 +2201,7 @@
                 "media_type": "text/html; charset=UTF-8",
                 "description": "Example (RDF/XML)",
                 "access_url": "http://zitgist.com/music/artist/79239441-bfd5-4981-a70c-55c3f15c1287",
-                "status": "OK"
+                "status": "FAIL (500)"
             }
         ],
         "sparql": [],
@@ -3696,112 +3696,6 @@
         "doi": "",
         "identifier": "ASCDC_-_CCP_Archive"
     },
-    "ASCDC_-_DNB": {
-        "_id": "ASCDC_-_DNB",
-        "owner": {
-            "name": "",
-            "email": "qa8302@gmail.com"
-        },
-        "website": "https://data.ascdc.tw/en/data.php",
-        "triples": "2819864",
-        "full_download": [
-            {
-                "_id": "43c8442d-96ae-a0ae-5379-ca0595757775",
-                "title": "ASCDC LODDatasets",
-                "description": "Launched in 2018, ASCDC LODDatasets is an online portal platform for publishing LOD-based datasets, which are converted and provided by the ASCDC in Taiwan (R.O.C), with service for SPARQL queries and data downloads.",
-                "access_url": "",
-                "media_type": "XML, JSON, TTL, CSV.",
-                "download_url": "https://data.ascdc.tw/en/index.php",
-                "mirror": [],
-                "status": "FAIL (HTTP error fetching URL. Status=401, URL=[https://data.ascdc.tw/en/index.php])"
-            },
-            {
-                "_id": "87f2a73f-f253-7e52-fe30-4ce6ff5e0ca8",
-                "title": "ASCDC LODDataset of Database of Names and Biographies",
-                "description": "Full download of ASCDC LODDataset of DNB in ttl format.",
-                "access_url": "",
-                "media_type": "ttl",
-                "download_url": "http://data.ascdc.tw/dataset/ASCDC-DNB.ttl",
-                "mirror": [],
-                "status": "FAIL (HTTP error fetching URL. Status=401, URL=[http://data.ascdc.tw/dataset/ASCDC-DNB.ttl])"
-            }
-        ],
-        "keywords": [
-            "ASCDC",
-            "Chinese History",
-            "History",
-            "Chinese Historical Persons",
-            "Biographical Data",
-            "Academia Sinica",
-            "Institute of History and Philology",
-            "cultural-heritage"
-        ],
-        "description": {
-            "en": "The LOD dataset of ASCDC_Database of Names and Biographies (DNB) was created by the Academia Sinica Center for Digital Cultures (ASCDC) and based on the metadata from the online \u201cDatabase of Names and Biographies\u201d (\u4eba\u540d\u6b0a\u5a01\u4eba\u7269\u50b3\u8a18\u8cc7\u6599\u5eab, http://archive.ihp.sinica.edu.tw/ttsweb/html_name/), which was established and maintained by the Institute of History and Philology, Academia Sinica, Taipei, Taiwan (ROC). The data includes the names of Chinese historical persons, mostly from the Ming to Qing dynasty, and their biographical information, which can serve as authority files or controlled vocabularies for names in the study of Chinese history. Containing 35,251 data records and 2,819,864 triples, the textual content within the LOD dataset is licensed under the Creative Commons Attribution (CC BY)."
-        },
-        "title": "Database of Names and Biographies (DNB)",
-        "Image": "",
-        "example": [
-            {
-                "_id": "7c442a37-93d1-4dc8-145f-d2b2a4584564",
-                "title": "Example Resource: F. Josephus Castiglione / \u90ce\u4e16\u5be7",
-                "description": "Resource contains the LOD-based biographical data on the Chinese historical figure, F. Josephus Castiglione/ \u90ce\u4e16\u5be7, 1688-1766.",
-                "access_url": "https://data.ascdc.tw/dnb/Agent/NO000016246",
-                "status": "FAIL (401)",
-                "media_type": "text/html; charset=UTF-8"
-            },
-            {
-                "_id": "b86e5332-4415-da70-6d5b-ea3d8d673c7f",
-                "title": "Example Resource: Zeng Guofan /\u66fe\u570b\u85e9",
-                "description": "Resource contains the LOD-based biographical data on the Chinese historical figure, Zeng Guofan/ \u66fe\u570b\u85e9, 1811-1872.",
-                "access_url": "https://data.ascdc.tw/dnb/Agent/NO000000058",
-                "status": "FAIL (401)",
-                "media_type": "text/html; charset=UTF-8"
-            }
-        ],
-        "license": "http://www.opendefinition.org/licenses/cc-zero",
-        "other_download": [
-            {
-                "_id": "c6b2fdb7-6f42-ce34-c18b-e650f9cd3bc2",
-                "title": "ASCDC LODDatasets - Downloads",
-                "description": "Webpage of ASCDC LODDatasets for downloads of entire published LOD-based datasets.",
-                "access_url": "https://data.ascdc.tw/en/data.php",
-                "media_type": "text/html",
-                "mirror": [],
-                "status": "FAIL (HTTP error fetching URL. Status=401, URL=[https://data.ascdc.tw/en/data.php])"
-            }
-        ],
-        "domain": "cultural-heritage",
-        "namespace": "http://data.ascdc.tw/dnb/Agent/",
-        "links": [
-            {
-                "_id": "5685d1f0-1885-282d-3d68-3c4ed7ca13df",
-                "target": "getty-aat",
-                "value": "3646"
-            },
-            {
-                "_id": "bc5c2caa-93ad-83e3-13e1-90d096cf7be3",
-                "target": "viaf",
-                "value": "3160"
-            }
-        ],
-        "sparql": [
-            {
-                "_id": "f4d6eaef-6c25-e2ca-c531-7b0591791d0b",
-                "title": "ASCDC LODDatasets - SPARQL Queries",
-                "description": "Access to the SPARQL endpoint of ASCDC's LOD datasets for data retrieval (with template-based examples), downloads and further reuse.",
-                "access_url": "https://data.ascdc.tw/en/sparql.php",
-                "status": "FAIL (401)"
-            }
-        ],
-        "contact_point": {
-            "name": "Dr. Shu-Jiun Sophy Chen (Academia Sinica Center for Digital Cultures, Taiwan R.O.C.)",
-            "email": "sophy@gate.sinica.edu.tw"
-        },
-        "doi": "",
-        "identifier": "ASCDC_-_DNB",
-        "image": ""
-    },
     "BVMC": {
         "_id": "BVMC",
         "identifier": "BVMC",
@@ -4766,7 +4660,7 @@
         "license": "http://www.opendefinition.org/licenses/cc-by",
         "other_download": [
             {
-                "media_type": "",
+                "media_type": "text/html; charset=utf-8",
                 "description": "RDF dump manually discovered",
                 "access_url": "https://www.data.gov.uk/dataset/6fa6a421-e515-4ab7-bbd6-1e60c2b60706/the-linked-open-british-national-bibliography",
                 "status": "OK",
@@ -5787,7 +5681,7 @@
                 "access_url": "http://data.dm2e.eu"
             },
             {
-                "media_type": "",
+                "media_type": "text/html; charset=utf-8",
                 "description": "RDF dump manually discovered",
                 "access_url": "https://github.com/dm2e",
                 "status": "OK",
@@ -6160,7 +6054,7 @@
                 "access_url": "http://semanticweb.cs.vu.nl/dss/"
             },
             {
-                "media_type": "",
+                "media_type": "text/html; charset=utf-8",
                 "description": "RDF dump manually discovered",
                 "access_url": "https://github.com/biktorrr/dss",
                 "status": "OK",
@@ -6327,7 +6221,7 @@
         "license": "http://www.opendefinition.org/licenses/cc-by",
         "other_download": [
             {
-                "media_type": "",
+                "media_type": "text/html",
                 "description": "RDF dump manually discovered",
                 "access_url": "https://docs.enslaved.org/lod/",
                 "status": "OK",
@@ -6602,7 +6496,7 @@
             {
                 "media_type": "RDF",
                 "description": "Link to an example data item within the dataset (RDF/XML)",
-                "status": "FAIL (HTTP error fetching URL. Status=404, URL=[https://www.europeana.eu/en/item/09404/C3C50BD0958EE18ECE1B8F93780DC84D8273664F])",
+                "status": "FAIL (HTTP error fetching URL. Status=403, URL=[https://www.europeana.eu/item/09404/C3C50BD0958EE18ECE1B8F93780DC84D8273664F])",
                 "title": "",
                 "mirror": [],
                 "access_url": "http://data.europeana.eu/data/item/09404/C3C50BD0958EE18ECE1B8F93780DC84D8273664F"
@@ -6693,7 +6587,7 @@
             {
                 "media_type": "meta/rdf-schema",
                 "description": "",
-                "status": "FAIL (Too many redirects occurred trying to load URL https://www.europeana.eu/schemas/edm)",
+                "status": "FAIL (HTTP error fetching URL. Status=403, URL=[http://www.europeana.eu/schemas/edm/])",
                 "title": "EDM schema",
                 "mirror": [],
                 "access_url": "http://www.europeana.eu/schemas/edm/"
@@ -6759,7 +6653,7 @@
                 "access_url": "http://eventkg.l3s.uni-hannover.de/data/eventkg.tar.gz"
             },
             {
-                "media_type": "",
+                "media_type": "text/html; charset=utf-8",
                 "description": "RDF dump manually discovered",
                 "access_url": "https://github.com/saraabdollahi/EventKG-Click",
                 "status": "OK",
@@ -6767,7 +6661,7 @@
                 "mirror": []
             },
             {
-                "media_type": "",
+                "media_type": "text/html; charset=utf-8",
                 "description": "RDF dump manually discovered",
                 "access_url": "https://zenodo.org/records/3568387",
                 "status": "OK",
@@ -7168,7 +7062,7 @@
                 "title": "GCAM sparql endpoint",
                 "description": "Fuseki2 Server",
                 "access_url": "http://ct-linkdata.aegean.gr/gcam/sparql",
-                "status": "FAIL (301)"
+                "status": "FAIL (404)"
             }
         ],
         "image": "https://www.childrensartmuseum.gr/LD-project/mept.png",
@@ -7218,7 +7112,7 @@
                 "title": "Query Examples ",
                 "description": "Query Examples using our SPARQL query GUI",
                 "access_url": "http://ct-linkdata.aegean.gr/query/gcam",
-                "status": "FAIL (301)",
+                "status": "FAIL (404)",
                 "media_type": "text/html; charset=utf-8"
             }
         ],
@@ -7481,7 +7375,7 @@
                 "access_url": "http://id.loc.gov/static/data/authoritiessubjects.rdfxml.skos.zip"
             },
             {
-                "media_type": "",
+                "media_type": "text/html; charset=UTF-8",
                 "description": "RDF dump manually discovered",
                 "access_url": "https://id.loc.gov/download/",
                 "status": "OK",
@@ -7556,7 +7450,7 @@
                 "access_url": "http://api.talis.com/stores/lcsh-info/items"
             },
             {
-                "media_type": "",
+                "media_type": "text/html; charset=UTF-8",
                 "description": "RDF dump manually discovered",
                 "access_url": "https://id.loc.gov/download/",
                 "status": "OK",
@@ -8197,7 +8091,7 @@
             {
                 "media_type": "",
                 "description": "Weekly dump in n-quand (triple + graph) format.",
-                "status": "OK",
+                "status": "FAIL (Unhandled content type. Must be text/*, application/xml, or application/*+xml)",
                 "title": "Download",
                 "mirror": [],
                 "download_url": "http://rdf.muninn-project.org/Downloads/muninn-Dump-Latest.nq"
@@ -8209,7 +8103,7 @@
                 "media_type": "application/rdf+xml; charset=UTF-8",
                 "description": "The resource will be resolved via content negotiation to RDF or HTML.",
                 "access_url": "http://rdf.muninn-project.org/modern/2011/11/11/Cenotaph/ca12581df8bc9fc3c1535de9daa1814a",
-                "status": "OK"
+                "status": "FAIL (503)"
             }
         ],
         "sparql": [
@@ -8637,7 +8531,7 @@
                 "title": "armor breastplate",
                 "description": "",
                 "access_url": "https://nomenclature.info/nom/8107",
-                "status": "FAIL (500)",
+                "status": "OK",
                 "media_type": "text/turtle;charset=UTF-8"
             }
         ],
@@ -9240,7 +9134,7 @@
         "license": "http://www.opendefinition.org/licenses/cc-by-sa",
         "other_download": [
             {
-                "media_type": "",
+                "media_type": "text/html; charset=utf-8",
                 "description": "RDF dump manually discovered",
                 "access_url": "https://github.com/sommergeo/roceeh2wiki?tab=readme-ov-file",
                 "status": "OK",
@@ -9326,7 +9220,7 @@
                 "media_type": "application/rdf+xml",
                 "description": "",
                 "access_url": "http://ta.sandrart.net/-person-2162",
-                "status": "OK"
+                "status": "FAIL (301)"
             }
         ],
         "sparql": [],
@@ -9868,7 +9762,7 @@
             {
                 "media_type": "gz:txt",
                 "description": "This is a text file showing the correspondence between source IDs in clusters, including external links such as Wikipedia\r\n",
-                "status": "FAIL (HTTP error fetching URL. Status=404, URL=[https://viaf.org/viaf/data/viaf-20130615-links.txt.gz])",
+                "status": "FAIL (HTTP error fetching URL. Status=404, URL=[https://viaf.org/en/viaf/data/viaf-20130615-links.txt.gz])",
                 "title": "VIAF Links (txt)",
                 "mirror": [],
                 "access_url": "http://viaf.org/viaf/data/viaf-20130615-links.txt.gz"
@@ -9876,7 +9770,7 @@
             {
                 "media_type": "",
                 "description": "This file contains one 'native' XML record per line for each VIAF cluster\r\n",
-                "status": "FAIL (HTTP error fetching URL. Status=404, URL=[https://viaf.org/viaf/data/viaf-20130615-clusters.xml.gz])",
+                "status": "FAIL (HTTP error fetching URL. Status=404, URL=[https://viaf.org/en/viaf/data/viaf-20130615-clusters.xml.gz])",
                 "title": "VIAF Clusters (XML)",
                 "mirror": [],
                 "access_url": "http://viaf.org/viaf/data/viaf-20130615-clusters.xml.gz"
@@ -9884,7 +9778,7 @@
             {
                 "media_type": "",
                 "description": "This file contains one RDF record per line for each VIAF cluster\r\n",
-                "status": "FAIL (HTTP error fetching URL. Status=404, URL=[https://viaf.org/viaf/data/viaf-20130615-clusters-rdf.xml.gz])",
+                "status": "FAIL (HTTP error fetching URL. Status=404, URL=[https://viaf.org/en/viaf/data/viaf-20130615-clusters-rdf.xml.gz])",
                 "title": "VIAF Clusters (RDF)",
                 "mirror": [],
                 "access_url": "http://viaf.org/viaf/data/viaf-20130615-clusters-rdf.xml.gz"
@@ -9892,7 +9786,7 @@
             {
                 "media_type": "",
                 "description": "This file contains one MARC-21 XML record per line for each VIAF cluster\r\n",
-                "status": "FAIL (HTTP error fetching URL. Status=404, URL=[https://viaf.org/viaf/data/viaf-20130615-clusters-marc21.xml.gz])",
+                "status": "FAIL (HTTP error fetching URL. Status=404, URL=[https://viaf.org/en/viaf/data/viaf-20130615-clusters-marc21.xml.gz])",
                 "title": "VIAF Clusters (MARC 21)",
                 "mirror": [],
                 "access_url": "http://viaf.org/viaf/data/viaf-20130615-clusters-marc21.xml.gz"
@@ -9900,7 +9794,7 @@
             {
                 "media_type": "",
                 "description": "This file contains one ISO-2709 MARC-21 record per line for each VIAF cluster\r\n",
-                "status": "FAIL (HTTP error fetching URL. Status=404, URL=[https://viaf.org/viaf/data/viaf-20130615-clusters-marc21.iso.gz])",
+                "status": "FAIL (HTTP error fetching URL. Status=404, URL=[https://viaf.org/en/viaf/data/viaf-20130615-clusters-marc21.iso.gz])",
                 "title": "VIAF clusters (MARC 21 - ISO-2709)",
                 "mirror": [],
                 "access_url": "http://viaf.org/viaf/data/viaf-20130615-clusters-marc21.iso.gz"
@@ -9908,7 +9802,7 @@
             {
                 "media_type": "",
                 "description": "This file shows redirections within the VIAF dataset (in RDF)\r\n",
-                "status": "FAIL (HTTP error fetching URL. Status=404, URL=[https://viaf.org/viaf/data/viaf-20130615-persist-rdf.xml.gz])",
+                "status": "FAIL (HTTP error fetching URL. Status=404, URL=[https://viaf.org/en/viaf/data/viaf-20130615-persist-rdf.xml.gz])",
                 "title": "VIAF redirections (RDF)",
                 "mirror": [],
                 "access_url": "http://viaf.org/viaf/data/viaf-20130615-persist-rdf.xml.gz"
@@ -10392,28 +10286,28 @@
                 "media_type": "text/html; charset=UTF-8",
                 "description": "Example Biographical Folder (RDFa)",
                 "access_url": "http://zbw.eu/beta/p20/person/12",
-                "status": "FAIL (308)"
+                "status": "FAIL (302)"
             },
             {
                 "title": "",
                 "media_type": "text/html; charset=UTF-8",
                 "description": "Example Company Folder",
                 "access_url": "http://zbw.eu/beta/p20/company/11461",
-                "status": "FAIL (308)"
+                "status": "FAIL (302)"
             },
             {
                 "title": "",
                 "media_type": "text/html; charset=UTF-8",
                 "description": "Example Document",
                 "access_url": "http://zbw.eu/beta/p20/person/13476/0147",
-                "status": "FAIL (308)"
+                "status": "FAIL (302)"
             }
         ],
         "sparql": [
             {
                 "title": "SPARQL Endpoint",
                 "description": "",
-                "access_url": "https://zbw.eu/beta/sparql/pm20/query",
+                "access_url": "https://zbw.eu/beta/sparql-lab/?endpoint=http://zbw.eu/beta/sparql/pm20/query&queryRef=https://api.github.com/repos/jneubert/sparql-queries/contents/pm20/search_folders_by_text.rq",
                 "status": "OK"
             }
         ],
@@ -10905,7 +10799,7 @@
             {
                 "media_type": "",
                 "description": "RDF Schema",
-                "status": "OK",
+                "status": "FAIL (HTTP error fetching URL. Status=403, URL=[https://motools.sourceforge.net/doc/musicontology.rdfs])",
                 "title": null,
                 "mirror": [],
                 "access_url": "http://motools.sourceforge.net/doc/musicontology.rdfs"
@@ -11139,14 +11033,14 @@
                 "title": "Sparql endpoint of the colls-lib-bib subset",
                 "description": "Graph IRI: http://data.hnm.hu/colls/lib/bib",
                 "access_url": "http://data.hnm.hu/sparql",
-                "status": "FAIL (Host is unreachable)"
+                "status": "FAIL (Connect timed out)"
             }
         ],
         "other_download": [
             {
                 "media_type": "text/html; charset=UTF-8",
                 "description": "General description for humans",
-                "status": "FAIL (Connect timed out)",
+                "status": "FAIL (Host is unreachable)",
                 "title": "General description",
                 "mirror": [],
                 "access_url": "http://data.hnm.hu/set/colls/void-colls.html"
@@ -11154,7 +11048,7 @@
             {
                 "media_type": "text/turtle; charset=UTF-8",
                 "description": "VoID description in ttl",
-                "status": "FAIL (Connect timed out)",
+                "status": "FAIL (Host is unreachable)",
                 "title": "VoID description of the Collections dataset",
                 "mirror": [],
                 "access_url": "http://data.hnm.hu/set/colls/void-colls.ttl"
@@ -11194,7 +11088,7 @@
             {
                 "media_type": "text/html; charset=UTF-8",
                 "description": "URI name convention used in the dataset and subset.",
-                "status": "FAIL (Connect timed out)",
+                "status": "FAIL (Host is unreachable)",
                 "title": "URI name convention",
                 "mirror": [],
                 "access_url": "http://data.hnm.hu/set/colls/uri.html"
@@ -11366,7 +11260,7 @@
                 "access_url": "http://archive.org/download/kasabi/discogs.gz"
             },
             {
-                "media_type": "",
+                "media_type": "application/octet-stream",
                 "description": "RDF dump manually discovered",
                 "access_url": "http://archive.org/download/kasabi/discogs.gz",
                 "status": "OK",
@@ -11734,7 +11628,7 @@
             {
                 "media_type": "application/x-ntriples",
                 "description": "Dataset dump in N-Triples format.",
-                "status": "FAIL (HTTP error fetching URL. Status=400, URL=[http://datos.artium.org/datadumps/museum_1446191873722_20151030000001.nt.gz])",
+                "status": "FAIL (Connect timed out)",
                 "title": "Dataset dump of Artium Museum data in N-Triples format",
                 "mirror": [],
                 "download_url": "http://datos.artium.org/datadumps/museum_1446191873722_20151030000001.nt.gz"
@@ -11742,7 +11636,7 @@
             {
                 "media_type": "application/x-ntriples",
                 "description": "Dataset dump in N-Triples format.",
-                "status": "FAIL (HTTP error fetching URL. Status=400, URL=[http://datos.artium.org/datadumps/links_1446191901731_20151030000001.nt.gz])",
+                "status": "FAIL (Connect timed out)",
                 "title": "Dataset dump of links to external datasets of Artium Museum data in N-Triples format",
                 "mirror": [],
                 "download_url": "http://datos.artium.org/datadumps/links_1446191901731_20151030000001.nt.gz"
@@ -11750,7 +11644,7 @@
             {
                 "media_type": "application/x-ntriples",
                 "description": "Dataset dump in N-Triples format.",
-                "status": "FAIL (HTTP error fetching URL. Status=400, URL=[http://datos.artium.org/datadumps/auth_1446191929685_20151030000001.nt.gz])",
+                "status": "FAIL (Connect timed out)",
                 "title": "Dataset dump of Artium Library Authority data in N-Triples format",
                 "mirror": [],
                 "download_url": "http://datos.artium.org/datadumps/auth_1446191929685_20151030000001.nt.gz"
@@ -11758,7 +11652,7 @@
             {
                 "media_type": "application/x-ntriples",
                 "description": "Dataset dump in N-Triples format.",
-                "status": "FAIL (HTTP error fetching URL. Status=400, URL=[http://datos.artium.org/datadumps/links_1446191974417_20151030000001.nt.gz])",
+                "status": "FAIL (Connect timed out)",
                 "title": "Dataset dump of links to external datasets of Artium Library Authority data in N-Triples format",
                 "mirror": [],
                 "download_url": "http://datos.artium.org/datadumps/links_1446191974417_20151030000001.nt.gz"
@@ -11766,7 +11660,7 @@
             {
                 "media_type": "application/x-ntriples",
                 "description": "Dataset dump in N-Triples format.",
-                "status": "FAIL (HTTP error fetching URL. Status=400, URL=[http://datos.artium.org/datadumps/bib_1446192001737_20151030000001.nt.gz])",
+                "status": "FAIL (Connect timed out)",
                 "title": "Dataset dump of Artium Library Bibliographic data in N-Triples format",
                 "mirror": [],
                 "download_url": "http://datos.artium.org/datadumps/bib_1446192001737_20151030000001.nt.gz"
@@ -11774,7 +11668,7 @@
             {
                 "media_type": "application/x-ntriples",
                 "description": "Dataset dump in N-Triples format.",
-                "status": "FAIL (HTTP error fetching URL. Status=400, URL=[http://datos.artium.org/datadumps/links_1446192090866_20151030000001.nt.gz])",
+                "status": "FAIL (Connect timed out)",
                 "title": "Dataset dump of links to external datasets of Artium Library Bibliographic data in N-Triples format",
                 "mirror": [],
                 "download_url": "http://datos.artium.org/datadumps/links_1446192090866_20151030000001.nt.gz"
@@ -11786,28 +11680,28 @@
                 "media_type": "example/rdf+xml",
                 "description": "Example resource of LIDO in RDF/XML format",
                 "access_url": "http://datos.artium.org/datadumps/LIDOExample.rdf",
-                "status": "FAIL (400)"
+                "status": "FAIL (Connect timed out)"
             },
             {
                 "title": "Example resource of DC",
                 "media_type": "example/rdf+xml",
                 "description": "Example resource of DC in RDF/XML format",
                 "access_url": "http://datos.artium.org/datadumps/DCExample.rdf",
-                "status": "FAIL (400)"
+                "status": "FAIL (Connect timed out)"
             },
             {
                 "title": "Example resource of MARC BIB",
                 "media_type": "example/rdf+xml",
                 "description": "Example resource of MARC BIB in RDF/XML format",
                 "access_url": "http://datos.artium.org/datadumps/MARCBIBExample.rdf",
-                "status": "FAIL (400)"
+                "status": "FAIL (Connect timed out)"
             },
             {
                 "title": "Example resource of MARC AUTH",
                 "media_type": "example/rdf+xml",
                 "description": "Example resource of MARC AUTH in RDF/XML format",
                 "access_url": "http://datos.artium.org/datadumps/MARCAUTHExample.rdf",
-                "status": "FAIL (400)"
+                "status": "FAIL (Connect timed out)"
             }
         ],
         "sparql": [
@@ -11815,14 +11709,14 @@
                 "title": "Sparql Endpoint",
                 "description": "SPARQL endpoint for datos-artium-org dataset",
                 "access_url": "http://datos.artium.org/sparql",
-                "status": "FAIL (400)"
+                "status": "FAIL (Connect timed out)"
             }
         ],
         "other_download": [
             {
                 "media_type": "meta/void",
                 "description": "Void file describing the main features of the datos-artium-org dataset",
-                "status": "FAIL (HTTP error fetching URL. Status=400, URL=[http://datos.artium.org/datadumps/datosartiumorg.ttl])",
+                "status": "FAIL (Connect timed out)",
                 "title": "datosartiumorg.ttl",
                 "mirror": [],
                 "access_url": "http://datos.artium.org/datadumps/datosartiumorg.ttl"
@@ -12480,7 +12374,7 @@
                 "media_type": "example/rdf+xml",
                 "description": "Example of a publication.",
                 "access_url": "http://helheim.deusto.es/hedatuz/data/biblio/5112?output=xml",
-                "status": "FAIL (Connect timed out)"
+                "status": "FAIL (Connection refused)"
             }
         ],
         "sparql": [
@@ -12488,14 +12382,14 @@
                 "title": "SPARQL endpoint",
                 "description": "SPARQL endpoint.",
                 "access_url": "http://helheim.deusto.es/hedatuz/sparql",
-                "status": "FAIL (Connect timed out)"
+                "status": "FAIL (Connection refused)"
             }
         ],
         "other_download": [
             {
                 "media_type": "RDF",
                 "description": "RDF dump of entire dataset.",
-                "status": "FAIL (Connect timed out)",
+                "status": "FAIL (Connection refused)",
                 "title": "RDF Dump",
                 "mirror": [],
                 "access_url": "http://helheim.deusto.es/hedatuz/dump.rdf"
@@ -12503,7 +12397,7 @@
             {
                 "media_type": "meta/void",
                 "description": "Dataset metadata.",
-                "status": "FAIL (Connect timed out)",
+                "status": "FAIL (Connection refused)",
                 "title": "voiD description",
                 "mirror": [],
                 "access_url": "http://helheim.deusto.es/hedatuz/resource/Dataset"
@@ -12717,7 +12611,7 @@
                 "media_type": "example/rdf+xml",
                 "description": "Example (RDF/XML)",
                 "access_url": "http://www.johngoodwin.me.uk/family/I0243",
-                "status": "FAIL (404)"
+                "status": "FAIL (www.johngoodwin.me.uk)"
             }
         ],
         "sparql": [
@@ -12732,7 +12626,7 @@
             {
                 "media_type": "",
                 "description": "voiD description",
-                "status": "FAIL (HTTP error fetching URL. Status=404, URL=[http://www.johngoodwin.me.uk/family/?&_output=turtle])",
+                "status": "FAIL (www.johngoodwin.me.uk)",
                 "title": "",
                 "mirror": [],
                 "access_url": "http://www.johngoodwin.me.uk/family/?&_output=turtle"
@@ -12965,14 +12859,14 @@
                 "title": "SPARQL Endpoint",
                 "description": "",
                 "access_url": "http://nlg.okfn.gr/sparql",
-                "status": "FAIL (Connect timed out)"
+                "status": "FAIL (301)"
             }
         ],
         "other_download": [
             {
                 "media_type": "application/rdf+xml",
                 "description": "Dataset Description.",
-                "status": "FAIL (Connect timed out)",
+                "status": "FAIL (HTTP error fetching URL. Status=526, URL=[https://nlg.okfn.gr/resource/authority/Dataset])",
                 "title": "Dataset description",
                 "mirror": [],
                 "access_url": "http://nlg.okfn.gr/resource/authority/Dataset"
@@ -13117,7 +13011,7 @@
                 "media_type": "text/html; charset=UTF-8",
                 "description": "Example (Turtle)",
                 "access_url": "http://lastfm.rdfize.com/events/937256",
-                "status": "FAIL (302)"
+                "status": "FAIL (lastfm.rdfize.com)"
             }
         ],
         "sparql": [],
@@ -13125,7 +13019,7 @@
             {
                 "media_type": "meta/void",
                 "description": "voiD description",
-                "status": "FAIL (HTTP error fetching URL. Status=404, URL=[https://seomaker.ai/meta.n3])",
+                "status": "FAIL (lastfm.rdfize.com)",
                 "title": null,
                 "mirror": [],
                 "access_url": "http://lastfm.rdfize.com/meta.n3"
@@ -13165,45 +13059,45 @@
         "example": [
             {
                 "title": "Vie de Saint Alexis (1050)",
-                "media_type": "text/html",
+                "media_type": "application/zip",
                 "description": "",
                 "access_url": "http://srcmf.org/public/alexis-rdf.zip",
-                "status": "OK"
+                "status": "FAIL (301)"
             },
             {
                 "title": "Chanson de Roland (1100)",
-                "media_type": "text/html",
+                "media_type": "application/zip",
                 "description": "",
                 "access_url": "http://srcmf.org/public/roland-rdf.zip",
-                "status": "OK"
+                "status": "FAIL (301)"
             },
             {
                 "title": "Tristan de Beroul (1165 - 1200)",
-                "media_type": "text/html",
+                "media_type": "application/zip",
                 "description": "",
                 "access_url": "http://srcmf.org/public/beroul-rdf.zip",
-                "status": "OK"
+                "status": "FAIL (301)"
             },
             {
                 "title": "Aucassin et Nicolete (fin 12e/d\u00e9b. 13e)",
-                "media_type": "text/html",
+                "media_type": "application/zip",
                 "description": "",
                 "access_url": "http://srcmf.org/public/aucassin-rdf.zip",
-                "status": "OK"
+                "status": "FAIL (301)"
             },
             {
                 "title": "La Conqueste de Constantinople de R. de Clari (1205)",
-                "media_type": "text/html",
+                "media_type": "application/zip",
                 "description": "",
                 "access_url": "http://srcmf.org/public/clari-rdf.zip",
-                "status": "OK"
+                "status": "FAIL (301)"
             },
             {
                 "title": "Queste del Saint Graal \t(1220)",
-                "media_type": "text/html",
+                "media_type": "application/zip",
                 "description": "",
                 "access_url": "http://srcmf.org/public/qgraal-rdf.zip",
-                "status": "OK"
+                "status": "FAIL (301)"
             }
         ],
         "sparql": [],
