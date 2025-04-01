@@ -7,16 +7,7 @@
         "identifier": "performing-arts.ch",
         "website": "https://www.performing-arts.ch/resource/sapa:Search",
         "triples": 0,
-        "full_download": [
-            {
-                "media_type": "",
-                "description": "",
-                "status": "",
-                "title": "",
-                "mirror": [],
-                "download_url": ""
-            }
-        ],
+        "full_download": [],
         "keywords": [
             "cultural-heritage",
             "ch-tangible"
@@ -26,25 +17,9 @@
         },
         "title": "performing-arts.ch",
         "Image": "",
-        "example": [
-            {
-                "_id": "",
-                "title": "",
-                "description": "",
-                "access_url": ""
-            }
-        ],
+        "example": [],
         "license": "https://creativecommons.org/publicdomain/zero/1.0/",
-        "other_download": [
-            {
-                "media_type": "",
-                "description": "",
-                "status": "",
-                "title": "",
-                "mirror": [],
-                "access_url": ""
-            }
-        ],
+        "other_download": [],
         "domain": "cultural-heritage",
         "namespace": "",
         "links": [],
@@ -74,16 +49,7 @@
         "identifier": "MiMoTextBase",
         "website": "https://mimotext.uni-trier.de/english/",
         "triples": 0,
-        "full_download": [
-            {
-                "media_type": "",
-                "description": "",
-                "status": "",
-                "title": "",
-                "mirror": [],
-                "download_url": ""
-            }
-        ],
+        "full_download": [],
         "keywords": [
             "cultural-heritage",
             "ch-tangible"
@@ -93,25 +59,9 @@
         },
         "title": "MiMoTextBase",
         "Image": "",
-        "example": [
-            {
-                "_id": "",
-                "title": "",
-                "description": "",
-                "access_url": ""
-            }
-        ],
+        "example": [],
         "license": "",
-        "other_download": [
-            {
-                "media_type": "",
-                "description": "",
-                "status": "",
-                "title": "",
-                "mirror": [],
-                "access_url": ""
-            }
-        ],
+        "other_download": [],
         "domain": "cultural-heritage",
         "namespace": "",
         "links": [],
@@ -141,16 +91,7 @@
         "identifier": "NLS",
         "website": "https://www.kb.se/in-english/about-us/the-national-library-of-sweden.html",
         "triples": 0,
-        "full_download": [
-            {
-                "media_type": "",
-                "description": "",
-                "status": "",
-                "title": "",
-                "mirror": [],
-                "download_url": ""
-            }
-        ],
+        "full_download": [],
         "keywords": [
             "cultural-heritage",
             "ch-tangible"
@@ -160,25 +101,9 @@
         },
         "title": "National Library of Sweden",
         "Image": "",
-        "example": [
-            {
-                "_id": "",
-                "title": "",
-                "description": "",
-                "access_url": ""
-            }
-        ],
+        "example": [],
         "license": "",
-        "other_download": [
-            {
-                "media_type": "",
-                "description": "",
-                "status": "",
-                "title": "",
-                "mirror": [],
-                "access_url": ""
-            }
-        ],
+        "other_download": [],
         "domain": "cultural-heritage",
         "namespace": "",
         "links": [],
@@ -208,16 +133,7 @@
         "identifier": "Japan-Search",
         "website": "https://jpsearch.go.jp/",
         "triples": 0,
-        "full_download": [
-            {
-                "media_type": "",
-                "description": "",
-                "status": "",
-                "title": "",
-                "mirror": [],
-                "download_url": ""
-            }
-        ],
+        "full_download": [],
         "keywords": [
             "cultural-heritage",
             "ch-tangible"
@@ -227,25 +143,9 @@
         },
         "title": "Japan Search",
         "Image": "",
-        "example": [
-            {
-                "_id": "",
-                "title": "",
-                "description": "",
-                "access_url": ""
-            }
-        ],
+        "example": [],
         "license": "https://creativecommons.org/licenses/by/4.0/legalcode.en",
-        "other_download": [
-            {
-                "media_type": "",
-                "description": "",
-                "status": "",
-                "title": "",
-                "mirror": [],
-                "access_url": ""
-            }
-        ],
+        "other_download": [],
         "domain": "cultural-heritage",
         "namespace": "",
         "links": [],
@@ -275,16 +175,7 @@
         "identifier": "Rijksmuseum",
         "website": "https://www.rijksmuseum.nl/nl",
         "triples": 0,
-        "full_download": [
-            {
-                "media_type": "",
-                "description": "",
-                "status": "",
-                "title": "",
-                "mirror": [],
-                "download_url": ""
-            }
-        ],
+        "full_download": [],
         "keywords": [
             "cultural-heritage",
             "ch-tangible"
@@ -294,25 +185,9 @@
         },
         "title": "Rijksmuseum Collection",
         "Image": "",
-        "example": [
-            {
-                "_id": "",
-                "title": "",
-                "description": "",
-                "access_url": ""
-            }
-        ],
+        "example": [],
         "license": "https://creativecommons.org/licenses/by/4.0/",
-        "other_download": [
-            {
-                "media_type": "",
-                "description": "",
-                "status": "",
-                "title": "",
-                "mirror": [],
-                "access_url": ""
-            }
-        ],
+        "other_download": [],
         "domain": "cultural-heritage",
         "namespace": "",
         "links": [],
@@ -342,16 +217,7 @@
         "identifier": "FI-Library",
         "website": "https://www.kansalliskirjasto.fi/en",
         "triples": 0,
-        "full_download": [
-            {
-                "media_type": "",
-                "description": "",
-                "status": "",
-                "title": "",
-                "mirror": [],
-                "download_url": ""
-            }
-        ],
+        "full_download": [],
         "keywords": [
             "cultural-heritage",
             "ch-intangible"
@@ -370,16 +236,7 @@
             }
         ],
         "license": "",
-        "other_download": [
-            {
-                "media_type": "",
-                "description": "",
-                "status": "",
-                "title": "",
-                "mirror": [],
-                "access_url": ""
-            }
-        ],
+        "other_download": [],
         "domain": "cultural-heritage",
         "namespace": "",
         "links": [],
@@ -409,16 +266,7 @@
         "identifier": "Shanghai-Library-Open-Data-Platform",
         "website": "https://data.library.sh.cn/index",
         "triples": 0,
-        "full_download": [
-            {
-                "media_type": "",
-                "description": "",
-                "status": "",
-                "title": "",
-                "mirror": [],
-                "download_url": ""
-            }
-        ],
+        "full_download": [],
         "keywords": [
             "cultural-heritage",
             "ch-generic"
@@ -428,25 +276,9 @@
         },
         "title": "Shanghai Library Open Data Platform",
         "Image": "",
-        "example": [
-            {
-                "_id": "",
-                "title": "",
-                "description": "",
-                "access_url": ""
-            }
-        ],
+        "example": [],
         "license": "cc2.0",
-        "other_download": [
-            {
-                "media_type": "",
-                "description": "",
-                "status": "",
-                "title": "",
-                "mirror": [],
-                "access_url": ""
-            }
-        ],
+        "other_download": [],
         "domain": "cultural-heritage",
         "namespace": "",
         "links": [],
@@ -511,14 +343,7 @@
         },
         "title": "National Library Netherlands",
         "Image": "",
-        "example": [
-            {
-                "_id": "",
-                "title": "",
-                "description": "",
-                "access_url": ""
-            }
-        ],
+        "example": [],
         "license": "https://creativecommons.org/publicdomain/zero/1.0/",
         "other_download": [
             {
@@ -575,16 +400,7 @@
         "identifier": "Antique-Renaissance",
         "website": "https://database.census.de/",
         "triples": 0,
-        "full_download": [
-            {
-                "media_type": "",
-                "description": "",
-                "status": "",
-                "title": "",
-                "mirror": [],
-                "download_url": ""
-            }
-        ],
+        "full_download": [],
         "keywords": [
             "cultural-heritage",
             "ch-tangible"
@@ -603,16 +419,7 @@
             }
         ],
         "license": "",
-        "other_download": [
-            {
-                "media_type": "",
-                "description": "",
-                "status": "",
-                "title": "",
-                "mirror": [],
-                "access_url": ""
-            }
-        ],
+        "other_download": [],
         "domain": "cultural-heritage",
         "namespace": "",
         "links": [],
@@ -642,16 +449,7 @@
         "identifier": "ARTSDATA-CA",
         "website": "http://www.artsdata.ca/",
         "triples": 0,
-        "full_download": [
-            {
-                "media_type": "",
-                "description": "",
-                "status": "",
-                "title": "",
-                "mirror": [],
-                "download_url": ""
-            }
-        ],
+        "full_download": [],
         "keywords": [
             "cultural-heritage",
             "ch-tangible"
@@ -661,25 +459,9 @@
         },
         "title": "ARTSDATA.CA",
         "Image": "",
-        "example": [
-            {
-                "_id": "",
-                "title": "",
-                "description": "",
-                "access_url": ""
-            }
-        ],
+        "example": [],
         "license": "https://creativecommons.org/publicdomain/mark/1.0",
-        "other_download": [
-            {
-                "media_type": "",
-                "description": "",
-                "status": "",
-                "title": "",
-                "mirror": [],
-                "access_url": ""
-            }
-        ],
+        "other_download": [],
         "domain": "cultural-heritage",
         "namespace": "",
         "links": [],
@@ -709,16 +491,7 @@
         "identifier": "ArCo",
         "website": "http://wit.istc.cnr.it/arco/?lang=en",
         "triples": 0,
-        "full_download": [
-            {
-                "media_type": "",
-                "description": "",
-                "status": "",
-                "title": "",
-                "mirror": [],
-                "download_url": ""
-            }
-        ],
+        "full_download": [],
         "keywords": [
             "cultural-heritage",
             "ch-generic"
@@ -776,16 +549,7 @@
         "identifier": "ConfermentSampo",
         "website": "https://demo.seco.tkk.fi/saha/project/index.shtml?model=promootiosampo",
         "triples": 0,
-        "full_download": [
-            {
-                "media_type": "",
-                "description": "",
-                "status": "",
-                "title": "",
-                "mirror": [],
-                "download_url": ""
-            }
-        ],
+        "full_download": [],
         "keywords": [
             "cultural-heritage",
             "ontology",
@@ -796,25 +560,9 @@
         },
         "title": "ConfermentSampo",
         "Image": "",
-        "example": [
-            {
-                "_id": "",
-                "title": "",
-                "description": "",
-                "access_url": ""
-            }
-        ],
+        "example": [],
         "license": "http://creativecommons.org/licenses/by/4.0/",
-        "other_download": [
-            {
-                "media_type": "",
-                "description": "",
-                "status": "",
-                "title": "",
-                "mirror": [],
-                "access_url": ""
-            }
-        ],
+        "other_download": [],
         "domain": "cultural-heritage",
         "namespace": "",
         "links": [],
@@ -844,16 +592,7 @@
         "identifier": "FI-Museum",
         "website": "https://www.ldf.fi/dataset/mufi/index.html",
         "triples": 0,
-        "full_download": [
-            {
-                "media_type": "",
-                "description": "",
-                "status": "",
-                "title": "",
-                "mirror": [],
-                "download_url": ""
-            }
-        ],
+        "full_download": [],
         "keywords": [
             "cultural-heritage",
             "ch-generic",
@@ -864,25 +603,9 @@
         },
         "title": "Museum Finland",
         "Image": "",
-        "example": [
-            {
-                "_id": "",
-                "title": "",
-                "description": "",
-                "access_url": ""
-            }
-        ],
+        "example": [],
         "license": "https://creativecommons.org/licenses/by/4.0/",
-        "other_download": [
-            {
-                "media_type": "",
-                "description": "",
-                "status": "",
-                "title": "",
-                "mirror": [],
-                "access_url": ""
-            }
-        ],
+        "other_download": [],
         "domain": "cultural-heritage",
         "namespace": "",
         "links": [],
@@ -912,16 +635,7 @@
         "identifier": "MMM",
         "website": "https://mappingmanuscriptmigrations.org/en/",
         "triples": 0,
-        "full_download": [
-            {
-                "media_type": "",
-                "description": "",
-                "status": "",
-                "title": "",
-                "mirror": [],
-                "download_url": ""
-            }
-        ],
+        "full_download": [],
         "keywords": [
             "cultural-heritage",
             "ch-tangible"
@@ -940,16 +654,7 @@
             }
         ],
         "license": "https://creativecommons.org/licenses/by-nc/4.0/",
-        "other_download": [
-            {
-                "media_type": "",
-                "description": "",
-                "status": "",
-                "title": "",
-                "mirror": [],
-                "access_url": ""
-            }
-        ],
+        "other_download": [],
         "domain": "cultural-heritage",
         "namespace": "",
         "links": [],
@@ -979,16 +684,7 @@
         "identifier": "Semantic-Kalevala",
         "website": "https://www.ldf.fi/dataset/folklore/index.html",
         "triples": 0,
-        "full_download": [
-            {
-                "media_type": "",
-                "description": "",
-                "status": "",
-                "title": "",
-                "mirror": [],
-                "download_url": ""
-            }
-        ],
+        "full_download": [],
         "keywords": [
             "cultural-heritage",
             "ch-intangible"
@@ -998,25 +694,9 @@
         },
         "title": "Semantic Kalevala",
         "Image": "",
-        "example": [
-            {
-                "_id": "",
-                "title": "",
-                "description": "",
-                "access_url": ""
-            }
-        ],
+        "example": [],
         "license": "https://creativecommons.org/licenses/by/4.0/",
-        "other_download": [
-            {
-                "media_type": "",
-                "description": "",
-                "status": "",
-                "title": "",
-                "mirror": [],
-                "access_url": ""
-            }
-        ],
+        "other_download": [],
         "domain": "cultural-heritage",
         "namespace": "",
         "links": [],
@@ -1065,25 +745,9 @@
         },
         "title": "Smithsonian American Art Museum",
         "Image": "",
-        "example": [
-            {
-                "_id": "",
-                "title": "",
-                "description": "",
-                "access_url": ""
-            }
-        ],
+        "example": [],
         "license": "http://creativecommons.org/about/cc0",
-        "other_download": [
-            {
-                "media_type": "",
-                "description": "",
-                "status": "",
-                "title": "",
-                "mirror": [],
-                "access_url": ""
-            }
-        ],
+        "other_download": [],
         "domain": "cultural-heritage",
         "namespace": "",
         "links": [],
@@ -1132,25 +796,9 @@
         },
         "title": "Zeri Photo Archive",
         "Image": "",
-        "example": [
-            {
-                "_id": "",
-                "title": "",
-                "description": "",
-                "access_url": ""
-            }
-        ],
+        "example": [],
         "license": "Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)",
-        "other_download": [
-            {
-                "media_type": "",
-                "description": "",
-                "status": "",
-                "title": "",
-                "mirror": [],
-                "access_url": ""
-            }
-        ],
+        "other_download": [],
         "domain": "cultural-heritage",
         "namespace": "",
         "links": [],
@@ -1180,16 +828,7 @@
         "identifier": "Archives-Hub",
         "website": "https://archiveshub.jisc.ac.uk/introduction/",
         "triples": 0,
-        "full_download": [
-            {
-                "media_type": "",
-                "description": "",
-                "status": "",
-                "title": "",
-                "mirror": [],
-                "download_url": ""
-            }
-        ],
+        "full_download": [],
         "keywords": [
             "cultural-heritage",
             "ch-tangible"
@@ -1199,25 +838,9 @@
         },
         "title": "Archives Hub",
         "Image": "",
-        "example": [
-            {
-                "_id": "",
-                "title": "",
-                "description": "",
-                "access_url": ""
-            }
-        ],
+        "example": [],
         "license": "",
-        "other_download": [
-            {
-                "media_type": "",
-                "description": "",
-                "status": "",
-                "title": "",
-                "mirror": [],
-                "access_url": ""
-            }
-        ],
+        "other_download": [],
         "domain": "cultural-heritage",
         "namespace": "",
         "links": [],
@@ -1247,16 +870,7 @@
         "identifier": "Yale",
         "website": "https://britishart.yale.edu/",
         "triples": 0,
-        "full_download": [
-            {
-                "media_type": "",
-                "description": "",
-                "status": "",
-                "title": "",
-                "mirror": [],
-                "download_url": ""
-            }
-        ],
+        "full_download": [],
         "keywords": [
             "cultural-heritage",
             "ch-tangible"
@@ -1266,25 +880,9 @@
         },
         "title": "Yale centre of British Art",
         "Image": "",
-        "example": [
-            {
-                "_id": "",
-                "title": "",
-                "description": "",
-                "access_url": ""
-            }
-        ],
+        "example": [],
         "license": "https://britishart.yale.edu/open-data-and-data-services-terms-use",
-        "other_download": [
-            {
-                "media_type": "",
-                "description": "",
-                "status": "",
-                "title": "",
-                "mirror": [],
-                "access_url": ""
-            }
-        ],
+        "other_download": [],
         "domain": "cultural-heritage",
         "namespace": "",
         "links": [],
@@ -1314,16 +912,7 @@
         "identifier": "ADL",
         "website": "",
         "triples": 0,
-        "full_download": [
-            {
-                "media_type": "",
-                "description": "",
-                "status": "",
-                "title": "",
-                "mirror": [],
-                "download_url": ""
-            }
-        ],
+        "full_download": [],
         "keywords": [
             "cultural-heritage",
             "ch-intangible"
@@ -1333,25 +922,9 @@
         },
         "title": "Alexandria Digital Library Gazetteer",
         "Image": "",
-        "example": [
-            {
-                "_id": "",
-                "title": "",
-                "description": "",
-                "access_url": ""
-            }
-        ],
+        "example": [],
         "license": "",
-        "other_download": [
-            {
-                "media_type": "",
-                "description": "",
-                "status": "",
-                "title": "",
-                "mirror": [],
-                "access_url": ""
-            }
-        ],
+        "other_download": [],
         "domain": "cultural-heritage",
         "namespace": "",
         "links": [],
@@ -1400,40 +973,15 @@
         },
         "title": "MusicKG",
         "Image": "",
-        "example": [
-            {
-                "_id": "",
-                "title": "",
-                "description": "",
-                "access_url": ""
-            }
-        ],
+        "example": [],
         "license": "",
-        "other_download": [
-            {
-                "media_type": "",
-                "description": "",
-                "status": "",
-                "title": "",
-                "mirror": [],
-                "access_url": ""
-            }
-        ],
+        "other_download": [],
         "domain": "cultural-heritage",
         "namespace": "",
         "links": [],
         "_id": "MusicKG",
         "time": "",
-        "sparql": [
-            [
-                {
-                    "title": "",
-                    "description": "SPARQL endpoint",
-                    "access_url": "",
-                    "status": ""
-                }
-            ]
-        ],
+        "sparql": [],
         "doi": "",
         "contact_point": {
             "name": "victoriaeyharabide",
@@ -1448,16 +996,7 @@
         "identifier": "The-AA-Thesaurus",
         "website": "https://www.getty.edu/research/tools/vocabularies/aat/about.html",
         "triples": 0,
-        "full_download": [
-            {
-                "media_type": "",
-                "description": "",
-                "status": "",
-                "title": "",
-                "mirror": [],
-                "download_url": ""
-            }
-        ],
+        "full_download": [],
         "keywords": [
             "cultural-heritage",
             "ch-generic"
@@ -1467,14 +1006,7 @@
         },
         "title": "The Art & Architecture Thesaurus",
         "Image": "",
-        "example": [
-            {
-                "_id": "",
-                "title": "",
-                "description": "",
-                "access_url": ""
-            }
-        ],
+        "example": [],
         "license": "Open Data Commons Attribution License (ODC-By) 1.0",
         "other_download": [
             {
@@ -1491,16 +1023,7 @@
         "links": [],
         "_id": "The-AA-Thesaurus",
         "time": "",
-        "sparql": [
-            [
-                {
-                    "title": "",
-                    "description": "SPARQL endpoint",
-                    "access_url": "",
-                    "status": ""
-                }
-            ]
-        ],
+        "sparql": [],
         "doi": "",
         "contact_point": {
             "name": "",
@@ -1515,16 +1038,7 @@
         "identifier": "CIDOC-CRM",
         "website": "https://cidoc-crm.org/",
         "triples": 0,
-        "full_download": [
-            {
-                "media_type": "",
-                "description": "",
-                "status": "",
-                "title": "",
-                "mirror": [],
-                "download_url": ""
-            }
-        ],
+        "full_download": [],
         "keywords": [
             "cultural-heritage",
             "ontology",
@@ -1535,14 +1049,7 @@
         },
         "title": "CIDOC-CRM",
         "Image": "",
-        "example": [
-            {
-                "_id": "",
-                "title": "",
-                "description": "",
-                "access_url": ""
-            }
-        ],
+        "example": [],
         "license": "",
         "other_download": [
             {
@@ -1559,16 +1066,7 @@
         "links": [],
         "_id": "CIDOC-CRM",
         "time": "",
-        "sparql": [
-            [
-                {
-                    "title": "",
-                    "description": "SPARQL endpoint",
-                    "access_url": "",
-                    "status": ""
-                }
-            ]
-        ],
+        "sparql": [],
         "doi": "",
         "contact_point": {
             "name": "",
@@ -1583,16 +1081,7 @@
         "identifier": "Mondis",
         "website": "https://www.mondis.cz/en/web/portal/introduction",
         "triples": 0,
-        "full_download": [
-            {
-                "media_type": "",
-                "description": "",
-                "status": "",
-                "title": "",
-                "mirror": [],
-                "download_url": ""
-            }
-        ],
+        "full_download": [],
         "keywords": [
             "cultural-heritage",
             "ch-generic"
@@ -1602,40 +1091,15 @@
         },
         "title": "Mondis",
         "Image": "",
-        "example": [
-            {
-                "_id": "",
-                "title": "",
-                "description": "",
-                "access_url": ""
-            }
-        ],
+        "example": [],
         "license": "",
-        "other_download": [
-            {
-                "media_type": "",
-                "description": "",
-                "status": "",
-                "title": "",
-                "mirror": [],
-                "access_url": ""
-            }
-        ],
+        "other_download": [],
         "domain": "cultural-heritage",
         "namespace": "",
         "links": [],
         "_id": "Mondis",
         "time": "",
-        "sparql": [
-            [
-                {
-                    "title": "",
-                    "description": "SPARQL endpoint",
-                    "access_url": "",
-                    "status": ""
-                }
-            ]
-        ],
+        "sparql": [],
         "doi": "",
         "contact_point": {
             "name": "Ing. Jaroslav Valach, Ph.D",
@@ -1650,16 +1114,7 @@
         "identifier": "DigitalNZ",
         "website": "https://digitalnz.org/",
         "triples": 0,
-        "full_download": [
-            {
-                "media_type": "",
-                "description": "",
-                "status": "",
-                "title": "",
-                "mirror": [],
-                "download_url": ""
-            }
-        ],
+        "full_download": [],
         "keywords": [
             "cultural-heritage",
             "ch-tangible"
@@ -1669,14 +1124,7 @@
         },
         "title": "DigitalNZ",
         "Image": "",
-        "example": [
-            {
-                "_id": "",
-                "title": "",
-                "description": "",
-                "access_url": ""
-            }
-        ],
+        "example": [],
         "license": "https://creativecommons.org/licenses/by/4.0/",
         "other_download": [
             {
@@ -1693,16 +1141,7 @@
         "links": [],
         "_id": "DigitalNZ",
         "time": "",
-        "sparql": [
-            [
-                {
-                    "title": "",
-                    "description": "SPARQL endpoint",
-                    "access_url": "",
-                    "status": ""
-                }
-            ]
-        ],
+        "sparql": [],
         "doi": "",
         "contact_point": {
             "name": "",
@@ -1717,16 +1156,7 @@
         "identifier": "Fondazione-Zeri",
         "website": "https://fondazionezeri.unibo.it/it",
         "triples": 0,
-        "full_download": [
-            {
-                "media_type": "",
-                "description": "",
-                "status": "",
-                "title": "",
-                "mirror": [],
-                "download_url": ""
-            }
-        ],
+        "full_download": [],
         "keywords": [
             "cultural-heritage",
             "ch-tangible"
@@ -1736,14 +1166,7 @@
         },
         "title": "Fondazione Zeri",
         "Image": "",
-        "example": [
-            {
-                "_id": "",
-                "title": "",
-                "description": "",
-                "access_url": ""
-            }
-        ],
+        "example": [],
         "license": "https://creativecommons.org/licenses/by-nc/4.0/",
         "other_download": [
             {
@@ -1760,16 +1183,7 @@
         "links": [],
         "_id": "Fondazione-Zeri",
         "time": "",
-        "sparql": [
-            [
-                {
-                    "title": "",
-                    "description": "SPARQL endpoint",
-                    "access_url": "",
-                    "status": ""
-                }
-            ]
-        ],
+        "sparql": [],
         "doi": "",
         "contact_point": {
             "name": "Marcello Rossini",
@@ -1784,16 +1198,7 @@
         "identifier": "Library-of-America",
         "website": "https://dp.la/",
         "triples": 0,
-        "full_download": [
-            {
-                "media_type": "",
-                "description": "",
-                "status": "",
-                "title": "",
-                "mirror": [],
-                "download_url": ""
-            }
-        ],
+        "full_download": [],
         "keywords": [
             "cultural-heritage",
             "ch-tangible"
@@ -1803,14 +1208,7 @@
         },
         "title": "Digital Public Library of America",
         "Image": "",
-        "example": [
-            {
-                "_id": "",
-                "title": "",
-                "description": "",
-                "access_url": ""
-            }
-        ],
+        "example": [],
         "license": "http://creativecommons.org/licenses/by/3.0/legalcode",
         "other_download": [
             {
@@ -1827,16 +1225,7 @@
         "links": [],
         "_id": "Library-of-America",
         "time": "",
-        "sparql": [
-            [
-                {
-                    "title": "",
-                    "description": "SPARQL endpoint",
-                    "access_url": "",
-                    "status": ""
-                }
-            ]
-        ],
+        "sparql": [],
         "doi": "",
         "contact_point": {
             "name": "",
@@ -1851,16 +1240,7 @@
         "identifier": "Auckland-Museum",
         "website": "https://www.aucklandmuseum.com/",
         "triples": 0,
-        "full_download": [
-            {
-                "media_type": "",
-                "description": "",
-                "status": "",
-                "title": "",
-                "mirror": [],
-                "download_url": ""
-            }
-        ],
+        "full_download": [],
         "keywords": [
             "cultural-heritage",
             "ch-tangible"
@@ -1894,16 +1274,7 @@
         "links": [],
         "_id": "Auckland-Museum",
         "time": "",
-        "sparql": [
-            [
-                {
-                    "title": "",
-                    "description": "SPARQL endpoint",
-                    "access_url": "",
-                    "status": ""
-                }
-            ]
-        ],
+        "sparql": [],
         "doi": "",
         "contact_point": {
             "name": "",
@@ -1918,16 +1289,7 @@
         "identifier": "BNE",
         "website": "https://bnelab.bne.es/en/projects/",
         "triples": 0,
-        "full_download": [
-            {
-                "media_type": "",
-                "description": "",
-                "status": "",
-                "title": "",
-                "mirror": [],
-                "download_url": ""
-            }
-        ],
+        "full_download": [],
         "keywords": [
             "cultural-heritage",
             "ch-tangible"
@@ -1937,40 +1299,15 @@
         },
         "title": "National Library of Spain",
         "Image": "",
-        "example": [
-            {
-                "_id": "",
-                "title": "",
-                "description": "",
-                "access_url": ""
-            }
-        ],
+        "example": [],
         "license": "Creative Commons Public Domain Dedication",
-        "other_download": [
-            {
-                "media_type": "",
-                "description": "",
-                "status": "",
-                "title": "",
-                "mirror": [],
-                "access_url": ""
-            }
-        ],
+        "other_download": [],
         "domain": "cultural-heritage",
         "namespace": "",
         "links": [],
         "_id": "BNE",
         "time": "",
-        "sparql": [
-            [
-                {
-                    "title": "",
-                    "description": "SPARQL endpoint",
-                    "access_url": "",
-                    "status": ""
-                }
-            ]
-        ],
+        "sparql": [],
         "doi": "",
         "contact_point": {
             "name": "",
@@ -1985,16 +1322,7 @@
         "identifier": "Korea-Library",
         "website": "https://www.nl.go.kr/EN/main/index.do",
         "triples": 0,
-        "full_download": [
-            {
-                "media_type": "",
-                "description": "",
-                "status": "",
-                "title": "",
-                "mirror": [],
-                "download_url": ""
-            }
-        ],
+        "full_download": [],
         "keywords": [
             "cultural-heritage",
             "ch-tangible"
@@ -2004,40 +1332,15 @@
         },
         "title": "National Library of Korea",
         "Image": "",
-        "example": [
-            {
-                "_id": "",
-                "title": "",
-                "description": "",
-                "access_url": ""
-            }
-        ],
+        "example": [],
         "license": "",
-        "other_download": [
-            {
-                "media_type": "",
-                "description": "",
-                "status": "",
-                "title": "",
-                "mirror": [],
-                "access_url": ""
-            }
-        ],
+        "other_download": [],
         "domain": "cultural-heritage",
         "namespace": "",
         "links": [],
         "_id": "Korea-Library",
         "time": "",
-        "sparql": [
-            [
-                {
-                    "title": "",
-                    "description": "SPARQL endpoint",
-                    "access_url": "",
-                    "status": ""
-                }
-            ]
-        ],
+        "sparql": [],
         "doi": "",
         "contact_point": {
             "name": "",
@@ -2052,16 +1355,7 @@
         "identifier": "DBNL",
         "website": "https://www.kb.nl/en",
         "triples": 0,
-        "full_download": [
-            {
-                "media_type": "",
-                "description": "",
-                "status": "",
-                "title": "",
-                "mirror": [],
-                "download_url": ""
-            }
-        ],
+        "full_download": [],
         "keywords": [
             "cultural-heritage",
             "ch-tangible"
@@ -2071,40 +1365,15 @@
         },
         "title": "National Library of the netherlands",
         "Image": "",
-        "example": [
-            {
-                "_id": "",
-                "title": "",
-                "description": "",
-                "access_url": ""
-            }
-        ],
+        "example": [],
         "license": "",
-        "other_download": [
-            {
-                "media_type": "",
-                "description": "",
-                "status": "",
-                "title": "",
-                "mirror": [],
-                "access_url": ""
-            }
-        ],
+        "other_download": [],
         "domain": "cultural-heritage",
         "namespace": "",
         "links": [],
         "_id": "DBNL",
         "time": "",
-        "sparql": [
-            [
-                {
-                    "title": "",
-                    "description": "SPARQL endpoint",
-                    "access_url": "",
-                    "status": ""
-                }
-            ]
-        ],
+        "sparql": [],
         "doi": "",
         "contact_point": {
             "name": "",
@@ -2119,16 +1388,7 @@
         "identifier": "Russian-Museum",
         "website": "https://www.rusmuseum.ru/",
         "triples": 0,
-        "full_download": [
-            {
-                "media_type": "",
-                "description": "",
-                "status": "",
-                "title": "",
-                "mirror": [],
-                "download_url": ""
-            }
-        ],
+        "full_download": [],
         "keywords": [
             "cultural-heritage",
             "ch-tangible"
@@ -2138,40 +1398,15 @@
         },
         "title": "The State Russian Museum",
         "Image": "",
-        "example": [
-            {
-                "_id": "",
-                "title": "",
-                "description": "",
-                "access_url": ""
-            }
-        ],
+        "example": [],
         "license": "",
-        "other_download": [
-            {
-                "media_type": "",
-                "description": "",
-                "status": "",
-                "title": "",
-                "mirror": [],
-                "access_url": ""
-            }
-        ],
+        "other_download": [],
         "domain": "cultural-heritage",
         "namespace": "",
         "links": [],
         "_id": "Russian-Museum",
         "time": "",
-        "sparql": [
-            [
-                {
-                    "title": "",
-                    "description": "SPARQL endpoint",
-                    "access_url": "",
-                    "status": ""
-                }
-            ]
-        ],
+        "sparql": [],
         "doi": "",
         "contact_point": {
             "name": "\t\nSvetlana Biryukova",
@@ -2221,40 +1456,15 @@
         },
         "title": "National Library of Scotland",
         "Image": "",
-        "example": [
-            {
-                "_id": "",
-                "title": "",
-                "description": "",
-                "access_url": ""
-            }
-        ],
+        "example": [],
         "license": "https://creativecommons.org/licenses/by/4.0/",
-        "other_download": [
-            {
-                "media_type": "",
-                "description": "",
-                "status": "",
-                "title": "",
-                "mirror": [],
-                "access_url": ""
-            }
-        ],
+        "other_download": [],
         "domain": "cultural-heritage",
         "namespace": "",
         "links": [],
         "_id": "National-Library-of-Scotland",
         "time": "",
-        "sparql": [
-            [
-                {
-                    "title": "",
-                    "description": "SPARQL endpoint",
-                    "access_url": "",
-                    "status": ""
-                }
-            ]
-        ],
+        "sparql": [],
         "doi": "",
         "contact_point": {
             "name": "",
@@ -2288,40 +1498,15 @@
         },
         "title": "Epigraphic Database Heidelberg",
         "Image": "",
-        "example": [
-            {
-                "_id": "",
-                "title": "",
-                "description": "",
-                "access_url": ""
-            }
-        ],
+        "example": [],
         "license": "https://creativecommons.org/licenses/by-sa/4.0/",
-        "other_download": [
-            {
-                "media_type": "",
-                "description": "",
-                "status": "",
-                "title": "",
-                "mirror": [],
-                "access_url": ""
-            }
-        ],
+        "other_download": [],
         "domain": "cultural-heritage",
         "namespace": "",
         "links": [],
         "_id": "Epigraphic-Database-Heidelberg",
         "time": "",
-        "sparql": [
-            [
-                {
-                    "title": "",
-                    "description": "SPARQL endpoint",
-                    "access_url": "",
-                    "status": ""
-                }
-            ]
-        ],
+        "sparql": [],
         "doi": "",
         "contact_point": {
             "name": "",
@@ -2356,40 +1541,15 @@
         },
         "title": "OntoComedySources",
         "Image": "",
-        "example": [
-            {
-                "_id": "",
-                "title": "",
-                "description": "",
-                "access_url": ""
-            }
-        ],
+        "example": [],
         "license": "",
-        "other_download": [
-            {
-                "media_type": "",
-                "description": "",
-                "status": "",
-                "title": "",
-                "mirror": [],
-                "access_url": ""
-            }
-        ],
+        "other_download": [],
         "domain": "cultural-heritage",
         "namespace": "",
         "links": [],
         "_id": "OntoComedySources",
         "time": "",
-        "sparql": [
-            [
-                {
-                    "title": "",
-                    "description": "SPARQL endpoint",
-                    "access_url": "",
-                    "status": ""
-                }
-            ]
-        ],
+        "sparql": [],
         "doi": "",
         "contact_point": {
             "name": "Andrea De Domenico",
@@ -2432,40 +1592,15 @@
         },
         "title": "OntoCeramic 2.0",
         "Image": "",
-        "example": [
-            {
-                "_id": "",
-                "title": "",
-                "description": "",
-                "access_url": ""
-            }
-        ],
+        "example": [],
         "license": "",
-        "other_download": [
-            {
-                "media_type": "",
-                "description": "",
-                "status": "",
-                "title": "",
-                "mirror": [],
-                "access_url": ""
-            }
-        ],
+        "other_download": [],
         "domain": "cultural-heritage",
         "namespace": "",
         "links": [],
         "_id": "OntoCeramic-2.0",
         "time": "",
-        "sparql": [
-            [
-                {
-                    "title": "",
-                    "description": "SPARQL endpoint",
-                    "access_url": "",
-                    "status": ""
-                }
-            ]
-        ],
+        "sparql": [],
         "doi": "",
         "contact_point": {
             "name": "Daniele Francesco Santamaria",
@@ -2480,16 +1615,7 @@
         "identifier": "SaintGall-Ontology",
         "website": "https://www.dmi.unict.it/~santamaria/projects/benedictines/archive/ontologies/SaintGall/stgallOntology.owl",
         "triples": 0,
-        "full_download": [
-            {
-                "media_type": "",
-                "description": "",
-                "status": "",
-                "title": "",
-                "mirror": [],
-                "download_url": ""
-            }
-        ],
+        "full_download": [],
         "keywords": [
             "cultural-heritage",
             "ontology",
@@ -2500,40 +1626,15 @@
         },
         "title": "SaintGall Ontology",
         "Image": "",
-        "example": [
-            {
-                "_id": "",
-                "title": "",
-                "description": "",
-                "access_url": ""
-            }
-        ],
+        "example": [],
         "license": "",
-        "other_download": [
-            {
-                "media_type": "",
-                "description": "",
-                "status": "",
-                "title": "",
-                "mirror": [],
-                "access_url": ""
-            }
-        ],
+        "other_download": [],
         "domain": "cultural-heritage",
         "namespace": "",
         "links": [],
         "_id": "SaintGall-Ontology",
         "time": "",
-        "sparql": [
-            [
-                {
-                    "title": "",
-                    "description": "SPARQL endpoint",
-                    "access_url": "",
-                    "status": ""
-                }
-            ]
-        ],
+        "sparql": [],
         "doi": "",
         "contact_point": {
             "name": "",
@@ -2568,40 +1669,15 @@
         },
         "title": "Linguistic Phenomena Ontology",
         "Image": "",
-        "example": [
-            {
-                "_id": "",
-                "title": "",
-                "description": "",
-                "access_url": ""
-            }
-        ],
+        "example": [],
         "license": "",
-        "other_download": [
-            {
-                "media_type": "",
-                "description": "",
-                "status": "",
-                "title": "",
-                "mirror": [],
-                "access_url": ""
-            }
-        ],
+        "other_download": [],
         "domain": "cultural-heritage",
         "namespace": "",
         "links": [],
         "_id": "Linguistic-Phenomena-Ontology",
         "time": "",
-        "sparql": [
-            [
-                {
-                    "title": "",
-                    "description": "SPARQL endpoint",
-                    "access_url": "",
-                    "status": ""
-                }
-            ]
-        ],
+        "sparql": [],
         "doi": "",
         "contact_point": {
             "name": "Cristiano Longo",
@@ -2660,40 +1736,15 @@
         },
         "title": "ICON",
         "Image": "",
-        "example": [
-            {
-                "_id": "",
-                "title": "",
-                "description": "",
-                "access_url": ""
-            }
-        ],
+        "example": [],
         "license": "https://creativecommons.org/licenses/by/4.0/",
-        "other_download": [
-            {
-                "media_type": "",
-                "description": "",
-                "status": "",
-                "title": "",
-                "mirror": [],
-                "access_url": ""
-            }
-        ],
+        "other_download": [],
         "domain": "cultural-heritage",
         "namespace": "",
         "links": [],
         "_id": "ICON",
         "time": "",
-        "sparql": [
-            [
-                {
-                    "title": "",
-                    "description": "SPARQL endpoint",
-                    "access_url": "",
-                    "status": ""
-                }
-            ]
-        ],
+        "sparql": [],
         "doi": "",
         "contact_point": {
             "name": "Bruno Sartini",
@@ -2728,40 +1779,15 @@
         },
         "title": "Polifonia",
         "Image": "",
-        "example": [
-            {
-                "_id": "",
-                "title": "",
-                "description": "",
-                "access_url": ""
-            }
-        ],
+        "example": [],
         "license": "https://creativecommons.org/licenses/by/4.0/",
-        "other_download": [
-            {
-                "media_type": "",
-                "description": "",
-                "status": "",
-                "title": "",
-                "mirror": [],
-                "access_url": ""
-            }
-        ],
+        "other_download": [],
         "domain": "cultural-heritage",
         "namespace": "",
         "links": [],
         "_id": "Polifonia",
         "time": "",
-        "sparql": [
-            [
-                {
-                    "title": "",
-                    "description": "SPARQL endpoint",
-                    "access_url": "",
-                    "status": ""
-                }
-            ]
-        ],
+        "sparql": [],
         "doi": "",
         "contact_point": {
             "name": "Polifonia H2020",
@@ -2796,40 +1822,15 @@
         },
         "title": "Atlas of Paths Ontology - Italian Application Profile",
         "Image": "",
-        "example": [
-            {
-                "_id": "",
-                "title": "",
-                "description": "",
-                "access_url": ""
-            }
-        ],
+        "example": [],
         "license": "",
-        "other_download": [
-            {
-                "media_type": "",
-                "description": "",
-                "status": "",
-                "title": "",
-                "mirror": [],
-                "access_url": ""
-            }
-        ],
+        "other_download": [],
         "domain": "cultural-heritage",
         "namespace": "",
         "links": [],
         "_id": "Atlas-of-Paths",
         "time": "",
-        "sparql": [
-            [
-                {
-                    "title": "",
-                    "description": "SPARQL endpoint",
-                    "access_url": "",
-                    "status": ""
-                }
-            ]
-        ],
+        "sparql": [],
         "doi": "",
         "contact_point": {
             "name": "Istituto di Scienze e Tecnologie della Cognizione del CNR - Semantic Technology Lab (STLab) ",
@@ -2905,31 +1906,13 @@
             }
         ],
         "license": "MIT License",
-        "other_download": [
-            {
-                "media_type": "",
-                "description": "",
-                "status": "",
-                "title": "",
-                "mirror": [],
-                "access_url": ""
-            }
-        ],
+        "other_download": [],
         "domain": "cultural-heritage",
         "namespace": "",
         "links": [],
         "_id": "Music-Note-Ontology",
         "time": "",
-        "sparql": [
-            [
-                {
-                    "title": "",
-                    "description": "SPARQL endpoint",
-                    "access_url": "",
-                    "status": ""
-                }
-            ]
-        ],
+        "sparql": [],
         "doi": "",
         "contact_point": {
             "name": "Andrea Poltronieri",
@@ -2964,40 +1947,15 @@
         },
         "title": "HaMSE",
         "Image": "",
-        "example": [
-            {
-                "_id": "",
-                "title": "",
-                "description": "",
-                "access_url": ""
-            }
-        ],
+        "example": [],
         "license": "MIT License",
-        "other_download": [
-            {
-                "media_type": "",
-                "description": "",
-                "status": "",
-                "title": "",
-                "mirror": [],
-                "access_url": ""
-            }
-        ],
+        "other_download": [],
         "domain": "cultural-heritage",
         "namespace": "",
         "links": [],
         "_id": "HaMSE",
         "time": "",
-        "sparql": [
-            [
-                {
-                    "title": "",
-                    "description": "SPARQL endpoint",
-                    "access_url": "",
-                    "status": ""
-                }
-            ]
-        ],
+        "sparql": [],
         "doi": "",
         "contact_point": {
             "name": "Andrea Poltronieri",
@@ -3032,40 +1990,15 @@
         },
         "title": "FOOD: FOod in Open Data",
         "Image": "",
-        "example": [
-            {
-                "_id": "",
-                "title": "",
-                "description": "",
-                "access_url": ""
-            }
-        ],
+        "example": [],
         "license": "http://creativecommons.org/licenses/by/4.0/",
-        "other_download": [
-            {
-                "media_type": "",
-                "description": "",
-                "status": "",
-                "title": "",
-                "mirror": [],
-                "access_url": ""
-            }
-        ],
+        "other_download": [],
         "domain": "cultural-heritage",
         "namespace": "",
         "links": [],
         "_id": "FOod",
         "time": "",
-        "sparql": [
-            [
-                {
-                    "title": "",
-                    "description": "SPARQL endpoint",
-                    "access_url": "",
-                    "status": ""
-                }
-            ]
-        ],
+        "sparql": [],
         "doi": "",
         "contact_point": {
             "name": "stlab-istc-cnr",
@@ -3124,40 +2057,15 @@
         },
         "title": "The ATLAS of Italian Digital Cultural Heritage",
         "Image": "",
-        "example": [
-            {
-                "_id": "",
-                "title": "",
-                "description": "",
-                "access_url": ""
-            }
-        ],
+        "example": [],
         "license": "https://creativecommons.org/licenses/by/4.0/",
-        "other_download": [
-            {
-                "media_type": "",
-                "description": "",
-                "status": "",
-                "title": "",
-                "mirror": [],
-                "access_url": ""
-            }
-        ],
+        "other_download": [],
         "domain": "cultural-heritage",
         "namespace": "",
         "links": [],
         "_id": "ATLAS-Italian-Digital-CH",
         "time": "",
-        "sparql": [
-            [
-                {
-                    "title": "",
-                    "description": "SPARQL endpoint",
-                    "access_url": "",
-                    "status": ""
-                }
-            ]
-        ],
+        "sparql": [],
         "doi": "",
         "contact_point": {
             "name": "",
