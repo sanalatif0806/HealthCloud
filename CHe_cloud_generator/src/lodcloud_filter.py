@@ -404,8 +404,11 @@ class LODCloudFilter:
                         if new_rdf_dump != '':
                             new_rdf_dump_links = new_rdf_dump.split(";")
                             for link in new_rdf_dump_links:
+                                media_type = utils.get_mime_type(link.strip())
+                                if not media_type:
+                                    media_type = ''
                                 lodcloud_rdf_dump = {
-                                    "media_type": "",
+                                    "media_type": media_type,
                                     "description": "RDF dump manually discovered",
                                     "access_url": link.strip(),
                                     "status" : "OK",
@@ -432,8 +435,8 @@ class LODCloudFilter:
             json.dump(self.lodcloud_data, file,indent=4)
 
 l = LODCloudFilter()
-#l.convert_final_CSV_annotated(os.path.join(here,'../data/manually_annotated_kgs/LODCloud_CH_Final_Selection.csv'))
-l.merge_cultural_heritage_datasets_with_other_from_lodcloud('../data/CHlodcloud_data_title_description_optimal_keywords_no_history.json')
+l.convert_final_CSV_annotated(os.path.join(here,'../data/manually_annotated_kgs/LODCloud_CH_Final_Selection.csv'))
+#l.merge_cultural_heritage_datasets_with_other_from_lodcloud('../data/CHlodcloud_data_title_description_optimal_keywords_no_history.json')
 '''
 ch_keywords = json.load(open(os.path.join(here,'../data/CH_keywords.json'), "r", encoding="utf-8"))
 ch_optimal_subset = json.load(open(os.path.join(here,'../data/CH_optimal_subsets.json'), "r", encoding="utf-8"))
