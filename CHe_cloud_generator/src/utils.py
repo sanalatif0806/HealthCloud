@@ -4,6 +4,9 @@ from itertools import chain, combinations
 import pandas as pd
 import os
 from sklearn.metrics import cohen_kappa_score, precision_score, recall_score
+import requests
+import mimetypes
+import filetype
 
 here = os.path.dirname(os.path.abspath(__file__))
 import pandas as pd
@@ -171,7 +174,30 @@ def filter_quality_data(lodcloud_data_path, quality_data_path, filtered_quality_
     # Save the filtered DataFrame to a new CSV file (optional)
     filtered_df.to_csv(os.path.join(here,filtered_quality_data_path), index=False)
 
-filter_quality_data("../data/CHlodcloud_data_manual_selected.json", "../data/quality_data/2025-03-16.csv","../data/quality_data/2025-03-16_CHe_cloud_manually_extracted.csv")
+def get_mime_type(url):
+    """Infers the IANA media type (MIME type) from a download URL."""
+    try:
+        response = requests.head(url, allow_redirects=True, timeout=5)
+        if 'Content-Type' in response.headers:
+            return response.headers['Content-Type']
+    except requests.RequestException:
+        pass 
+    
+    mime_type, _ = mimetypes.guess_type(url)
+    if mime_type:
+        return mime_type
+    
+    try:
+        response = requests.get(url, stream=True, timeout=5)
+        kind = filetype.guess(response.raw.read(1024))  # Read first 1024 bytes
+        if kind:
+            return kind.mime
+    except requests.RequestException:
+        pass  # If request fails, return None
+    
+    return None  # Could not determine MIME type
+
+#filter_quality_data("../data/CHlodcloud_data_manual_selected.json", "../data/quality_data/2025-03-16.csv","../data/quality_data/2025-03-16_CHe_cloud_manually_extracted.csv")
 #calculate_precision_recall("../data/Complete-CHlodcloud_data_manual_selected(Eligible).json", "../data/Complete-CHlodcloud_data_gpt_filtered.json")
 
 #compare_csv_topics("../data/manually_annotated_kgs/LODCloud_annotation_Gabriele.csv", "../data/manually_annotated_kgs/LODCloud_annotation_Maria Angela.csv","../data/manually_annotated_kgs/LODCloud_annotation_Sana.csv","../data/manually_annotated_kgs/mismatches_gab_mary_sana_HEALTH.csv", 'health')
