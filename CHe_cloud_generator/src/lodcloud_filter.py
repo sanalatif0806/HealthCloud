@@ -417,6 +417,18 @@ class LODCloudFilter:
                                 }
                                 lodcloud_other_downloads.append(lodcloud_rdf_dump)
                             kg_metadata['other_download'] = lodcloud_other_downloads
+                        
+                        keywords = row["keywords"]
+                        keywords = [kw.replace("'", "").strip() for kw in keywords.split(';')]
+                        if 'tangible' in keywords:
+                            kg_metadata['keywords'].append('ch-tangible')
+                        if 'intangible' in keywords:
+                            kg_metadata['keywords'].append('ch-intangible')
+                        if 'natural' in keywords:
+                            kg_metadata['keywords'].append('ch-natural')
+                        if 'generic' in keywords:
+                            kg_metadata['keywords'].append('ch-generic')
+                        
 
                         ch_lodcloud_filtered[key] = self.lodcloud_data[key]
 
