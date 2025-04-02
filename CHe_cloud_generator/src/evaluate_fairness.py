@@ -11,7 +11,7 @@ class EvaluateFAIRness:
     def evaluate_findability(self):
         quality_data = pd.read_csv(self.quality_data_to_evaluate[0])
 
-        #TODO: Manage the manually picked 
+        #TODO: Manage the manually picked, for these, only zenodo is suitable or any search engine offers a persistant id.
         if not 'manually_picked_only_sparql.csv' in self.quality_data_to_evaluate[0]: # For those not manually picked, the data are in the LOD Cloud for sure
             self.fairness_evaluation["F1 - ID"] = 1
 
