@@ -1,0 +1,147 @@
+KG id,KG name,F1-M (Unique and persistent ID),F1-D (URIs dereferenceability),F2a-M - (Metadata availability via standard primary sources),F3-M (Data referrable via a DOI),F4-M (Metadata registered in a searchable engine),A1-D (Working access point(s),A1.2 Authentication & HTTPS support,A2-M Registered in search engines,R1.1 Machine- or human-readable license retrievable via any primary source,"Publisher information, such as authors, contributors, publishers, and sources"
+aliada-scanbit-net,aliada-scanbit-net,1,-,1,0,1,0,Check manually,1,1,1
+amsterdam-museum-as-edm-lod,Amsterdam Museum as Linked Open Data in the Europeana Data Model,1,-,1,0,1,1,Check manually,1,1,1
+ASCDC-_NTM-Formosan-Aborigines,The National Taiwan Museum's Formosan Aborigines Collections Digitizing Project (NTM-Formosan-Aborigines),1,-,1,0,1,0,0.75,1,1,1
+ASCDC-AS-NTUE-School-Art-Textbooks,Archive of the Art Textbooks of Elementary and Public Schools in the Japanese Colonial Period (AS-NTUE-School-Art-Textbooks),1,-,1,0,1,0,0.75,1,1,1
+ASCDC-AS-TFD-Fish-Species,Taiwan Fauna Database Research: Taiwan Digital Fish Species Database (AS-TFD-Fish-Species),1,-,1,0,1,0,0.75,1,1,1
+ASCDC-CRB,Database of Chinese Rare Books (CRB),1,-,1,0,1,0,0.75,1,1,1
+ASCDC-CTS-TV-Programs,The Chinese Television System Educational and Cultural Programs Digital Archive (CTS-TV-Programs),1,-,1,0,1,0,0.75,1,1,1
+ASCDC-DQOT,Database of Qing Official Titles (DQOT),1,-,1,0,1,0,0.75,1,1,1
+ASCDC-IHP-WCD,Database of the Han Wooden Slips Character Dictionary (WCD),1,-,1,0,1,0,0.75,1,1,1
+ASCDC-Linked-Taiwan-Artists,Linked Taiwan Artists (LTA),1,-,1,0,1,0,0.75,1,1,1
+ASCDC-NMMBA-Aquatic-Animals-in-Taiwan,Research on the Aquatic Animals in Taiwan and its Neighborhood Area (NMMBA-Aquatic-Animals-in-Taiwan),1,-,1,0,1,0,0.75,1,1,1
+ASCDC-NMMBA-Fish-Otoliths,The Digital Collection of Taiwan's Fish Otoliths (NMMBA-Fish-Otoliths),1,-,1,0,1,0,0.75,1,1,1
+ASCDC-Qing-Secret-Societies,Dataset of the Qing Secret Societies (Sect of the Shifokou Wangs' Clan),1,-,1,0,1,1,Check manually,1,1,1
+ASCDC-Tibetan-Audio-Archive,The Tibetan Collection Audio Archive Research Project (Tibetan Audio Archive),1,-,1,0,1,0,0.75,1,1,1
+ASCDC_-_CCP_Archive,"Dataset of the Chen Cheng-po’s Paintings and Documents (CCP) in the Taiwan Archive Information System (TAIS- ITH/ASCDC) at the Institute of Taiwan History, Academia Sinica",1,-,1,0,1,0,0.75,1,1,1
+ASCDC_-_DNB,Database of Names and Biographies (DNB),1,-,1,0,1,0,0.75,1,1,1
+b3kat,"B3Kat - Library Union Catalogues of Bavaria, Berlin and Brandenburg",1,1.0,1,0,1,1,1.0,1,1,1
+bbc-music,BBC Music,1,-,1,0,1,1,Check manually,1,1,1
+bbc-wildlife-finder,BBC Wildlife Finder,1,-,1,0,1,0,Check manually,1,1,1
+biblioteca-nacional-escolar-bnescolar,Biblioteca Nacional Escolar (BNEscolar),1,-,1,0,1,1,Check manually,1,1,1
+bll-thesaurus,Bibliography of Linguistic Literature (BLL) Thesaurus,1,-,1,0,1,1,Check manually,1,1,1
+bluk-bnb,British National Bibliography (BNB) - Linked Open Data,1,-,1,0,1,0,Check manually,1,1,1
+bncf-ns,Thesaurus BNCF,1,1.0,1,0,1,1,1.0,1,1,1
+british-museum-collection,British Museum Collection,1,-,1,0,1,0,Check manually,1,1,1
+BVMC,Biblioteca Virtual Miguel de Cervantes,1,0.9828,1,0,1,1,1.0,1,1,1
+calames,Calames,1,-,1,0,1,1,Check manually,1,1,1
+ceo,Linked Data Cultural Heritage Agency of the Netherlands,1,0.0048,1,0,1,1,0.5,1,1,1
+Chinese_Red_Classic_Song_Linked_Data_Dataset,Chinese Red Song Linked Data Dataset,1,-,1,0,1,1,Check manually,1,1,1
+chronicling-america,Chronicling America,1,-,1,0,1,1,Check manually,1,1,1
+cht,Cultural Heritage Thesaurus,1,-,1,0,1,1,0.5,1,1,1
+cinematheque-quebecoise-linked-open-data,Cinémathèque québécoise Linked Open Data,1,-,1,0,1,0,Check manually,1,1,1
+classical_temples,Temples of the Classical World,1,-,1,0,1,1,Check manually,1,1,1
+Copyright_Free_Music,Copyright Free Music,1,-,1,0,1,1,Check manually,1,1,1
+culturalinkeddata,CulturaLinkedData,1,-,1,0,1,0,Check manually,1,1,1
+data-bnf-fr,data.bnf.fr - Bibliothèque nationale de France,1,0.0,1,0,1,1,1.0,1,1,1
+data-hnm-hu,data-hnm-hu - Hungarian National Museum Datasets,1,-,1,0,1,1,Check manually,1,1,1
+data-incubator-climb,Climb Dataincubator,1,-,1,0,1,0,Check manually,1,1,1
+data-incubator-discogs,Discogs in RDF,1,-,1,0,1,1,Check manually,1,1,1
+data-incubator-moseley,Moseley Folk Festival Data,1,-,1,0,1,1,Check manually,1,1,1
+data-incubator-musicbrainz,Data Incubator: MusicBrainz,1,-,1,0,1,0,Check manually,1,1,1
+data-szepmuveszeti-hu,data-szepmuveszeti-hu,1,-,1,0,1,0,Check manually,1,1,1
+datos-artium-org,datos-artium-org,1,-,1,0,1,0,Check manually,1,1,1
+datos-bne-es,datos.bne.es,1,0.0,1,0,1,1,1.0,1,1,1
+dbtropes,DBTropes,1,-,1,0,1,1,Check manually,1,1,1
+dbtune-artists-last-fm,DBTune.org Artists: Last.fm,1,-,1,0,1,0,Check manually,1,1,1
+dbtune-audioscrobbler,DBTune.org AudioScrobbler RDF Service,1,-,1,0,1,0,Check manually,1,1,1
+dbtune-classical,DBTune.org/classical,1,-,1,0,1,0,Check manually,1,1,1
+dbtune-john-peel-sessions,DBTune.org John Peel sessions RDF server,1,-,1,0,1,1,Check manually,1,1,1
+dbtune-magnatune,DBTune.org Magnatune RDF server,1,-,1,0,1,1,Check manually,1,1,1
+dbtune-musicbrainz,DBTune.org Musicbrainz D2R Server,1,-,1,0,1,0,Check manually,1,1,1
+dbtune-myspace,DBTune.org MySpace RDF Service,1,-,1,0,1,0,Check manually,1,1,1
+deutsche-biographie,Deutsche Biographie,1,-,1,0,1,1,Check manually,1,1,1
+deutsche-nationalbibliografie-dnb,Deutsche Nationalbibliografie (DNB),1,-,1,0,1,1,Check manually,1,1,1
+dm2e,DM2E,1,-,1,0,1,0,Check manually,1,1,1
+dnb-gemeinsame-normdatei,Gemeinsame Normdatei (GND),1,-,1,0,1,1,Check manually,1,1,1
+dutch-ships-and-sailors,Dutch Ships and Sailors,1,-,1,0,1,0,Check manually,1,1,1
+ecco-tcp-linked-data,ECCO-TCP Eighteenth Century Texts Linked Data,1,-,1,0,1,0,Check manually,1,1,1
+eclap,ECLAP,1,-,1,0,1,0,Check manually,1,1,1
+english-heritage-periods-list,English Heritage Periods List,1,-,1,0,1,1,1.0,1,1,1
+enslaved.org,Enslaved.org,1,-,1,0,1,1,Check manually,1,1,1
+europeana-lod-v1,Europeana Linked Open Data V1.0,1,-,1,0,1,1,Check manually,1,1,1
+europeana-sparql,Europeana SPARQL,1,-,1,0,1,1,Check manually,1,1,1
+event-media,EventMedia,1,-,1,0,1,1,Check manually,1,1,1
+eventkg,EventKG,1,-,1,0,1,0,Check manually,1,1,1
+freeyork-org,Freeyork,1,-,1,0,1,0,Check manually,1,1,1
+geographic-names-information-system-gnis,Geographic Names Information System (GNIS),1,-,1,0,1,0,Check manually,1,1,1
+getty-aat,Art & Architecture Thesaurus,1,-,1,0,1,1,Check manually,1,1,1
+getty-tgn,The Getty Thesaurus of Geographic Names,1,-,1,0,1,1,Check manually,1,1,1
+glastonbury-2011,Glastonbury 2011 Programme,1,-,1,0,1,0,Check manually,1,1,1
+googleart-wrapper,GoogleArt wrapper,1,-,1,0,1,0,Check manually,1,1,1
+greekchildrensartmuseum,Greek Children Art  Museum dataset,1,-,1,1,1,1,Check manually,1,1,1
+gutenberg,Project Gutenberg,1,-,1,0,1,1,Check manually,1,1,1
+hebis-bibliographic-resources,HeBIS - Bibliographic Resources of the Library Union Catalogues of Hessen and parts of the Rhineland Palatinate,1,-,1,0,1,0,Check manually,1,1,1
+hedatuz,Hedatuz,1,-,1,0,1,0,Check manually,1,1,1
+http:cultural-opposition.eu,COURAGE Dataset,1,-,1,0,1,0,Check manually,1,1,1
+https:www.childrensartmuseum.grLD-project,Greek Children Art  Museum dataset,1,-,1,1,1,1,Check manually,1,1,1
+hungarian-national-library-catalog,Hungarian National Library (NSZL) catalog,1,-,1,0,1,0,Check manually,1,1,1
+iislod-test,"Test Site, LOD Lab 317",1,-,1,0,1,1,1.0,1,1,1
+Inztrow,Inztrow,1,-,1,0,1,1,Check manually,1,1,1
+ISSN:0080-3626,Pierwszy polski podręcznik bibliotekarski,1,-,1,0,1,0,Check manually,1,1,1
+jamendo-dbtune,DBTune.org Jamendo RDF Server,1,-,1,0,1,1,Check manually,1,1,1
+jiscopenbib-bl_bnb-1,JISC Open Bibliography British National Bibliography dataset,1,-,1,0,1,0,Check manually,1,1,1
+jita,JITA Classification System of Library and Information Science,1,-,1,0,1,1,Check manually,1,1,1
+john-goodwins-family-tree,John Goodwin's Family Tree,1,-,1,0,1,0,Check manually,1,1,1
+judaicalink,JudaicaLink,1,-,1,0,1,1,Check manually,1,1,1
+Kronika_naukowa_Biblioteki_Jagiellońskiej,Kronika naukowa Biblioteki Uniwersyteckiej w Łodzi,1,-,1,0,1,0,Check manually,1,1,1
+lcsh,Library of Congress Subject Headings,1,-,1,0,1,1,Check manually,1,1,1
+lcsubjects,LCSubjects.org Library of Congress Subject Headings,1,-,1,0,1,0,Check manually,1,1,1
+ldt@library,Linked Open Data Taiwan @ Library,1,-,1,0,1,1,Check manually,1,1,1
+libris,LIBRIS,1,0.2,1,0,1,1,1.0,1,1,1
+libver,Public Library of Veroia,1,-,1,0,1,0,Check manually,1,1,1
+linkedlccn,LinkedLCCN,1,-,1,0,1,0,Check manually,1,1,1
+linkedmdb,Linked Movie DataBase,1,-,1,0,1,0,Check manually,1,1,1
+lista-encabezamientos-materia,Lista de  Encabezamientos de Materia as Linked Open Data,1,-,1,0,1,0,Check manually,1,1,1
+LucaniPharsalia,Lucani Pharsalia in LiLa,1,-,1,1,1,1,Check manually,1,1,1
+massobservationarchivecatalogue,Mass Observation Archive catalogue,1,-,1,0,1,0,Check manually,1,1,1
+mismuseos-gnoss,"Mis Museos, índice semántico de museos, artistas y obras de arte (GNOSS)",1,-,1,0,1,1,Check manually,1,1,1
+muninn-world-war-i,Muninn World War I,1,-,1,0,1,1,Check manually,1,1,1
+museosespania-gnoss,"Museos de España, colección de museos públicos y privados españoles (GNOSS)",1,-,1,0,1,1,Check manually,1,1,1
+museums-in-italy,Italian Museums,1,-,1,0,1,0,Check manually,1,1,1
+muziekweb,Muziekweb,1,0.0,1,0,1,1,0.5,1,1,1
+national-library-of-greece-authority-records,National Library of Greece Authority Records,1,-,1,0,1,0,Check manually,1,1,1
+nlr-dataset-mod,National Library of Russia BibCore Dataset,1,-,1,0,1,1,Check manually,1,1,1
+nom,Nomenclature for Museum Cataloging,1,-,1,0,1,1,Check manually,1,1,1
+nomisma_org,Nomisma.org ,1,0.688,1,0,1,1,1.0,1,1,1
+ntnusc,NTNU special collections,1,-,1,0,1,1,Check manually,1,1,1
+open-library,Open Library,1,-,1,0,1,1,Check manually,1,1,1
+orlando-womens-writing-linked-open-data-set,The Orlando Women's Writing Linked Open Data Set,1,-,1,0,1,0,Check manually,1,1,1
+pali-english-lexicon,Pali English Lexicon,1,-,1,0,1,1,Check manually,1,1,1
+periodo,PeriodO Period Gazetteer,1,-,1,0,1,1,Check manually,1,1,1
+pleiades,Pleiades,1,-,1,0,1,1,Check manually,1,1,1
+polymath-virtual-library,Polymath Virtual Library (Authority data) - Fundación Ignacio Larramendi,1,-,1,0,1,0,Check manually,1,1,1
+prelinger_archives,Prelinger Archives,1,-,1,0,1,1,Check manually,1,1,1
+princeton-library-findingaids,Princeton Library FindingAids,1,-,1,0,1,1,Check manually,1,1,1
+printed-book-auction-catalogues,English Language Books listed in Printed Book Auction Catalogues from 17th Century Holland,1,-,1,0,1,0,Check manually,1,1,1
+Querolus,Querolus in LiLa,1,-,1,1,1,1,Check manually,1,1,1
+radatana,Rådata nå!,1,-,1,0,1,1,Check manually,1,1,1
+rainis-and-aspazija-linked-digital-collection,"""Rainis and Aspazija"" Linked Digital Collection",1,-,1,0,1,1,Check manually,1,1,1
+rdfize-lastfm,"Last.FM RDFization of Events, Artists, and Users",1,-,1,0,1,0,Check manually,1,1,1
+rism,Répertoire International des Sources Musicales - RISM,1,0.0,1,0,1,1,1.0,1,1,1
+rism-authorities,RISM Authority data,1,0.0,1,0,1,1,1.0,1,1,1
+roceeh-road,ROCEEH Out of Africa Database (ROAD),1,0.0,1,0,1,1,1.0,1,1,1
+sandrart-net,sandrart.net,1,-,1,0,1,1,Check manually,1,1,1
+Sherry_Wine,Sherry Wine Vocabulary,1,-,1,0,1,0,Check manually,1,1,1
+Sherry_Wine_,Sherry Wine,1,-,1,0,1,0,Check manually,1,1,1
+slod,Linked Stage Graph,1,0.893,1,0,1,1,1.0,1,1,1
+srcmf,Syntactic Reference Corpus of Medieval French (SRCMF),1,-,1,0,1,1,Check manually,1,1,1
+stitch-rameau,RAMEAU subject headings (STITCH),1,-,1,0,1,1,Check manually,1,1,1
+surge-radio,Surge Radio,1,-,1,0,1,0,Check manually,1,1,1
+swedish-open-cultural-heritage,Swedish Open Cultural Heritage,1,-,1,0,1,1,Check manually,1,1,1
+sztaki-lod,National Digital Data Archive of Hungary (partial),1,0.0,1,0,1,1,1.0,1,1,1
+talis-openlibrary,Open Library data mirror in the Talis Platform,1,-,1,0,1,0,Check manually,1,1,1
+the-european-library-open-dataset,The European Library Open Dataset,1,-,1,0,1,1,Check manually,1,1,1
+the-view-from,The View From,1,-,1,0,1,0,Check manually,1,1,1
+thesaurus-w,Thesaurus W for Local Archives,1,-,1,0,1,0,Check manually,1,1,1
+tip,TIP,1,-,1,0,1,0,Check manually,1,1,1
+ub-mannheim-linked-data,Linked Data Service der Universitätsbibliothek Mannheim,1,-,1,0,1,0,Check manually,1,1,1
+UDante,UDante in LiLa,1,-,1,1,1,1,Check manually,1,1,1
+viaf,VIAF: The Virtual International Authority File,1,-,1,0,1,1,Check manually,1,1,1
+warsampo,WarSampo,1,1.0,1,0,1,1,1.0,1,1,1
+wasabi,WASABI RDF Knowledge Graph,1,0.0,1,1,1,1,1.0,1,1,1
+wl-kg,The World Literature Knowledge Graph,1,0.9974,1,1,1,1,0.5,1,1,1
+ww1lod,World War 1 as Linked Open Data,1,0.932,1,0,1,1,1.0,1,1,1
+yso,YSO - General Finnish Ontology,1,-,1,0,1,1,Check manually,1,1,1
+zbw-pressemappe20,20th Century Press Archives,1,-,1,0,1,0,Check manually,1,1,1
+zitgist-musicbrainz,MusicBrainz (zitgist.com),1,-,1,0,1,0,Check manually,1,1,1

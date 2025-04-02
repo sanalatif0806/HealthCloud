@@ -7,6 +7,7 @@ from sklearn.metrics import cohen_kappa_score, precision_score, recall_score
 import requests
 import mimetypes
 import filetype
+import re
 
 here = os.path.dirname(os.path.abspath(__file__))
 import pandas as pd
@@ -196,6 +197,40 @@ def get_mime_type(url):
         pass  # If request fails, return None
     
     return None  # Could not determine MIME type
+
+def recover_doi_from_lodcloud(kg_id,path_to_lodcloud_data_to_use = '../data/only_CH_lodcloud/CHlodcloud_data_manual_annotated.json'):
+    with open(os.path.join(here,path_to_lodcloud_data_to_use), "r", encoding="utf-8") as file:
+        lodcloud_data = json.load(file)
+        
+    kg_metadata = lodcloud_data[kg_id]
+    doi = kg_metadata.get('doi','')
+    if doi != '':
+        return 1
+    else:
+        return 0
+
+def check_publisher_info(row):
+    author_query = 1 if pd.notna(row['Author (query)']) and row['Author (query)'] not in ['[]', '-'] else 0
+    
+    author_metadata = 0
+    if pd.notna(row['Author (metadata)']) and row['Author (metadata)'] not in [False,'False']:
+        if not re.fullmatch(r"Name:\s*absent,\s*email:\s*absent", row['Publisher'], re.IGNORECASE):
+            author_metadata = 1
+    
+    contributors = 1 if pd.notna(row['Contributor']) and row['Contributor'] not in ['[]', '-'] else 0
+
+    publishers = 1 if pd.notna(row['Publisher']) and row['Publisher'] not in ['[]', '-'] else 0
+
+    sources = 0
+    if pd.notna(row['Sources']) and row['Sources'] not in ['-', '']:
+        # Extract values after "Web:", "Name:", and "Email:"
+        matches = re.findall(r"(?:Web|Name|Email):\s*([^,]+)", row['Sources'], re.IGNORECASE)
+        # Check if any extracted value is not "absent" or empty
+        if any(value.strip().lower() not in ["absent", ""] for value in matches):
+            sources = 1
+    
+
+    return 1 if author_query or author_metadata or contributors or  publishers or sources else 0
 
 #filter_quality_data("../data/CHlodcloud_data_manual_selected.json", "../data/quality_data/2025-03-16.csv","../data/quality_data/2025-03-16_CHe_cloud_manually_extracted.csv")
 #calculate_precision_recall("../data/Complete-CHlodcloud_data_manual_selected(Eligible).json", "../data/Complete-CHlodcloud_data_gpt_filtered.json")
