@@ -8,6 +8,9 @@ import requests
 import mimetypes
 import filetype
 import re
+from SPARQLWrapper import *
+from SPARQLWrapper import SPARQLWrapper
+from xml.dom.minidom import Document
 
 here = os.path.dirname(os.path.abspath(__file__))
 import pandas as pd
@@ -232,6 +235,73 @@ def check_publisher_info(row):
 
     return 1 if author_query or author_metadata or contributors or  publishers or sources else 0
 
+def check_if_ontology(kg_id,path_to_lodcloud_data_to_use = '../data/only_CH_lodcloud/CHlodcloud_data_manual_annotated.json'):
+    with open(os.path.join(here,path_to_lodcloud_data_to_use), "r", encoding="utf-8") as file:
+        lodcloud_data = json.load(file)
+        
+    kg_metadata = lodcloud_data[kg_id]
+    keywords = kg_metadata.get('keywords','')
+    if 'ontology' in keywords:
+        return True
+    else: 
+        return False
+    
+def check_meta_in_sparql(endpoint_url):
+    sparql = SPARQLWrapper(endpoint_url)
+    query = """
+    PREFIX void: <http://rdfs.org/ns/void#>
+    PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+    PREFIX dcat: <http://www.w3.org/ns/dcat#>
+
+    SELECT DISTINCT ?s
+    WHERE {
+    {
+        ?s a void:Dataset ;
+    }
+    UNION
+    {
+        ?s a dcat:Dataset ;
+    }
+    }
+    """
+    sparql.setQuery(query)
+    sparql.setTimeout(300)
+    sparql.setReturnFormat(JSON)
+    results = sparql.query().convert()
+    if isinstance(results,dict):
+        result = results.get('results')
+        bindings = result.get('bindings')
+        if isinstance(bindings,list) and len(bindings) > 0:
+            return 1
+        else:
+            return 0
+    elif isinstance(results,Document):
+        if isinstance(results,Document): #IF RESULT IS IN XML 
+            li = []
+            literalList = results.getElementsByTagName('literal')
+            numTags = results.getElementsByTagName("literal").length
+            for i in range(numTags):
+                if literalList[i].firstChild is not None:
+                    literal = literalList[i].firstChild.nodeValue
+                    li.append(literal)
+            if len(li) > 0:
+                return 1
+            else:
+                return 0
+
+def get_sparql_url(kg_id,path_to_lodcloud_data_to_use = '../data/lodcloud_data.json'):
+    with open(os.path.join(here,path_to_lodcloud_data_to_use), "r", encoding="utf-8") as file:
+        lodcloud_data = json.load(file)
+        
+    kg_metadata = lodcloud_data[kg_id]
+    try:
+        sparql_url = kg_metadata['sparql'][0]['access_url']
+        if sparql_url:
+            return sparql_url
+        else: 
+            return ''
+    except:
+        return ''
 #filter_quality_data("../data/CHlodcloud_data_manual_selected.json", "../data/quality_data/2025-03-16.csv","../data/quality_data/2025-03-16_CHe_cloud_manually_extracted.csv")
 #calculate_precision_recall("../data/Complete-CHlodcloud_data_manual_selected(Eligible).json", "../data/Complete-CHlodcloud_data_gpt_filtered.json")
 

@@ -4,69 +4,88 @@ import utils
 class EvaluateFAIRness:
 
     def __init__(self,quality_data_to_evaluate, output_file_path):
-        self.quality_data_to_evaluate = quality_data_to_evaluate
+        if 'manually_picked_only_sparql.csv' in quality_data_to_evaluate:
+            self.manually_picked = True
+        else:
+            self.manually_picked = False
+        self.quality_data = pd.read_csv(quality_data_to_evaluate)
         self.output_file_path = output_file_path
         self.fairness_evaluation = self.initialize_output_file()
 
             
     def evaluate_findability(self):
-        quality_data = pd.read_csv(self.quality_data_to_evaluate[0])
 
         #TODO: Manage the manually picked, for these, only zenodo is suitable or any search engine offers a persistant id.
-        if not 'manually_picked_only_sparql.csv' in self.quality_data_to_evaluate[0]: # For those not manually picked, the data are in the LOD Cloud for sure
+        if not self.manually_picked: # For those not manually picked, the data are in the LOD Cloud for sure
             self.fairness_evaluation["F1-M Unique and persistent ID"] = 1
         
-        self.fairness_evaluation["F1-D URIs dereferenceability"] = (pd.to_numeric(quality_data['URIs Deferenceability'], errors='coerce').fillna('-'))
+        self.fairness_evaluation["F1-D URIs dereferenceability"] = (pd.to_numeric(self.quality_data['URIs Deferenceability'], errors='coerce').fillna('-'))
+        self.fairness_evaluation["F1-D URIs dereferenceability"] = self.fairness_evaluation["F1-D URIs dereferenceability"].apply(lambda x: x if x != '-' else 0)
 
         #For the manually added, we cannot give 1 if they are not in the LOD Cloud, we ha
-        if 'manually_picked_only_sparql.csv' in self.quality_data_to_evaluate[0]:
-            sparql_indication = quality_data["SPARQL endpoint URL"].apply(lambda x: 1 if pd.notna(x) and x != '' else 0)
-            void_availability = quality_data['Url file VoID'].apply(lambda x: 1 if pd.notna(x) and x != '' else 0)
+        if self.manually_picked:
+            sparql_indication = self.quality_data["SPARQL endpoint URL"].apply(lambda x: 1 if pd.notna(x) and x != '' else 0)
+            void_indication = self.quality_data['Url file VoID'].apply(lambda x: 1 if pd.notna(x) and x != '' else 0)
             self.fairness_evaluation["F2a-M - Metadata availability via standard primary sources"] = (
-                (sparql_indication == 1) | (void_availability == 1)
+                (sparql_indication == 1) | (void_indication == 1)
             ).astype(int)
         else:
             self.fairness_evaluation["F2a-M - Metadata availability via standard primary sources"] = 1 #Other, are at least in LOD Cloud, we can use those metadata
 
         #TODO: F2b-M
+        sparql_indication = self.quality_data["SPARQL endpoint URL"].apply(lambda x: 1 if pd.notna(x) and x != '' else 0)
+        doi_indication = self.quality_data['KG id'].apply(utils.recover_doi_from_lodcloud)
+        dump_indication = self.quality_data["Availability of RDF dump (metadata)"].apply(lambda x: 1 if x in [1,"1"] else 0)
+        verifiability_info = self.quality_data.apply(utils.check_publisher_info,axis=1)
+        mediatype_indication = self.quality_data['metadata-media-type'].apply(lambda x: 1 if x not in ('[]','['',]',"['']") else 0)
+        license = self.quality_data['License machine redeable (metadata)'].apply(lambda x: 1 if x not in ['-', ''] and pd.notna(x) else 0)
+        vocabs =  self.quality_data['Vocabularies'].apply(lambda x: 1 if x not in ['[]','-'] and pd.notna(x) else 0)
+        links = self.quality_data['Degree of connection'].apply(lambda x: 1 if (x != '-' and pd.notna(x) and int(x) > 0 ) else 0)
+        void_indication = self.quality_data['Url file VoID'].apply(lambda x: 1 if pd.notna(x) and x != '' else 0)
+        self.fairness_evaluation["F2b-M Metadata availability for all the attributes covered in the FAIR score computation"] = (sparql_indication + doi_indication + dump_indication + verifiability_info + mediatype_indication + license + vocabs + links + void_indication) / 9
 
-        if not 'manually_picked_only_sparql.csv' in self.quality_data_to_evaluate[0]: # For those not manually picked, the data are in the LOD Cloud for sure
-            self.fairness_evaluation["F3-M Data referrable via a DOI"] = quality_data['KG id'].apply(utils.recover_doi_from_lodcloud)
+        if not self.manually_picked: # For those not manually picked, the data are in the LOD Cloud for sure
+            self.fairness_evaluation["F3-M Data referrable via a DOI"] = self.quality_data['KG id'].apply(utils.recover_doi_from_lodcloud)
 
         #TODO: Manage the manually picked (use a column in the CSV to indicate if is on GitHub or Zenodo)
-        if not 'manually_picked_only_sparql.csv' in self.quality_data_to_evaluate[0]: # For those not manually picked, the data are in the LOD Cloud for sure
+        if not self.manually_picked: # For those not manually picked, the data are in the LOD Cloud for sure
             self.fairness_evaluation["F4-M Metadata registered in a searchable engine"] = 1
 
         print("Findability evaluation completed!")
 
 
     def evaluate_availability(self):
-        quality_data = pd.read_csv(self.quality_data_to_evaluate[0])
 
-        sparql_availability = quality_data["Sparql endpoint"].apply(lambda x: 1 if x == 'Available' else 0)
-        dump_availability = quality_data["Availability of RDF dump (metadata)"].apply(lambda x: 1 if x in [1,"1"] else 0) # No consideration about the mediatype of the available dummp
+        sparql_availability = self.quality_data["Sparql endpoint"].apply(lambda x: 1 if x == 'Available' else 0)
+        dump_availability = self.quality_data["Availability of RDF dump (metadata)"].apply(lambda x: 1 if x in [1,"1"] else 0) # No consideration about the mediatype of the available dummp
         self.fairness_evaluation["A1-D Working access point(s)"] = (
             (sparql_availability == 1) | (dump_availability == 1)
         ).astype(int)
 
-        #TODO: A1-M We cannot check only if the link is ON, we shouldn't check if the metadata are there? (es. SPARQL Up, ma no embedded metadata)
+
+        if self.manually_picked:
+            sparql_metadata = self.quality_data["SPARQL endpoint URL"].apply(utils.check_meta_in_sparql)
+            void_availability = self.quality_data["Availability VoID file"].apply(lambda x: 1 if x == 'VoID file available' else 0)
+            self.fairness_evaluation["A1-M Metadata availability via working primary sources"].apply(lambda x: 1 if sparql_metadata == 1 or void_availability == 1 else 0)
+        else:
+            self.fairness_evaluation["A1-M Metadata availability via working primary sources"] = 1
+
         
-        self.fairness_evaluation["A1.2 Authentication & HTTPS support"] = quality_data.apply(
+        self.fairness_evaluation["A1.2 Authentication & HTTPS support"] = self.quality_data.apply(
             lambda row: "Check manually" if row["Requires authentication"] in ["False", False, '-'] and row["Sparql endpoint"] in ["offline", "-"]
-            else ((0 if row["Use HTTPS"] in [False, 'False'] and 'https' in row['SPARQL endpoint URL'] else 1)  + (1 if row["Requires authentication"] in ["False", False, True, 'True'] else 0.5)) / 2,
+            else ((0 if row["Use HTTPS"] in [False, 'False'] and 'https' in row['SPARQL endpoint URL'] else 1)  +  (1 if row["Requires authentication"] in ["False", False, True, 'True'] else 0)) / 2,
             axis=1
         )
 
         # TODO: for the manually picked, we have to manually check if is in LOD Cloud, Zenodo, GitHub ecc...
-        if not 'manually_picked_only_sparql.csv' in self.quality_data_to_evaluate[0]:
+        if not self.manually_picked:
             self.fairness_evaluation["A2-M Registered in search engines"] = 1
         
         print("Availability evaluation completed!")
     
     def evaluate_reusability(self):
-        quality_data = pd.read_csv(self.quality_data_to_evaluate[0])
 
-        self.fairness_evaluation['R1.1 Machine- or human-readable license retrievable via any primary source'] = quality_data.apply(
+        self.fairness_evaluation['R1.1 Machine- or human-readable license retrievable via any primary source'] = self.quality_data.apply(
             lambda row: 1 if (
                 pd.notna(row['License machine redeable (metadata)']) and row['License machine redeable (metadata)'] not in ['-', '']
             ) or (
@@ -77,34 +96,34 @@ class EvaluateFAIRness:
             axis=1
         )
 
-        self.fairness_evaluation['R1.2 Publisher information, such as authors, contributors, publishers, and sources'] = quality_data.apply(utils.check_publisher_info,axis=1)
+        self.fairness_evaluation['R1.2 Publisher information, such as authors, contributors, publishers, and sources'] = self.quality_data.apply(utils.check_publisher_info,axis=1)
 
-        self.fairness_evaluation['R1.3-D Data organized in a standardized way'] = quality_data['metadata-media-type']
+        self.fairness_evaluation['R1.3-D Data organized in a standardized way'] = self.quality_data['metadata-media-type']
 
-        self.fairness_evaluation['R1.3-M Metadata are described with VoID/DCAT predicates'] = quality_data['License machine redeable (query)'].apply(lambda x: 1 if x not in ['-',''] and pd.notna(x) else 0)
+        self.fairness_evaluation['R1.3-M Metadata are described with VoID/DCAT predicates'] = self.quality_data['License machine redeable (query)'].apply(lambda x: 1 if x not in ['-',''] and pd.notna(x) else 0)
 
         print("Reusability evaluation completed!")
 
     def evaluate_interoperability(self):
-        quality_data = pd.read_csv(self.quality_data_to_evaluate[0])
 
-        self.fairness_evaluation['I1-D Standard & open representation format'] = quality_data['Availability of a common accepted Media Type'].apply(lambda x: 1 if x in ['True', True] else 0)
+        self.fairness_evaluation['I1-D Standard & open representation format'] = self.quality_data['Availability of a common accepted Media Type'].apply(lambda x: 1 if x in ['True', True] else 0)
 
-        self.fairness_evaluation['I1-M Metadata are described with VoID/DCAT predicates'] = quality_data['License machine redeable (query)'].apply(lambda x: 1 if x not in ['-',''] and pd.notna(x) else 0)
+        self.fairness_evaluation['I1-M Metadata are described with VoID/DCAT predicates'] = self.quality_data['License machine redeable (query)'].apply(lambda x: 1 if x not in ['-',''] and pd.notna(x) else 0)
 
-        self.fairness_evaluation['I2 Use of FAIR vocabularies'] = quality_data['Vocabularies'].apply(lambda x: x if x not in ['[]','-'] and pd.notna(x) else 0)
+        self.fairness_evaluation['I2 Use of FAIR vocabularies'] = self.quality_data['Vocabularies'].apply(lambda x: x if x not in ['[]','-'] and pd.notna(x) else 0)
 
-        self.fairness_evaluation['I3-D Degree of connection'] = quality_data['Degree of connection'].apply(lambda x: 1 if (x != '-' and pd.notna(x) and int(x) > 0 ) else 0)
+        self.fairness_evaluation['I3-D Degree of connection'] = self.quality_data['Degree of connection'].apply(lambda x: 1 if (x != '-' and pd.notna(x) and int(x) > 0 ) else 0)
 
         print("Interoperability evaluation completed!")
 
 
     def initialize_output_file(self):
-        quality_data = pd.read_csv(self.quality_data_to_evaluate[0])
         output_df = pd.DataFrame({
-            "KG id": quality_data["KG id"],             
-            "KG name": quality_data["KG name"], 
-            "Ontology": ''    
+            "KG id": self.quality_data["KG id"],             
+            "KG name": self.quality_data["KG name"], 
+            "KG SPARQL endpoint": self.quality_data['KG id'].apply(utils.get_sparql_url),
+            "RDF dump link" : self.quality_data["URL for download the dataset"],
+            "Ontology": self.quality_data['KG id'].apply(utils.check_if_ontology)
         })
 
         return output_df
@@ -113,7 +132,7 @@ class EvaluateFAIRness:
         self.fairness_evaluation.to_csv(self.output_file_path,index=False)
     
 
-fairness = EvaluateFAIRness(['../data/quality_data/LOD-Cloud_no_refined.csv'],'test.csv')
+fairness = EvaluateFAIRness('../data/quality_data/LOD-Cloud_no_refined.csv','../data/fairness_evaluation/CHe-Cloud_no_refined.csv')
 fairness.evaluate_findability()
 fairness.evaluate_availability()
 fairness.evaluate_reusability()
