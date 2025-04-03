@@ -60,6 +60,8 @@ class EvaluateFAIRness:
         # TODO: for the manually picked, we have to manually check if is in LOD Cloud, Zenodo, GitHub ecc...
         if not 'manually_picked_only_sparql.csv' in self.quality_data_to_evaluate[0]:
             self.fairness_evaluation["A2-M Registered in search engines"] = 1
+        
+        print("Availability evaluation completed!")
     
     def evaluate_reusability(self):
         quality_data = pd.read_csv(self.quality_data_to_evaluate[0])
@@ -79,7 +81,22 @@ class EvaluateFAIRness:
 
         self.fairness_evaluation['R1.3-D Data organized in a standardized way'] = quality_data['metadata-media-type']
 
-        self.fairness_evaluation['R1.3-M Metadata are described with VoID/DCAT predicates']
+        self.fairness_evaluation['R1.3-M Metadata are described with VoID/DCAT predicates'] = quality_data['License machine redeable (query)'].apply(lambda x: 1 if x not in ['-',''] and pd.notna(x) else 0)
+
+        print("Reusability evaluation completed!")
+
+    def evaluate_interoperability(self):
+        quality_data = pd.read_csv(self.quality_data_to_evaluate[0])
+
+        self.fairness_evaluation['I1-D Standard & open representation format'] = quality_data['Availability of a common accepted Media Type'].apply(lambda x: 1 if x in ['True', True] else 0)
+
+        self.fairness_evaluation['I1-M Metadata are described with VoID/DCAT predicates'] = quality_data['License machine redeable (query)'].apply(lambda x: 1 if x not in ['-',''] and pd.notna(x) else 0)
+
+        self.fairness_evaluation['I2 Use of FAIR vocabularies'] = quality_data['Vocabularies'].apply(lambda x: x if x not in ['[]','-'] and pd.notna(x) else 0)
+
+        self.fairness_evaluation['I3-D Degree of connection'] = quality_data['Degree of connection'].apply(lambda x: 1 if (x != '-' and pd.notna(x) and int(x) > 0 ) else 0)
+
+        print("Interoperability evaluation completed!")
 
 
     def initialize_output_file(self):
@@ -96,8 +113,9 @@ class EvaluateFAIRness:
         self.fairness_evaluation.to_csv(self.output_file_path,index=False)
     
 
-fairness = EvaluateFAIRness(['../data/quality_data/2025-03-16_CHe_cloud_manually_extracted.csv'],'test.csv')
+fairness = EvaluateFAIRness(['../data/quality_data/LOD-Cloud_no_refined.csv'],'test.csv')
 fairness.evaluate_findability()
 fairness.evaluate_availability()
 fairness.evaluate_reusability()
+fairness.evaluate_interoperability()
 fairness.save_file()
