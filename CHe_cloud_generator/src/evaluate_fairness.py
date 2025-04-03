@@ -77,13 +77,17 @@ class EvaluateFAIRness:
 
         self.fairness_evaluation['R1.2 Publisher information, such as authors, contributors, publishers, and sources'] = quality_data.apply(utils.check_publisher_info,axis=1)
 
-        self.fairness_evaluation['']
+        self.fairness_evaluation['R1.3-D Data organized in a standardized way'] = quality_data['metadata-media-type']
+
+        self.fairness_evaluation['R1.3-M Metadata are described with VoID/DCAT predicates']
+
 
     def initialize_output_file(self):
         quality_data = pd.read_csv(self.quality_data_to_evaluate[0])
         output_df = pd.DataFrame({
             "KG id": quality_data["KG id"],             
-            "KG name": quality_data["KG name"],         
+            "KG name": quality_data["KG name"], 
+            "Ontology": ''    
         })
 
         return output_df
