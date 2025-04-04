@@ -11,6 +11,7 @@ import re
 from SPARQLWrapper import *
 from SPARQLWrapper import SPARQLWrapper
 from xml.dom.minidom import Document
+from fair_vocabularies import fair_vocabularies
 
 here = os.path.dirname(os.path.abspath(__file__))
 import pandas as pd
@@ -302,6 +303,20 @@ def get_sparql_url(kg_id,path_to_lodcloud_data_to_use = '../data/lodcloud_data.j
             return ''
     except:
         return ''
+
+def check_if_fair_vocabs(vocabs):
+    vocabs = vocabs.replace('[','')
+    vocabs = vocabs.replace(']','')
+    vocabs = vocabs.split(',')
+    total_vocabs = len(vocabs)
+    fair_vocabularies = []
+    for vocab in vocabs:
+        vocab = vocab.strip()
+        if vocab in fair_vocabularies:
+            fair_vocabularies.append(vocab)
+    return len(fair_vocabularies) / total_vocabs if total_vocabs > 0 else 0
+    
+    
 #filter_quality_data("../data/CHlodcloud_data_manual_selected.json", "../data/quality_data/2025-03-16.csv","../data/quality_data/2025-03-16_CHe_cloud_manually_extracted.csv")
 #calculate_precision_recall("../data/Complete-CHlodcloud_data_manual_selected(Eligible).json", "../data/Complete-CHlodcloud_data_gpt_filtered.json")
 
