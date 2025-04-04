@@ -51,6 +51,7 @@ class EvaluateFAIRness:
         if not self.manually_picked: # For those not manually picked, the data are in the LOD Cloud for sure
             self.fairness_evaluation["F4-M Metadata registered in a searchable engine"] = 1
 
+        self.fairness_evaluation["F score"] = self.fairness_evaluation[["F1-M Unique and persistent ID", "F1-D URIs dereferenceability", "F2a-M - Metadata availability via standard primary sources", "F2b-M Metadata availability for all the attributes covered in the FAIR score computation", "F3-M Data referrable via a DOI", "F4-M Metadata registered in a searchable engine"]].sum(axis=1) / 6
         print("Findability evaluation completed!")
 
 
@@ -81,6 +82,7 @@ class EvaluateFAIRness:
         if not self.manually_picked:
             self.fairness_evaluation["A2-M Registered in search engines"] = 1
         
+        self.fairness_evaluation["A score"] = self.fairness_evaluation[["A1-D Working access point(s)", "A1-M Metadata availability via working primary sources", "A1.2 Authentication & HTTPS support", "A2-M Registered in search engines"]].sum(axis=1) / 4
         print("Availability evaluation completed!")
     
     def evaluate_reusability(self):
@@ -102,6 +104,8 @@ class EvaluateFAIRness:
 
         self.fairness_evaluation['R1.3-M Metadata are described with VoID/DCAT predicates'] = self.quality_data['License machine redeable (query)'].apply(lambda x: 1 if x not in ['-',''] and pd.notna(x) else 0)
 
+        self.fairness_evaluation["R score"] = self.fairness_evaluation[["R1.1 Machine- or human-readable license retrievable via any primary source", "R1.2 Publisher information, such as authors, contributors, publishers, and sources", "R1.3-D Data organized in a standardized way", "R1.3-M Metadata are described with VoID/DCAT predicates"]].sum(axis=1) / 4
+
         print("Reusability evaluation completed!")
 
     def evaluate_interoperability(self):
@@ -114,8 +118,11 @@ class EvaluateFAIRness:
 
         self.fairness_evaluation['I3-D Degree of connection'] = self.quality_data['Degree of connection'].apply(lambda x: 1 if (x != '-' and pd.notna(x) and int(x) > 0 ) else 0)
 
+        self.fairness_evaluation['I score'] = self.fairness_evaluation[["I1-D Standard & open representation format", "I1-M Metadata are described with VoID/DCAT predicates", "I2 Use of FAIR vocabularies", "I3-D Degree of connection"]].sum(axis=1) / 4
         print("Interoperability evaluation completed!")
 
+    def calculate_FAIR_score(self):
+        self.fairness_evaluation["FAIR score"] = self.fairness_evaluation[["F score", "A score", "I score", "R score"]].sum(axis=1)
 
     def initialize_output_file(self):
         output_df = pd.DataFrame({
