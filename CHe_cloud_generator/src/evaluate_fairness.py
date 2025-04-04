@@ -145,7 +145,7 @@ class EvaluateFAIRness:
         self.fairness_evaluation.to_csv(self.output_file_path,index=False)
     
 
-fairness = EvaluateFAIRness('../data/quality_data/LOD-Cloud_manually_refined.csv','../data/fairness_evaluation/CHe-Cloud_manually_refined.csv')
+fairness = EvaluateFAIRness('../data/quality_data/LOD-Cloud_no_refined.csv','../data/fairness_evaluation/CHe-Cloud_no_refined.csv')
 fairness.evaluate_findability()
 fairness.evaluate_availability()
 fairness.evaluate_interoperability()
