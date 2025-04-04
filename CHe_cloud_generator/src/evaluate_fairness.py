@@ -41,7 +41,7 @@ class EvaluateFAIRness:
         vocabs =  self.quality_data['Vocabularies'].apply(lambda x: 1 if x not in ['[]','-'] and pd.notna(x) else 0)
         links = self.quality_data['Degree of connection'].apply(lambda x: 1 if (x != '-' and pd.notna(x) and int(x) > 0 ) else 0)
         void_indication = self.quality_data['Url file VoID'].apply(lambda x: 1 if pd.notna(x) and x != '' else 0)
-        self.fairness_evaluation["F2b-M Metadata availability for all the attributes covered in the FAIR score computation"] = (sparql_indication + doi_indication + dump_indication + verifiability_info + mediatype_indication + license + vocabs + links + void_indication) / 9
+        self.fairness_evaluation["F2b-M Metadata availability for all the attributes covered in the FAIR score computation"] = ((sparql_indication + doi_indication + dump_indication + verifiability_info + mediatype_indication + license + vocabs + links + void_indication) / 9).round(2)
 
         if not self.manually_picked: # For those not manually picked, the data are in the LOD Cloud for sure
             self.fairness_evaluation["F3-M Data referrable via a DOI"] = self.quality_data['KG id'].apply(utils.recover_doi_from_lodcloud)
@@ -50,7 +50,7 @@ class EvaluateFAIRness:
         if not self.manually_picked: # For those not manually picked, the data are in the LOD Cloud for sure
             self.fairness_evaluation["F4-M Metadata registered in a searchable engine"] = 1
 
-        self.fairness_evaluation["F score"] = self.fairness_evaluation[["F1-M Unique and persistent ID", "F1-D URIs dereferenceability", "F2a-M - Metadata availability via standard primary sources", "F2b-M Metadata availability for all the attributes covered in the FAIR score computation", "F3-M Data referrable via a DOI", "F4-M Metadata registered in a searchable engine"]].sum(axis=1) / 6
+        self.fairness_evaluation["F score"] = (self.fairness_evaluation[["F1-M Unique and persistent ID", "F1-D URIs dereferenceability", "F2a-M - Metadata availability via standard primary sources", "F2b-M Metadata availability for all the attributes covered in the FAIR score computation", "F3-M Data referrable via a DOI", "F4-M Metadata registered in a searchable engine"]].sum(axis=1) / 6).round(2)
         print("Findability evaluation completed!")
 
 
@@ -79,7 +79,7 @@ class EvaluateFAIRness:
         if not self.manually_picked:
             self.fairness_evaluation["A2-M Registered in search engines"] = 1
         
-        self.fairness_evaluation["A score"] = self.fairness_evaluation[["A1-D Working access point(s)", "A1-M Metadata availability via working primary sources", "A1.2 Authentication & HTTPS support", "A2-M Registered in search engines"]].sum(axis=1) / 4
+        self.fairness_evaluation["A score"] = (self.fairness_evaluation[["A1-D Working access point(s)", "A1-M Metadata availability via working primary sources", "A1.2 Authentication & HTTPS support", "A2-M Registered in search engines"]].sum(axis=1) / 4).round(2)
         print("Availability evaluation completed!")
     
     def evaluate_reusability(self):
@@ -106,7 +106,7 @@ class EvaluateFAIRness:
 
         self.fairness_evaluation['R1.3-M Metadata are described with VoID/DCAT predicates'] = self.quality_data['License machine redeable (query)'].apply(lambda x: 1 if x not in ['-',''] and pd.notna(x) else 0)
 
-        self.fairness_evaluation["R score"] = self.fairness_evaluation[["R1.1 Machine- or human-readable license retrievable via any primary source", "R1.2 Publisher information, such as authors, contributors, publishers, and sources", "R1.3-D Data organized in a standardized way", "R1.3-M Metadata are described with VoID/DCAT predicates"]].sum(axis=1) / 4
+        self.fairness_evaluation["R score"] = (self.fairness_evaluation[["R1.1 Machine- or human-readable license retrievable via any primary source", "R1.2 Publisher information, such as authors, contributors, publishers, and sources", "R1.3-D Data organized in a standardized way", "R1.3-M Metadata are described with VoID/DCAT predicates"]].sum(axis=1) / 4).round(2)
 
         print("Reusability evaluation completed!")
 
@@ -124,11 +124,11 @@ class EvaluateFAIRness:
 
         self.fairness_evaluation['I3-D Degree of connection'] = self.quality_data['Degree of connection'].apply(lambda x: 1 if (x != '-' and pd.notna(x) and int(x) > 0 ) else 0)
 
-        self.fairness_evaluation['I score'] = self.fairness_evaluation[["I1-D Standard & open representation format", "I1-M Metadata are described with VoID/DCAT predicates", "I2 Use of FAIR vocabularies", "I3-D Degree of connection"]].sum(axis=1) / 4
+        self.fairness_evaluation['I score'] = (self.fairness_evaluation[["I1-D Standard & open representation format", "I1-M Metadata are described with VoID/DCAT predicates", "I2 Use of FAIR vocabularies", "I3-D Degree of connection"]].sum(axis=1).round(2) / 4).round(2)
         print("Interoperability evaluation completed!")
 
     def calculate_FAIR_score(self):
-        self.fairness_evaluation["FAIR score"] = self.fairness_evaluation[["F score", "A score", "I score", "R score"]].sum(axis=1)
+        self.fairness_evaluation["FAIR score"] = self.fairness_evaluation[["F score", "A score", "I score", "R score"]].sum(axis=1).round(2)
 
     def initialize_output_file(self):
         output_df = pd.DataFrame({
@@ -148,6 +148,7 @@ class EvaluateFAIRness:
 fairness = EvaluateFAIRness('../data/quality_data/LOD-Cloud_manually_refined.csv','../data/fairness_evaluation/CHe-Cloud_manually_refined.csv')
 fairness.evaluate_findability()
 fairness.evaluate_availability()
-fairness.evaluate_reusability()
 fairness.evaluate_interoperability()
+fairness.evaluate_reusability()
+fairness.calculate_FAIR_score()
 fairness.save_file()
