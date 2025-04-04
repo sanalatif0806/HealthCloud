@@ -32,7 +32,6 @@ class EvaluateFAIRness:
         else:
             self.fairness_evaluation["F2a-M - Metadata availability via standard primary sources"] = 1 #Other, are at least in LOD Cloud, we can use those metadata
 
-        #TODO: F2b-M
         sparql_indication = self.quality_data["SPARQL endpoint URL"].apply(lambda x: 1 if pd.notna(x) and x != '' else 0)
         doi_indication = self.quality_data['KG id'].apply(utils.recover_doi_from_lodcloud)
         dump_indication = self.quality_data["Availability of RDF dump (metadata)"].apply(lambda x: 1 if x in [1,"1"] else 0)
@@ -73,10 +72,8 @@ class EvaluateFAIRness:
 
         
         self.fairness_evaluation["A1.2 Authentication & HTTPS support"] = self.quality_data.apply(
-            lambda row: "Check manually" if row["Requires authentication"] in ["False", False, '-'] and row["Sparql endpoint"] in ["offline", "-"]
-            else ((0 if row["Use HTTPS"] in [False, 'False'] and 'https' in row['SPARQL endpoint URL'] else 1)  +  (1 if row["Requires authentication"] in ["False", False, True, 'True'] else 0)) / 2,
-            axis=1
-        )
+            lambda row: (0 if row["Use HTTPS"] in [False, 'False'] and 'https' in row['SPARQL endpoint URL'] else 1)  +  (1 if row["Requires authentication"] in ["False", False, True, 'True'] else 0) / 2,
+            axis=1) 
 
         # TODO: for the manually picked, we have to manually check if is in LOD Cloud, Zenodo, GitHub ecc...
         if not self.manually_picked:
@@ -99,8 +96,13 @@ class EvaluateFAIRness:
         )
 
         self.fairness_evaluation['R1.2 Publisher information, such as authors, contributors, publishers, and sources'] = self.quality_data.apply(utils.check_publisher_info,axis=1)
-
-        self.fairness_evaluation['R1.3-D Data organized in a standardized way'] = self.quality_data['metadata-media-type']
+        
+        # If the media type is is standard and open (SW standard), in this community also this format is common accepted. If not, we have to check if the data are in a standard format only for the community
+        self.fairness_evaluation['R1.3-D Data organized in a standardized way'] = self.quality_data.apply(
+            lambda row: 1 if row['Availability of a common accepted Media Type'] in ['True', True] 
+            else (1 if 'api/sparql' or 'rdf' in row['metadata-media-type'] else row['metadata-media-type']),
+            axis=1
+        )
 
         self.fairness_evaluation['R1.3-M Metadata are described with VoID/DCAT predicates'] = self.quality_data['License machine redeable (query)'].apply(lambda x: 1 if x not in ['-',''] and pd.notna(x) else 0)
 
@@ -110,11 +112,15 @@ class EvaluateFAIRness:
 
     def evaluate_interoperability(self):
 
-        self.fairness_evaluation['I1-D Standard & open representation format'] = self.quality_data['Availability of a common accepted Media Type'].apply(lambda x: 1 if x in ['True', True] else 0)
+        self.fairness_evaluation['I1-D Standard & open representation format'] = self.quality_data.apply(
+            lambda row: 1 if row['Availability of a common accepted Media Type'] in ['True', True] 
+            else (1 if 'api/sparql' or 'rdf' in row['metadata-media-type'].lower() else 0),
+            axis=1
+        )
 
         self.fairness_evaluation['I1-M Metadata are described with VoID/DCAT predicates'] = self.quality_data['License machine redeable (query)'].apply(lambda x: 1 if x not in ['-',''] and pd.notna(x) else 0)
 
-        self.fairness_evaluation['I2 Use of FAIR vocabularies'] = self.quality_data['Vocabularies'].apply(lambda x: x if x not in ['[]','-'] and pd.notna(x) else 0)
+        self.fairness_evaluation['I2 Use of FAIR vocabularies'] = self.quality_data['Vocabularies'].apply(utils.check_if_fair_vocabs)
 
         self.fairness_evaluation['I3-D Degree of connection'] = self.quality_data['Degree of connection'].apply(lambda x: 1 if (x != '-' and pd.notna(x) and int(x) > 0 ) else 0)
 
@@ -139,7 +145,7 @@ class EvaluateFAIRness:
         self.fairness_evaluation.to_csv(self.output_file_path,index=False)
     
 
-fairness = EvaluateFAIRness('../data/quality_data/LOD-Cloud_no_refined.csv','../data/fairness_evaluation/CHe-Cloud_no_refined.csv')
+fairness = EvaluateFAIRness('../data/quality_data/LOD-Cloud_manually_refined.csv','../data/fairness_evaluation/CHe-Cloud_manually_refined.csv')
 fairness.evaluate_findability()
 fairness.evaluate_availability()
 fairness.evaluate_reusability()
