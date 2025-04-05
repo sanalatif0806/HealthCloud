@@ -1,17 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import * as d3 from 'd3';
-import { base_url } from '../api';
 
-const StaticGraph = () => {
-    const [data, setData] = useState({ nodes: [], links: [] });
+const StaticGraph = ({ data }) => {
     const [graphRendered, setGraphRendered] = useState(false);
-
-    useEffect(() => {
-        // Fetch data from the backend
-        fetch(`${base_url}/CHe_cloud_data/all_ch_links`)
-            .then(response => response.json())
-            .then(data => setData(data));
-    }, []);
 
     useEffect(() => {
         if (data.nodes.length === 0 || data.links.length === 0 || graphRendered) return;
