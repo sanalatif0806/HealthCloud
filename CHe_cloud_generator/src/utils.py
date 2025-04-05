@@ -12,6 +12,8 @@ from SPARQLWrapper import *
 from SPARQLWrapper import SPARQLWrapper
 from xml.dom.minidom import Document
 from fair_vocabularies import fair_vocabularies
+from urllib.parse import urlparse
+from collections import Counter
 
 here = os.path.dirname(os.path.abspath(__file__))
 import pandas as pd
@@ -335,8 +337,22 @@ def compare_fairness_on_manually_refined(no_manually_refined_path='../data/fairn
 
     merged_df.to_csv('../data/fairness_evaluation/CHe-Cloud_no_manually_refined_vs_manually_refined.csv', index=False)
 
+def find_search_engine_from_keywords(kg_id,path_to_lodcloud_data_to_use = '../data/only_CH_lodcloud/CHlodcloud_data_manual_annotated.json'):
+    with open(os.path.join(here,path_to_lodcloud_data_to_use), "r", encoding="utf-8") as file:
+        lodcloud_data = json.load(file)
+        
+    kg_metadata = lodcloud_data[kg_id]
+    keywords = kg_metadata.get('keywords','')
+    keywords = keywords.split(';')
+    for keyword in keywords:
+        keyword = keyword.strip()
+        if any(k in keyword for k in ['github', 'zenodo', 'fairsharing']):
+            return 1
+        else:
+            return 0
+    return 0
 
-compare_fairness_on_manually_refined()
+#compare_fairness_on_manually_refined()
     
 #filter_quality_data("../data/CHlodcloud_data_manual_selected.json", "../data/quality_data/2025-03-16.csv","../data/quality_data/2025-03-16_CHe_cloud_manually_extracted.csv")
 #calculate_precision_recall("../data/Complete-CHlodcloud_data_manual_selected(Eligible).json", "../data/Complete-CHlodcloud_data_gpt_filtered.json")
