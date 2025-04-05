@@ -33,7 +33,6 @@ router.get('/all_ch_links', async (req, res) => {
             "nodes" : nodes,
             "links" : links
         }
-        console.log(response)
         res.json(response);
         
     } catch (error) {
