@@ -14,11 +14,13 @@ class EvaluateFAIRness:
 
             
     def evaluate_findability(self):
-
-        #TODO: Manage the manually picked, for these, only zenodo is suitable or any search engine offers a persistant id.
+        
         if not self.manually_picked: # For those not manually picked, the data are in the LOD Cloud for sure
             self.fairness_evaluation["F1-M Unique and persistent ID"] = 1
-        
+        else:
+            doi_indication = self.quality_data['KG id'].apply(utils.recover_doi_from_lodcloud)
+            self.fairness_evaluation["F1-M Unique and persistent ID"] = doi_indication
+
         self.fairness_evaluation["F1-D URIs dereferenceability"] = (pd.to_numeric(self.quality_data['URIs Deferenceability'], errors='coerce').fillna('-'))
         self.fairness_evaluation["F1-D URIs dereferenceability"] = self.fairness_evaluation["F1-D URIs dereferenceability"].apply(lambda x: x if x != '-' else 0)
 
@@ -39,16 +41,24 @@ class EvaluateFAIRness:
         mediatype_indication = self.quality_data['metadata-media-type'].apply(lambda x: 1 if x not in ('[]','['',]',"['']") else 0)
         license = self.quality_data['License machine redeable (metadata)'].apply(lambda x: 1 if x not in ['-', ''] and pd.notna(x) else 0)
         vocabs =  self.quality_data['Vocabularies'].apply(lambda x: 1 if x not in ['[]','-'] and pd.notna(x) else 0)
-        links = self.quality_data['Degree of connection'].apply(lambda x: 1 if (x != '-' and pd.notna(x) and int(x) > 0 ) else 0)
+        if not self.manually_picked:
+            links = self.quality_data['Degree of connection'].apply(lambda x: 1 if (x != '-' and pd.notna(x) and int(x) > 0 ) else 0)
+        else:
+            links = self.quality_data.apply(
+                lambda row: 1 if row['Number of samAs chains'] not in ['-', 0,'0'] and pd.notna(row['Number of samAs chains'])
+                else (1 if row['SKOS mapping properties'] not in ['-', 0,'0'] and pd.notna(row['SKOS mapping properties']) else 0),
+                axis=1
+            )
         void_indication = self.quality_data['Url file VoID'].apply(lambda x: 1 if pd.notna(x) and x != '' else 0)
         self.fairness_evaluation["F2b-M Metadata availability for all the attributes covered in the FAIR score computation"] = ((sparql_indication + doi_indication + dump_indication + verifiability_info + mediatype_indication + license + vocabs + links + void_indication) / 9).round(2)
 
         if not self.manually_picked: # For those not manually picked, the data are in the LOD Cloud for sure
             self.fairness_evaluation["F3-M Data referrable via a DOI"] = self.quality_data['KG id'].apply(utils.recover_doi_from_lodcloud)
 
-        #TODO: Manage the manually picked (use a column in the CSV to indicate if is on GitHub or Zenodo)
         if not self.manually_picked: # For those not manually picked, the data are in the LOD Cloud for sure
             self.fairness_evaluation["F4-M Metadata registered in a searchable engine"] = 1
+        else:
+            self.fairness_evaluation["F4-M Metadata registered in a searchable engine"] = self.quality_data.apply(utils.find_search_engine_from_keywords,axis=1)
 
         self.fairness_evaluation["F score"] = (self.fairness_evaluation[["F1-M Unique and persistent ID", "F1-D URIs dereferenceability", "F2a-M - Metadata availability via standard primary sources", "F2b-M Metadata availability for all the attributes covered in the FAIR score computation", "F3-M Data referrable via a DOI", "F4-M Metadata registered in a searchable engine"]].sum(axis=1) / 6).round(2)
         print("Findability evaluation completed!")
@@ -75,9 +85,10 @@ class EvaluateFAIRness:
             lambda row: (0 if row["Use HTTPS"] in [False, 'False'] and 'https' in row['SPARQL endpoint URL'] else 1)  +  (1 if row["Requires authentication"] in ["False", False, True, 'True'] else 0) / 2,
             axis=1) 
 
-        # TODO: for the manually picked, we have to manually check if is in LOD Cloud, Zenodo, GitHub ecc...
         if not self.manually_picked:
             self.fairness_evaluation["A2-M Registered in search engines"] = 1
+        else:
+            self.fairness_evaluation["A2-M Registered in search engines"] = self.quality_data.apply(utils.find_search_engine_from_keywords,axis=1)
         
         self.fairness_evaluation["A score"] = (self.fairness_evaluation[["A1-D Working access point(s)", "A1-M Metadata availability via working primary sources", "A1.2 Authentication & HTTPS support", "A2-M Registered in search engines"]].sum(axis=1) / 4).round(2)
         print("Availability evaluation completed!")
@@ -122,7 +133,14 @@ class EvaluateFAIRness:
 
         self.fairness_evaluation['I2 Use of FAIR vocabularies'] = self.quality_data['Vocabularies'].apply(utils.check_if_fair_vocabs)
 
-        self.fairness_evaluation['I3-D Degree of connection'] = self.quality_data['Degree of connection'].apply(lambda x: 1 if (x != '-' and pd.notna(x) and int(x) > 0 ) else 0)
+        if not self.manually_picked:
+            self.fairness_evaluation['I3-D Degree of connection'] = self.quality_data['Degree of connection'].apply(lambda x: 1 if (x != '-' and pd.notna(x) and int(x) > 0 ) else 0)
+        else:
+            self.fairness_evaluation['I3-D Degree of connection'] = self.quality_data.apply(
+                lambda row: 1 if row['Number of samAs chains'] not in ['-', 0,'0'] and pd.notna(row['Number of samAs chains'])
+                else (1 if row['SKOS mapping properties'] not in ['-', 0,'0'] and pd.notna(row['SKOS mapping properties']) else 0),
+                axis=1
+            )
 
         self.fairness_evaluation['I score'] = (self.fairness_evaluation[["I1-D Standard & open representation format", "I1-M Metadata are described with VoID/DCAT predicates", "I2 Use of FAIR vocabularies", "I3-D Degree of connection"]].sum(axis=1).round(2) / 4).round(2)
         print("Interoperability evaluation completed!")
