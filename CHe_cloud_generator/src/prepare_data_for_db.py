@@ -11,8 +11,8 @@ def create_list_and_move(path_dataset_to_include_in_the_cloud):
         for key in lodcloud_data:
             lodcloud_data_list.append(lodcloud_data[key])
 
-    absolute_path = os.path.abspath(os.path.join('..','..','WebApp/backend/mongo_data/'))
+    absolute_path = os.path.abspath(os.path.join('..','..','WebApp/backend/'))
     with open(absolute_path + '/CHe_cloud_data.json', 'w') as f:
         json.dump(lodcloud_data_list, f, indent=4)
 
-create_list_and_move('../data/CHlodcloud_data_manual_selected.json')
+create_list_and_move('../data/only_CH_lodcloud/CHe_cloud_merged.json')

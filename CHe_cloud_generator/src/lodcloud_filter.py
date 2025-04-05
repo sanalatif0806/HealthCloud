@@ -7,7 +7,6 @@ import utils
 from itertools import combinations
 import re
 import csv
-
 load_dotenv()
 openai_api_key = os.getenv('OPENAI_API_KEY')
 
@@ -25,7 +24,7 @@ class LODCloudFilter:
             lodcloud_data (dict): The LOD cloud data loaded from the URL or local file.
         """
         try:
-            response = requests.get("https://lod-cloud.net/versions/latest/lod-data.json")
+            response = requests.get("https://lod-cloud.net/versions/2024-12-31/lod-data.json")
             self.lodcloud_data = response.json()
             with open(os.path.join(here,'../data/lodcloud_data.json'), "w", encoding="utf-8") as file:
                 json.dump(self.lodcloud_data, file)
@@ -140,7 +139,7 @@ class LODCloudFilter:
                 filtered_kgs[kg] = kg_metadata 
 
         print(f"Extracted {len(filtered_kgs.keys())} resources by analyzing title and description in the dataset metadata")
-        self.write_filtered_data(filtered_kgs, "title_description_optimal_keywords_no_history")    
+        self.write_filtered_data(filtered_kgs, "title_description_optimal_keywords")    
         #self.update_lodcloud_data(self.lodcloud_data)
 
 
@@ -446,8 +445,20 @@ class LODCloudFilter:
         with open(os.path.join(here,f'../data/Complete-{filename}'), "w", encoding="utf-8") as file:
             json.dump(self.lodcloud_data, file,indent=4)
 
+    def merge_cultural_heritage_datasets_with_other_from_lodcloud(self,file_to_merge):
+        json_to_merge = json.load(open(os.path.join(here,file_to_merge), "r", encoding="utf-8"))
+
+        for kg in self.lodcloud_data:
+            if kg in json_to_merge:
+                self.lodcloud_data[kg] = json_to_merge[kg]
+
+        filename = os.path.basename(file_to_merge)
+        with open(os.path.join(here,f'../data/Complete-{filename}'), "w", encoding="utf-8") as file:
+            json.dump(self.lodcloud_data, file,indent=4)
+
 l = LODCloudFilter()
-l.convert_final_CSV_annotated(os.path.join(here,'../data/manually_annotated_kgs/LODCloud_CH_Final_Selection.csv'))
+l.merge_cultural_heritage_datasets_with_other_from_lodcloud('../data/keywords_from_SLR/CHlodcloud_data_title_description_optimal_keywords_no_history.json')
+#l.convert_final_CSV_annotated(os.path.join(here,'../data/manually_annotated_kgs/LODCloud_CH_Final_Selection.csv'))
 #l.merge_cultural_heritage_datasets_with_other_from_lodcloud('../data/CHlodcloud_data_title_description_optimal_keywords_no_history.json')
 '''
 ch_keywords = json.load(open(os.path.join(here,'../data/CH_keywords.json'), "r", encoding="utf-8"))
@@ -464,8 +475,8 @@ ch_optimal_subset['generic'] = {
 with open(os.path.join(here,'../data/CH_optimal_subsets.json'), "w", encoding="utf-8") as file:
     json.dump(ch_optimal_subset, file,indent=4)'
 '''
-# optimal_keywords = json.load(open(os.path.join(here,'../data/CH_optimal_keywords_no_history.json'), "r", encoding="utf-8"))
-# optimal_keywords = optimal_keywords['optimal_keywords']
-# l.filter_by_title_description_and_keywords(keywords=optimal_keywords)
+optimal_keywords = json.load(open(os.path.join(here,'../data/keywords_from_SLR/CH_optimal_keywords.json'), "r", encoding="utf-8"))
+optimal_keywords = optimal_keywords['optimal_keywords']
+l.filter_by_title_description_and_keywords(keywords=optimal_keywords)
 
 #l.convert_final_CSV_annotated(os.path.join(here,'../data/manually_annotated_kgs/LODCloud_CH_Final_Selection.csv'))
