@@ -21,8 +21,11 @@ const Graph = () => {
         const height = svgElement.clientHeight;
         const svg = d3.select("#graph");
         const categories = ["Type 1", "Type 2"];
-        const colorScale = d3.scaleOrdinal(d3.schemeCategory10).domain(categories);
-        
+        //const colorScale = d3.scaleOrdinal(d3.schemeCategory10).domain(categories);
+        const colorScale = d3.scaleOrdinal()
+        .domain(categories)
+        .range(["#8bc4bf", "#d3f0e3"]);
+
         // Define the boundary between connected and isolated nodes
         const boundaryX = width * 0.6;
     
@@ -245,6 +248,11 @@ const Graph = () => {
         styleElement.textContent = `
             .link { stroke: #aaa; stroke-width: 2; transition: stroke 0.3s; }
             .highlighted { stroke: orange !important; stroke-width: 4 !important; }
+            .link.highlighted {
+            stroke: orange; /* Highlight color */
+            stroke-width: 4px; /* Thicker edge for highlight */
+            stroke-opacity: 1; /* Full opacity for the highlighted edges */
+            }
             .legend { font-size: 12px; }
             .isolated { opacity: 0.8; }
         `;
