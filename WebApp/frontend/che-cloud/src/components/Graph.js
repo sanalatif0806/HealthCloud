@@ -2,34 +2,39 @@ import React, { useEffect, useState } from 'react';
 import * as d3 from 'd3';
 import { base_url } from '../api';
 
-const Graph = () => {
+const StaticGraph = () => {
     const [data, setData] = useState({ nodes: [], links: [] });
+    const [graphRendered, setGraphRendered] = useState(false);
 
     useEffect(() => {
         // Fetch data from the backend
         fetch(`${base_url}/CHe_cloud_data/all_ch_links`)
             .then(response => response.json())
-            .then(data => 
-                setData(data));
+            .then(data => setData(data));
     }, []);
 
     useEffect(() => {
-        if (data.nodes.length === 0 || data.links.length === 0) return;
-    
+        if (data.nodes.length === 0 || data.links.length === 0 || graphRendered) return;
+        
+        // Render the graph once without animation
+        renderStaticGraph();
+        setGraphRendered(true);
+    }, [data, graphRendered]);
+
+    const renderStaticGraph = () => {
         const svgElement = document.getElementById("graph");
         const width = svgElement.clientWidth;
         const height = svgElement.clientHeight;
         const svg = d3.select("#graph");
         const categories = ["Type 1", "Type 2"];
-        //const colorScale = d3.scaleOrdinal(d3.schemeCategory10).domain(categories);
         const colorScale = d3.scaleOrdinal()
-        .domain(categories)
-        .range(["#8bc4bf", "#d3f0e3"]);
+            .domain(categories)
+            .range(["#8bc4bf", "#d3f0e3"]);
 
         // Define the boundary between connected and isolated nodes
         const boundaryX = width * 0.6;
     
-        // Clear previous graph elements before drawing a new one
+        // Clear previous graph elements
         svg.selectAll("*").remove();
     
         // Draw color legend
@@ -59,7 +64,7 @@ const Graph = () => {
             linkedNodeIds.add(typeof link.target === 'object' ? link.target.id : link.target);
         });
         
-        // Create separate node arrays for connected and isolated nodes
+        // Split nodes into connected and isolated
         const connectedNodes = data.nodes.filter(node => linkedNodeIds.has(node.id));
         const isolatedNodes = data.nodes.filter(node => !linkedNodeIds.has(node.id));
         
@@ -70,20 +75,24 @@ const Graph = () => {
             return linkedNodeIds.has(sourceId) && linkedNodeIds.has(targetId);
         });
         
-        // Create a separate force simulation for connected nodes
-        const connectedSimulation = d3.forceSimulation(connectedNodes)
+        // Pre-calculate positions for connected nodes using D3 force layout
+        // but run it synchronously without animation
+        const simulation = d3.forceSimulation(connectedNodes)
             .force("link", d3.forceLink(validLinks).id(d => d.id).distance(150))
             .force("charge", d3.forceManyBody().strength(-25))
             .force("center", d3.forceCenter(width / 3, height / 2))
             .force("collide", d3.forceCollide(35))
-            // Add a force to keep nodes within the left side boundary
             .force("x", d3.forceX(width / 3).strength(0.05))
             .force("y", d3.forceY(height / 2).strength(0.05));
         
-        // Position isolated nodes in a grid on the right side
+        // Run the simulation immediately to completion
+        // This skips the animation and calculates final positions
+        for (let i = 0; i < 300; ++i) simulation.tick();
+        
+        // Calculate positions for isolated nodes in a grid
         const isolatedNodesPerRow = Math.max(1, Math.floor(Math.sqrt(isolatedNodes.length)));
-        const rightSideStartX = boundaryX + 50; // Add some padding from the divider
-        const rightSideWidth = width - rightSideStartX - 30; // Leave some margin on the right edge
+        const rightSideStartX = boundaryX + 50;
+        const rightSideWidth = width - rightSideStartX - 30;
         const xSpacing = Math.min(70, rightSideWidth / isolatedNodesPerRow);
         const ySpacing = Math.min(70, (height - 100) / (Math.ceil(isolatedNodes.length / isolatedNodesPerRow) || 1));
         
@@ -92,113 +101,15 @@ const Graph = () => {
             const col = i % isolatedNodesPerRow;
             node.x = rightSideStartX + col * xSpacing;
             node.y = 100 + row * ySpacing;
-            node.fx = node.x; // Fix position X
-            node.fy = node.y; // Fix position Y
         });
         
-        // Create links (edges)
-        const linkElements = svg.append("g")
-            .selectAll("line")
-            .data(validLinks)
-            .enter().append("line")
-            .attr("class", "link")
-            .attr("data-source", d => typeof d.source === 'object' ? d.source.id : d.source)
-            .attr("data-target", d => typeof d.target === 'object' ? d.target.id : d.target)
-            .attr("stroke", "grey")
-            .attr("stroke-width", 1)
-            .attr("stroke-opacity", 0.3);
-    
-        // Create groups for connected nodes
-        const connectedNodeGroups = svg.append("g")
-            .selectAll("g.connected")
-            .data(connectedNodes)
-            .enter().append("g")
-            .attr("class", "node-group connected")
-            .attr("data-id", d => d.id);
-        
-        // Create groups for isolated nodes
-        const isolatedNodeGroups = svg.append("g")
-            .selectAll("g.isolated")
-            .data(isolatedNodes)
-            .enter().append("g")
-            .attr("class", "node-group isolated")
-            .attr("data-id", d => d.id)
-            .attr("transform", d => `translate(${d.x},${d.y})`);
-        
-        // Add link behavior to connected nodes using a elements
-        connectedNodeGroups.each(function(d) {
-            const g = d3.select(this);
-            const a = g.append("a")
-                .attr("xlink:href", d => d.url)
-                .attr("target", "_blank")
-                .style("cursor", "pointer");
-                
-            // Append circle to the anchor
-            a.append("circle")
-                .attr("r", 25)
-                .attr("fill", d => colorScale(d.category));
-            
-            // Append text to the anchor
-            a.append("text")
-                .attr("fill", "black")
-                .attr("font-size", "10px")
-                .attr("font-weight", "bold")
-                .attr("text-anchor", "middle")
-                .attr("dy", ".35em")
-                .text(d => abbreviateText(d.title || d.id, 6));
+        // Ensure all connected nodes stay within boundaries
+        connectedNodes.forEach(node => {
+            node.x = Math.min(Math.max(node.x, 30), boundaryX - 40);
+            node.y = Math.min(Math.max(node.y, 30), height - 30);
         });
         
-        // Add link behavior to isolated nodes using a elements
-        isolatedNodeGroups.each(function(d) {
-            const g = d3.select(this);
-            const a = g.append("a")
-                .attr("xlink:href", d => d.url)
-                .attr("target", "_blank")
-                .style("cursor", "pointer");
-                
-            // Append circle to the anchor
-            a.append("circle")
-                .attr("r", 25)
-                .attr("fill", d => colorScale(d.category))
-                .style("opacity", 0.8);
-            
-            // Append text to the anchor
-            a.append("text")
-                .attr("fill", "black")
-                .attr("font-size", "10px")
-                .attr("font-weight", "bold")
-                .attr("text-anchor", "middle")
-                .attr("dy", ".35em")
-                .text(d => abbreviateText(d.title || d.id, 6));
-        });
-    
-        // Function to abbreviate text if needed
-        function abbreviateText(text, maxLength) {
-            if (text.length > maxLength) {
-                return text.substring(0, maxLength) + "...";
-            }
-            return text;
-        }
-    
-        // Apply simulation updates only for connected nodes
-        connectedSimulation.on("tick", () => {
-            // Update link positions
-            linkElements
-                .attr("x1", d => d.source.x)
-                .attr("y1", d => d.source.y)
-                .attr("x2", d => d.target.x)
-                .attr("y2", d => d.target.y);
-    
-            // Update connected node positions with strict boundary enforcement
-            connectedNodeGroups.attr("transform", d => {
-                // Enforce boundaries more strictly
-                const x = Math.min(Math.max(d.x, 30), boundaryX - 40); // Keep at least 40px away from boundary
-                const y = Math.min(Math.max(d.y, 30), height - 30);
-                return `translate(${x},${y})`;
-            });
-        });
-    
-        // Add a divider line between connected and isolated nodes
+        // Draw the divider line
         svg.append("line")
             .attr("x1", boundaryX)
             .attr("y1", 0)
@@ -218,22 +129,104 @@ const Graph = () => {
                 .attr("font-weight", "bold")
                 .text("Isolated Nodes");
         }
-    
-        // Highlight links when hovering over a connected node
+        
+        // Draw links
+        svg.append("g")
+            .selectAll("line")
+            .data(validLinks)
+            .enter().append("line")
+            .attr("class", "link")
+            .attr("data-source", d => typeof d.source === 'object' ? d.source.id : d.source)
+            .attr("data-target", d => typeof d.target === 'object' ? d.target.id : d.target)
+            .attr("x1", d => d.source.x)
+            .attr("y1", d => d.source.y)
+            .attr("x2", d => d.target.x)
+            .attr("y2", d => d.target.y)
+            .attr("stroke", "grey")
+            .attr("stroke-width", 1)
+            .attr("stroke-opacity", 0.3);
+        
+        // Draw connected nodes
+        const connectedNodeGroups = svg.append("g")
+            .selectAll("g.connected")
+            .data(connectedNodes)
+            .enter().append("g")
+            .attr("class", "node-group connected")
+            .attr("data-id", d => d.id)
+            .attr("transform", d => `translate(${d.x},${d.y})`);
+            
+        connectedNodeGroups.each(function(d) {
+            const g = d3.select(this);
+            const a = g.append("a")
+                .attr("xlink:href", d => d.url)
+                .attr("target", "_blank")
+                .style("cursor", "pointer");
+                
+            a.append("circle")
+                .attr("r", 25)
+                .attr("fill", d => colorScale(d.category));
+            
+            a.append("text")
+                .attr("fill", "black")
+                .attr("font-size", "10px")
+                .attr("font-weight", "bold")
+                .attr("text-anchor", "middle")
+                .attr("dy", ".35em")
+                .text(d => abbreviateText(d.title || d.id, 6));
+        });
+        
+        // Draw isolated nodes
+        const isolatedNodeGroups = svg.append("g")
+            .selectAll("g.isolated")
+            .data(isolatedNodes)
+            .enter().append("g")
+            .attr("class", "node-group isolated")
+            .attr("data-id", d => d.id)
+            .attr("transform", d => `translate(${d.x},${d.y})`);
+            
+        isolatedNodeGroups.each(function(d) {
+            const g = d3.select(this);
+            const a = g.append("a")
+                .attr("xlink:href", d => d.url)
+                .attr("target", "_blank")
+                .style("cursor", "pointer");
+                
+            a.append("circle")
+                .attr("r", 25)
+                .attr("fill", d => colorScale(d.category))
+                .style("opacity", 0.8);
+            
+            a.append("text")
+                .attr("fill", "black")
+                .attr("font-size", "10px")
+                .attr("font-weight", "bold")
+                .attr("text-anchor", "middle")
+                .attr("dy", ".35em")
+                .text(d => abbreviateText(d.title || d.id, 6));
+        });
+        
+        // Add hover effects for connected nodes
         connectedNodeGroups.on("mouseover", (event, d) => {
             // Highlight links connected to this node
-            linkElements.classed("highlighted", link => {
+            svg.selectAll(".link").classed("highlighted", link => {
                 const sourceId = typeof link.source === 'object' ? link.source.id : link.source;
                 const targetId = typeof link.target === 'object' ? link.target.id : link.target;
                 return sourceId === d.id || targetId === d.id;
             });
         })
         .on("mouseout", () => {
-            // Remove highlight when mouse leaves the node
-            linkElements.classed("highlighted", false);
+            // Remove highlight when mouse leaves
+            svg.selectAll(".link").classed("highlighted", false);
         });
+    };
     
-    }, [data]);
+    function abbreviateText(text, maxLength) {
+        if (!text) return "";
+        if (text.length > maxLength) {
+            return text.substring(0, maxLength) + "...";
+        }
+        return text;
+    }
 
     const handleDownload = () => {
         const svgElement = document.getElementById("graph");
@@ -249,9 +242,9 @@ const Graph = () => {
             .link { stroke: #aaa; stroke-width: 2; transition: stroke 0.3s; }
             .highlighted { stroke: orange !important; stroke-width: 4 !important; }
             .link.highlighted {
-            stroke: orange; /* Highlight color */
-            stroke-width: 4px; /* Thicker edge for highlight */
-            stroke-opacity: 1; /* Full opacity for the highlighted edges */
+                stroke: orange;
+                stroke-width: 4px;
+                stroke-opacity: 1;
             }
             .legend { font-size: 12px; }
             .isolated { opacity: 0.8; }
@@ -295,12 +288,11 @@ const Graph = () => {
             });
         `;
         
-        // Create a script tag and add it inside the SVG
         const scriptElement = document.createElementNS("http://www.w3.org/2000/svg", "script");
         scriptElement.textContent = scriptContent;
         clonedSvg.appendChild(scriptElement);
     
-        // Convert the cloned SVG to a Blob and trigger the download
+        // Convert to blob and trigger download
         const serializer = new XMLSerializer();
         const svgData = serializer.serializeToString(clonedSvg);
         const blob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
@@ -308,7 +300,7 @@ const Graph = () => {
     
         const link = document.createElement("a");
         link.href = url;
-        link.download = "interactive-graph.svg";
+        link.download = "static-graph.svg";
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -328,9 +320,15 @@ const Graph = () => {
             >
                 Download SVG
             </button>
-            <svg id="graph" width="100%" height="100%"></svg>
+            <svg id="graph" width="100%" height="100%">
+                {data.nodes.length === 0 && (
+                    <text x="50%" y="50%" textAnchor="middle" fontSize="16px">
+                        Loading graph data...
+                    </text>
+                )}
+            </svg>
         </div>
     );
 };
 
-export default Graph;
+export default StaticGraph;
