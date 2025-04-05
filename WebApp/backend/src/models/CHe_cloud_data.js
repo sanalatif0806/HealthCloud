@@ -5,7 +5,7 @@ async function getAllIdsAndLinks() {
         const db = await connectToMongoDB();
         const collection = db.collection('CHe_cloud_data'); 
 
-        return await collection.find({}, { projection: { identifier: 1, links: 1 } }).toArray();
+        return await collection.find({}, { projection: { identifier: 1, title: 1 , links: 1 } }).toArray();
     } catch (error) {
         console.error("Error during data recovering:", error);
         throw error;

@@ -36,3 +36,32 @@
     transform: rotate(360deg);
   }
 }
+
+.link {
+  stroke-width: 2;
+  transition: stroke 0.3s;
+}
+
+.highlighted {
+  stroke: orange !important;
+  stroke-width: 4 !important;
+}
+
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+
+#graph {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+}
+
+.link.highlighted {
+  stroke: orange; /* Highlight color */
+  stroke-width: 4px; /* Thicker edge for highlight */
+  stroke-opacity: 1; /* Full opacity for the highlighted edges */
+}
