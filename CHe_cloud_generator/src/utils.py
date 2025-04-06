@@ -14,6 +14,7 @@ from xml.dom.minidom import Document
 from fair_vocabularies import fair_vocabularies
 from urllib.parse import urlparse
 from collections import Counter
+from LOD_Cloudify.lod_cloud_data_handler import LodCloudDataHandler
 
 here = os.path.dirname(os.path.abspath(__file__))
 import pandas as pd
@@ -220,7 +221,7 @@ def check_publisher_info(row):
     
     author_metadata = 0
     if pd.notna(row['Author (metadata)']) and row['Author (metadata)'] not in [False,'False']:
-        if not re.fullmatch(r"Name:\s*absent,\s*email:\s*absent", row['Publisher'], re.IGNORECASE):
+        if not re.fullmatch(r"Name:\s*absent,\s*email:\s*absent", row['Author (metadata)'], re.IGNORECASE):
             author_metadata = 1
     
     contributors = 1 if pd.notna(row['Contributor']) and row['Contributor'] not in ['[]', '-'] else 0
@@ -232,7 +233,7 @@ def check_publisher_info(row):
         # Extract values after "Web:", "Name:", and "Email:"
         matches = re.findall(r"(?:Web|Name|Email):\s*([^,]+)", row['Sources'], re.IGNORECASE)
         # Check if any extracted value is not "absent" or empty
-        if any(value.strip().lower() not in ["absent", ""] for value in matches):
+        if any(value.strip().lower() not in ["absent", "", 'Absent'] for value in matches):
             sources = 1
     
 
@@ -352,10 +353,12 @@ def find_search_engine_from_keywords(kg_id,path_to_lodcloud_data_to_use = '../da
             return 0
     return 0
 
+#LodCloudDataHandler.merge_lodcloud_data(['../data/lodcloud_data.json','../data/CHlodcloud_data_title_description_optimal_keywords.json'],'../data/complete_lodcloud_with_CH_domain/Complete-CHlodcloud_data_title_description_optimal_keywords.json')
+
 #compare_fairness_on_manually_refined()
     
 #filter_quality_data("../data/CHlodcloud_data_manual_selected.json", "../data/quality_data/2025-03-16.csv","../data/quality_data/2025-03-16_CHe_cloud_manually_extracted.csv")
-#calculate_precision_recall("../data/Complete-CHlodcloud_data_manual_selected(Eligible).json", "../data/Complete-CHlodcloud_data_gpt_filtered.json")
+#calculate_precision_recall("../data/complete_lodcloud_with_CH_domain/Complete-CHlodcloud_data_manual_selected(Eligible).json", "../data/complete_lodcloud_with_CH_domain/Complete-CHlodcloud_data_title_description_optimal_keywords_no_history.json")
 
 #compare_csv_topics("../data/manually_annotated_kgs/LODCloud_annotation_Gabriele.csv", "../data/manually_annotated_kgs/LODCloud_annotation_Maria Angela.csv","../data/manually_annotated_kgs/LODCloud_annotation_Sana.csv","../data/manually_annotated_kgs/mismatches_gab_mary_sana_HEALTH.csv", 'health')
 #combine_csv_files(os.path.join(here,"../data/lodcloud_manual_tagged/Maria_Angela_manual_tagged.csv"),os.path.join(here,"../data/lodcloud_manual_tagged/Gabriele_manual_tagged.csv"),os.path.join(here, "../data/lodcloud_manual_tagged/lodcloud_manual_tagged_merged.csv"))
