@@ -17,10 +17,10 @@ const StaticGraph = ({ data }) => {
         const width = svgElement.clientWidth;
         const height = svgElement.clientHeight;
         const svg = d3.select("#graph");
-        const categories = ["Type 1", "Type 2"];
+        const categories = Array.from(new Set(data.nodes.map(node => node.category)));
         const colorScale = d3.scaleOrdinal()
             .domain(categories)
-            .range(["#8bc4bf", "#d3f0e3"]);
+            .range(["#8bc4bf", "#d3f0e3", '#A8C0B5']);
 
         // Define the boundary between connected and isolated nodes
         const boundaryX = width * 0.6;
