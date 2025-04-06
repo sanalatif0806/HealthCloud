@@ -5,16 +5,28 @@ const { getAllIdsAndLinks } = require('../models/CHe_cloud_data');
 router.get('/all_ch_links', async (req, res) => {
     try {
         const items = await getAllIdsAndLinks();
-
+        const allowedKeywords = ["ch-tangible", "ch-intangible"];
         if (!items.length) {
             return res.status(404).json({ message: "No elements founded." });
         }
-        const nodes = items.map(item => ({
-            "id": item.identifier,
-            "title" : item.title,
-            "url": `https://example.com/${item.identifier}`,
-            "category": "Type 1"
-        }));
+        const nodes = items.map(item => {
+            let matchedKeyword = item.keywords.find(kw => allowedKeywords.includes(kw));
+            if (matchedKeyword == 'ch-tangible'){
+                matchedKeyword = 'Tangible'
+            }
+            if (matchedKeyword == 'ch-intangible'){
+                matchedKeyword = 'Intangible'
+            }
+            if (matchedKeyword == 'ch-generic'){
+                matchedKeyword == 'Generic'
+            }
+            return {
+                "id": item.identifier,
+                "title" : item.title,
+                "url": `https://example.com/${item.identifier}`,
+                "category": matchedKeyword || 'Generic'
+            }
+        });
 
         const links = [];
         const nodeIds = new Set(nodes.map(node => node.id)); // Create a set of node IDs for faster lookup
