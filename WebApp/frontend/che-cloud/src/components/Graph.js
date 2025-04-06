@@ -155,7 +155,8 @@ const StaticGraph = ({ data }) => {
                 
             a.append("circle")
                 .attr("r", 25)
-                .attr("fill", d => colorScale(d.category));
+                .attr("fill", d => colorScale(d.category))
+                .attr("class", "node-circle");
             
             a.append("text")
                 .attr("fill", "black")
@@ -198,16 +199,45 @@ const StaticGraph = ({ data }) => {
         
         // Add hover effects for connected nodes
         connectedNodeGroups.on("mouseover", (event, d) => {
+            const nodeId = d.id;
             // Highlight links connected to this node
             svg.selectAll(".link").classed("highlighted", link => {
                 const sourceId = typeof link.source === 'object' ? link.source.id : link.source;
                 const targetId = typeof link.target === 'object' ? link.target.id : link.target;
                 return sourceId === d.id || targetId === d.id;
             });
+            d3.select(event.currentTarget).select("circle").classed("highlighted", true);
+
+            svg.selectAll(".node-group").each(function(otherNode) {
+                const otherNodeId = otherNode.id;
+                const isConnected = data.links.some(link => {
+                    const sourceId = typeof link.source === 'object' ? link.source.id : link.source;
+                    const targetId = typeof link.target === 'object' ? link.target.id : link.target;
+                    return (sourceId === nodeId && targetId === otherNodeId) ||
+                           (targetId === nodeId && sourceId === otherNodeId);
+                });
+
+                if (isConnected) {
+                    d3.select(this).select("circle").classed("highlighted", true);
+                }
+            })
         })
-        .on("mouseout", () => {
+        .on("mouseout", (event) => {
             // Remove highlight when mouse leaves
             svg.selectAll(".link").classed("highlighted", false);
+            d3.select(event.currentTarget).select("circle").classed("highlighted", false);
+            // Unhighlight all node circles
+            svg.selectAll(".node-circle").classed("highlighted", false);
+        });
+
+        // Add hover effects for connected nodes
+        isolatedNodeGroups.on("mouseover", (event, d) => {
+            // Highlight links connected to this node
+            d3.select(event.currentTarget).select("circle").classed("highlighted", true);
+        })
+        .on("mouseout", (event) => {
+            // Remove highlight when mouse leaves
+            d3.select(event.currentTarget).select("circle").classed("highlighted", false);
         });
     };
     
@@ -239,6 +269,16 @@ const StaticGraph = ({ data }) => {
             }
             .legend { font-size: 12px; }
             .isolated { opacity: 0.8; }
+            .node-circle {
+                stroke: none;
+                stroke-width: 2px;
+                transition: stroke 0.3s, stroke-width 0.3s;
+            }
+
+            .node-circle.highlighted {
+                stroke: orange;
+                stroke-width: 4px;
+            }
         `;
         clonedSvg.insertBefore(styleElement, clonedSvg.firstChild);
     
@@ -247,28 +287,56 @@ const StaticGraph = ({ data }) => {
             document.addEventListener('DOMContentLoaded', function() {
                 const nodes = document.querySelectorAll('.node-group');
                 const links = document.querySelectorAll('.link');
-                
+
+                function getNodeId(node) {
+                    return node.getAttribute('data-id');
+                }
+
+                function isConnected(a, b) {
+                    return Array.from(links).some(link => {
+                        const source = link.getAttribute('data-source');
+                        const target = link.getAttribute('data-target');
+                        return (source === a && target === b) || (source === b && target === a);
+                    });
+                }
+
                 nodes.forEach(node => {
-                    const nodeId = node.getAttribute('data-id');
-                    
+                    const nodeId = getNodeId(node);
+                    const circle = node.querySelector('circle');
+
                     node.addEventListener('mouseover', () => {
+                        // Highlight links
                         links.forEach(link => {
                             const source = link.getAttribute('data-source');
                             const target = link.getAttribute('data-target');
-                            
                             if (source === nodeId || target === nodeId) {
                                 link.classList.add('highlighted');
                             }
                         });
-                    });
-                    
-                    node.addEventListener('mouseout', () => {
-                        links.forEach(link => {
-                            link.classList.remove('highlighted');
+
+                        // Highlight this node
+                        circle.classList.add('highlighted');
+
+                        // Highlight connected nodes
+                        nodes.forEach(otherNode => {
+                            const otherNodeId = getNodeId(otherNode);
+                            if (otherNodeId !== nodeId && isConnected(nodeId, otherNodeId)) {
+                                const otherCircle = otherNode.querySelector('circle');
+                                if (otherCircle) otherCircle.classList.add('highlighted');
+                            }
                         });
                     });
-    
-                    // Add click functionality to nodes
+
+                    node.addEventListener('mouseout', () => {
+                        // Remove highlights
+                        links.forEach(link => link.classList.remove('highlighted'));
+                        nodes.forEach(n => {
+                            const c = n.querySelector('circle');
+                            if (c) c.classList.remove('highlighted');
+                        });
+                    });
+
+                    // Open link if clicked
                     node.addEventListener('click', function() {
                         const url = node.getAttribute('data-url');
                         if (url) {
@@ -277,7 +345,7 @@ const StaticGraph = ({ data }) => {
                     });
                 });
             });
-        `;
+            `;
         
         const scriptElement = document.createElementNS("http://www.w3.org/2000/svg", "script");
         scriptElement.textContent = scriptContent;

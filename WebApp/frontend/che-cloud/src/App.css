@@ -65,3 +65,14 @@ html, body, #root {
   stroke-width: 4px; /* Thicker edge for highlight */
   stroke-opacity: 1; /* Full opacity for the highlighted edges */
 }
+
+.node-circle {
+  stroke: none;
+  stroke-width: 2px;
+  transition: stroke 0.3s, stroke-width 0.3s;
+}
+
+.node-circle.highlighted {
+  stroke: orange;
+  stroke-width: 4px;
+}
