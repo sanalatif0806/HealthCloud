@@ -39,7 +39,8 @@ class EvaluateFAIRness:
         dump_indication = self.quality_data["Availability of RDF dump (metadata)"].apply(lambda x: 1 if x in [1,"1"] else 0)
         verifiability_info = self.quality_data.apply(utils.check_publisher_info,axis=1)
         mediatype_indication = self.quality_data['metadata-media-type'].apply(lambda x: 1 if x not in ('[]','['',]',"['']") else 0)
-        license = self.quality_data['License machine redeable (metadata)'].apply(lambda x: 1 if x not in ['-', ''] and pd.notna(x) else 0)
+        # TODO: Add the check also on MR license, but in the SPARQL endpoint
+        license = self.quality_data['License machine redeable (metadata)'].apply(lambda x: 1 if x not in ['-', '',False,'False'] and pd.notna(x) else 0)
         vocabs =  self.quality_data['Vocabularies'].apply(lambda x: 1 if x not in ['[]','-'] and pd.notna(x) else 0)
         if not self.manually_picked:
             links = self.quality_data['Degree of connection'].apply(lambda x: 1 if (x != '-' and pd.notna(x) and int(x) > 0 ) else 0)
@@ -52,8 +53,7 @@ class EvaluateFAIRness:
         void_indication = self.quality_data['Url file VoID'].apply(lambda x: 1 if pd.notna(x) and x != '' else 0)
         self.fairness_evaluation["F2b-M Metadata availability for all the attributes covered in the FAIR score computation"] = ((sparql_indication + doi_indication + dump_indication + verifiability_info + mediatype_indication + license + vocabs + links + void_indication) / 9).round(2)
 
-        if not self.manually_picked: # For those not manually picked, the data are in the LOD Cloud for sure
-            self.fairness_evaluation["F3-M Data referrable via a DOI"] = self.quality_data['KG id'].apply(utils.recover_doi_from_lodcloud)
+        self.fairness_evaluation["F3-M Data referrable via a DOI"] = self.quality_data['KG id'].apply(utils.recover_doi_from_lodcloud)
 
         if not self.manually_picked: # For those not manually picked, the data are in the LOD Cloud for sure
             self.fairness_evaluation["F4-M Metadata registered in a searchable engine"] = 1
