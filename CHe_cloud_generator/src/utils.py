@@ -205,7 +205,7 @@ def get_mime_type(url):
     
     return None  # Could not determine MIME type
 
-def recover_doi_from_lodcloud(kg_id,path_to_lodcloud_data_to_use = '../data/only_CH_lodcloud/CHlodcloud_data_manual_annotated.json'):
+def recover_doi_from_lodcloud(kg_id,path_to_lodcloud_data_to_use = '../data/only_CH_lodcloud/CHlodcloud_manually_added.json'):
     with open(os.path.join(here,path_to_lodcloud_data_to_use), "r", encoding="utf-8") as file:
         lodcloud_data = json.load(file)
         
@@ -239,7 +239,7 @@ def check_publisher_info(row):
 
     return 1 if author_query or author_metadata or contributors or  publishers or sources else 0
 
-def check_if_ontology(kg_id,path_to_lodcloud_data_to_use = '../data/only_CH_lodcloud/CHlodcloud_data_manual_annotated.json'):
+def check_if_ontology(kg_id,path_to_lodcloud_data_to_use = '../data/only_CH_lodcloud/CHlodcloud_manually_added.json'):
     with open(os.path.join(here,path_to_lodcloud_data_to_use), "r", encoding="utf-8") as file:
         lodcloud_data = json.load(file)
         
@@ -251,6 +251,7 @@ def check_if_ontology(kg_id,path_to_lodcloud_data_to_use = '../data/only_CH_lodc
         return False
     
 def check_meta_in_sparql(endpoint_url):
+    print(endpoint_url)
     sparql = SPARQLWrapper(endpoint_url)
     query = """
     PREFIX void: <http://rdfs.org/ns/void#>
@@ -260,40 +261,43 @@ def check_meta_in_sparql(endpoint_url):
     SELECT DISTINCT ?s
     WHERE {
     {
-        ?s a void:Dataset ;
+        ?s a void:Dataset .
     }
     UNION
     {
-        ?s a dcat:Dataset ;
+        ?s a dcat:Dataset .
     }
     }
     """
     sparql.setQuery(query)
     sparql.setTimeout(300)
     sparql.setReturnFormat(JSON)
-    results = sparql.query().convert()
-    if isinstance(results,dict):
-        result = results.get('results')
-        bindings = result.get('bindings')
-        if isinstance(bindings,list) and len(bindings) > 0:
-            return 1
-        else:
-            return 0
-    elif isinstance(results,Document):
-        if isinstance(results,Document): #IF RESULT IS IN XML 
-            li = []
-            literalList = results.getElementsByTagName('literal')
-            numTags = results.getElementsByTagName("literal").length
-            for i in range(numTags):
-                if literalList[i].firstChild is not None:
-                    literal = literalList[i].firstChild.nodeValue
-                    li.append(literal)
-            if len(li) > 0:
+    try:
+        results = sparql.query().convert()
+        if isinstance(results,dict):
+            result = results.get('results')
+            bindings = result.get('bindings')
+            if isinstance(bindings,list) and len(bindings) > 0:
                 return 1
             else:
                 return 0
+        elif isinstance(results,Document):
+            if isinstance(results,Document): #IF RESULT IS IN XML 
+                li = []
+                literalList = results.getElementsByTagName('literal')
+                numTags = results.getElementsByTagName("literal").length
+                for i in range(numTags):
+                    if literalList[i].firstChild is not None:
+                        literal = literalList[i].firstChild.nodeValue
+                        li.append(literal)
+                if len(li) > 0:
+                    return 1
+                else:
+                    return 0
+    except:
+        return 0
 
-def get_sparql_url(kg_id,path_to_lodcloud_data_to_use = '../data/lodcloud_data.json'):
+def get_sparql_url(kg_id,path_to_lodcloud_data_to_use = '../data/only_CH_lodcloud/CHlodcloud_manually_added.json'):
     with open(os.path.join(here,path_to_lodcloud_data_to_use), "r", encoding="utf-8") as file:
         lodcloud_data = json.load(file)
         
@@ -338,13 +342,11 @@ def compare_fairness_on_manually_refined(no_manually_refined_path='../data/fairn
 
     merged_df.to_csv('../data/fairness_evaluation/CHe-Cloud_no_manually_refined_vs_manually_refined.csv', index=False)
 
-def find_search_engine_from_keywords(kg_id,path_to_lodcloud_data_to_use = '../data/only_CH_lodcloud/CHlodcloud_data_manual_annotated.json'):
+def find_search_engine_from_keywords(kg_id,path_to_lodcloud_data_to_use = '../data/only_CH_lodcloud/CHlodcloud_manually_added.json'):
     with open(os.path.join(here,path_to_lodcloud_data_to_use), "r", encoding="utf-8") as file:
         lodcloud_data = json.load(file)
-        
     kg_metadata = lodcloud_data[kg_id]
     keywords = kg_metadata.get('keywords','')
-    keywords = keywords.split(';')
     for keyword in keywords:
         keyword = keyword.strip()
         if any(k in keyword for k in ['github', 'zenodo', 'fairsharing']):

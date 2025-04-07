@@ -4,7 +4,7 @@ import utils
 class EvaluateFAIRness:
 
     def __init__(self,quality_data_to_evaluate, output_file_path):
-        if 'manually_picked_only_sparql.csv' in quality_data_to_evaluate:
+        if 'manually_picked.csv' in quality_data_to_evaluate:
             self.manually_picked = True
         else:
             self.manually_picked = False
@@ -58,7 +58,7 @@ class EvaluateFAIRness:
         if not self.manually_picked: # For those not manually picked, the data are in the LOD Cloud for sure
             self.fairness_evaluation["F4-M Metadata registered in a searchable engine"] = 1
         else:
-            self.fairness_evaluation["F4-M Metadata registered in a searchable engine"] = self.quality_data.apply(utils.find_search_engine_from_keywords,axis=1)
+            self.fairness_evaluation["F4-M Metadata registered in a searchable engine"] = self.quality_data['KG id'].apply(utils.find_search_engine_from_keywords)
 
         self.fairness_evaluation["F score"] = (self.fairness_evaluation[["F1-M Unique and persistent ID", "F1-D URIs dereferenceability", "F2a-M - Metadata availability via standard primary sources", "F2b-M Metadata availability for all the attributes covered in the FAIR score computation", "F3-M Data referrable via a DOI", "F4-M Metadata registered in a searchable engine"]].sum(axis=1) / 6).round(2)
         print("Findability evaluation completed!")
@@ -88,7 +88,7 @@ class EvaluateFAIRness:
         if not self.manually_picked:
             self.fairness_evaluation["A2-M Registered in search engines"] = 1
         else:
-            self.fairness_evaluation["A2-M Registered in search engines"] = self.quality_data.apply(utils.find_search_engine_from_keywords,axis=1)
+            self.fairness_evaluation["A2-M Registered in search engines"] = self.quality_data['KG id'].apply(utils.find_search_engine_from_keywords)
         
         self.fairness_evaluation["A score"] = (self.fairness_evaluation[["A1-D Working access point(s)", "A1-M Metadata availability via working primary sources", "A1.2 Authentication & HTTPS support", "A2-M Registered in search engines"]].sum(axis=1) / 4).round(2)
         print("Availability evaluation completed!")
@@ -115,7 +115,7 @@ class EvaluateFAIRness:
             axis=1
         )
 
-        self.fairness_evaluation['R1.3-M Metadata are described with VoID/DCAT predicates'] = self.quality_data['License machine redeable (query)'].apply(lambda x: 1 if x not in ['-',''] and pd.notna(x) else 0)
+        self.fairness_evaluation['R1.3-M Metadata are described with VoID/DCAT predicates'] = self.quality_data['SPARQL endpoint URL'].apply(utils.check_meta_in_sparql, axis=1)
 
         self.fairness_evaluation["R score"] = (self.fairness_evaluation[["R1.1 Machine- or human-readable license retrievable via any primary source", "R1.2 Publisher information, such as authors, contributors, publishers, and sources", "R1.3-D Data organized in a standardized way", "R1.3-M Metadata are described with VoID/DCAT predicates"]].sum(axis=1) / 4).round(2)
 
@@ -129,7 +129,7 @@ class EvaluateFAIRness:
             axis=1
         )
 
-        self.fairness_evaluation['I1-M Metadata are described with VoID/DCAT predicates'] = self.quality_data['License machine redeable (query)'].apply(lambda x: 1 if x not in ['-',''] and pd.notna(x) else 0)
+        self.fairness_evaluation['I1-M Metadata are described with VoID/DCAT predicates'] = self.quality_data['SPARQL endpoint URL'].apply(utils.check_meta_in_sparql, axis=1)
 
         self.fairness_evaluation['I2 Use of FAIR vocabularies'] = self.quality_data['Vocabularies'].apply(utils.check_if_fair_vocabs)
 
@@ -163,7 +163,7 @@ class EvaluateFAIRness:
         self.fairness_evaluation.to_csv(self.output_file_path,index=False)
     
 
-fairness = EvaluateFAIRness('../data/quality_data/LOD-Cloud_no_refined.csv','../data/fairness_evaluation/CHe-Cloud_no_refined.csv')
+fairness = EvaluateFAIRness('../data/quality_data/manually_picked.csv','../data/fairness_evaluation/CHe-Cloud_manually_picked.csv')
 fairness.evaluate_findability()
 fairness.evaluate_availability()
 fairness.evaluate_interoperability()
