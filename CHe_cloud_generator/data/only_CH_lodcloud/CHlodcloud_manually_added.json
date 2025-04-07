@@ -1565,14 +1565,7 @@
         "links": [],
         "_id": "MusicKG",
         "time": "",
-        "sparql": [
-            {
-                "title": "",
-                "description": "SPARQL endpoint",
-                "access_url": "http://adl-gazetteer.geog.ucsb.edu:8080/sparql/select",
-                "status": ""
-            }
-        ],
+        "sparql": [],
         "doi": "",
         "contact_point": {
             "name": "victoriaeyharabide",
@@ -1616,14 +1609,7 @@
         "links": [],
         "_id": "CIDOC-CRM",
         "time": "",
-        "sparql": [
-            {
-                "title": "",
-                "description": "SPARQL endpoint",
-                "access_url": "http://adl-gazetteer.geog.ucsb.edu:8080/sparql/select",
-                "status": ""
-            }
-        ],
+        "sparql": [],
         "doi": "https://doi.org/10.25504/FAIRsharing.9xcr4z",
         "contact_point": {
             "name": "",
@@ -1656,14 +1642,7 @@
         "links": [],
         "_id": "Mondis",
         "time": "",
-        "sparql": [
-            {
-                "title": "",
-                "description": "SPARQL endpoint",
-                "access_url": "http://adl-gazetteer.geog.ucsb.edu:8080/sparql/select",
-                "status": ""
-            }
-        ],
+        "sparql": [],
         "doi": "",
         "contact_point": {
             "name": "Ing. Jaroslav Valach, Ph.D",
@@ -1705,14 +1684,7 @@
         "links": [],
         "_id": "DigitalNZ",
         "time": "",
-        "sparql": [
-            {
-                "title": "",
-                "description": "SPARQL endpoint",
-                "access_url": "http://adl-gazetteer.geog.ucsb.edu:8080/sparql/select",
-                "status": ""
-            }
-        ],
+        "sparql": [],
         "doi": "",
         "contact_point": {
             "name": "",
@@ -1754,14 +1726,7 @@
         "links": [],
         "_id": "Fondazione-Zeri",
         "time": "",
-        "sparql": [
-            {
-                "title": "",
-                "description": "SPARQL endpoint",
-                "access_url": "http://adl-gazetteer.geog.ucsb.edu:8080/sparql/select",
-                "status": ""
-            }
-        ],
+        "sparql": [],
         "doi": "",
         "contact_point": {
             "name": "Marcello Rossini",
@@ -1812,14 +1777,7 @@
         "links": [],
         "_id": "Library-of-America",
         "time": "",
-        "sparql": [
-            {
-                "title": "",
-                "description": "SPARQL endpoint",
-                "access_url": "http://adl-gazetteer.geog.ucsb.edu:8080/sparql/select",
-                "status": ""
-            }
-        ],
+        "sparql": [],
         "doi": "",
         "contact_point": {
             "name": "",
@@ -1877,14 +1835,7 @@
         "links": [],
         "_id": "Auckland-Museum",
         "time": "",
-        "sparql": [
-            {
-                "title": "",
-                "description": "SPARQL endpoint",
-                "access_url": "http://adl-gazetteer.geog.ucsb.edu:8080/sparql/select",
-                "status": ""
-            }
-        ],
+        "sparql": [],
         "doi": "",
         "contact_point": {
             "name": "",
@@ -1917,14 +1868,7 @@
         "links": [],
         "_id": "BNE",
         "time": "",
-        "sparql": [
-            {
-                "title": "",
-                "description": "SPARQL endpoint",
-                "access_url": "http://adl-gazetteer.geog.ucsb.edu:8080/sparql/select",
-                "status": ""
-            }
-        ],
+        "sparql": [],
         "doi": "",
         "contact_point": {
             "name": "",
@@ -1957,14 +1901,7 @@
         "links": [],
         "_id": "Korea-Library",
         "time": "",
-        "sparql": [
-            {
-                "title": "",
-                "description": "SPARQL endpoint",
-                "access_url": "http://adl-gazetteer.geog.ucsb.edu:8080/sparql/select",
-                "status": ""
-            }
-        ],
+        "sparql": [],
         "doi": "",
         "contact_point": {
             "name": "",
@@ -1997,14 +1934,7 @@
         "links": [],
         "_id": "Russian-Museum",
         "time": "",
-        "sparql": [
-            {
-                "title": "",
-                "description": "SPARQL endpoint",
-                "access_url": "http://adl-gazetteer.geog.ucsb.edu:8080/sparql/select",
-                "status": ""
-            }
-        ],
+        "sparql": [],
         "doi": "",
         "contact_point": {
             "name": "\t\nSvetlana Biryukova",
@@ -2072,14 +2002,7 @@
         "links": [],
         "_id": "National-Library-of-Scotland",
         "time": "",
-        "sparql": [
-            {
-                "title": "",
-                "description": "SPARQL endpoint",
-                "access_url": "http://adl-gazetteer.geog.ucsb.edu:8080/sparql/select",
-                "status": ""
-            }
-        ],
+        "sparql": [],
         "doi": "",
         "contact_point": {
             "name": "",
@@ -2122,14 +2045,7 @@
         "links": [],
         "_id": "Epigraphic-Database-Heidelberg",
         "time": "",
-        "sparql": [
-            {
-                "title": "",
-                "description": "SPARQL endpoint",
-                "access_url": "http://adl-gazetteer.geog.ucsb.edu:8080/sparql/select",
-                "status": ""
-            }
-        ],
+        "sparql": [],
         "doi": "https://doi.org/10.5281/zenodo.3575155",
         "contact_point": {
             "name": "",
@@ -2173,14 +2089,7 @@
         "links": [],
         "_id": "OntoComedySources",
         "time": "",
-        "sparql": [
-            {
-                "title": "",
-                "description": "SPARQL endpoint",
-                "access_url": "http://adl-gazetteer.geog.ucsb.edu:8080/sparql/select",
-                "status": ""
-            }
-        ],
+        "sparql": [],
         "doi": "",
         "contact_point": {
             "name": "Andrea De Domenico",
@@ -2232,14 +2141,7 @@
         "links": [],
         "_id": "OntoCeramic-2.0",
         "time": "",
-        "sparql": [
-            {
-                "title": "",
-                "description": "SPARQL endpoint",
-                "access_url": "http://adl-gazetteer.geog.ucsb.edu:8080/sparql/select",
-                "status": ""
-            }
-        ],
+        "sparql": [],
         "doi": "",
         "contact_point": {
             "name": "Daniele Francesco Santamaria",
@@ -2273,14 +2175,7 @@
         "links": [],
         "_id": "SaintGall-Ontology",
         "time": "",
-        "sparql": [
-            {
-                "title": "",
-                "description": "SPARQL endpoint",
-                "access_url": "http://adl-gazetteer.geog.ucsb.edu:8080/sparql/select",
-                "status": ""
-            }
-        ],
+        "sparql": [],
         "doi": "",
         "contact_point": {
             "name": "",
@@ -2324,14 +2219,7 @@
         "links": [],
         "_id": "Linguistic-Phenomena-Ontology",
         "time": "",
-        "sparql": [
-            {
-                "title": "",
-                "description": "SPARQL endpoint",
-                "access_url": "http://adl-gazetteer.geog.ucsb.edu:8080/sparql/select",
-                "status": ""
-            }
-        ],
+        "sparql": [],
         "doi": "",
         "contact_point": {
             "name": "Cristiano Longo",
@@ -2399,14 +2287,7 @@
         "links": [],
         "_id": "ICON",
         "time": "",
-        "sparql": [
-            {
-                "title": "",
-                "description": "SPARQL endpoint",
-                "access_url": "http://adl-gazetteer.geog.ucsb.edu:8080/sparql/select",
-                "status": ""
-            }
-        ],
+        "sparql": [],
         "doi": "https://doi.org/10.5281/zenodo.5833118",
         "contact_point": {
             "name": "Bruno Sartini",
@@ -2459,14 +2340,7 @@
         "links": [],
         "_id": "Polifonia",
         "time": "",
-        "sparql": [
-            {
-                "title": "",
-                "description": "SPARQL endpoint",
-                "access_url": "http://adl-gazetteer.geog.ucsb.edu:8080/sparql/select",
-                "status": ""
-            }
-        ],
+        "sparql": [],
         "doi": "",
         "contact_point": {
             "name": "Polifonia H2020",
@@ -2510,14 +2384,7 @@
         "links": [],
         "_id": "Atlas-of-Paths",
         "time": "",
-        "sparql": [
-            {
-                "title": "",
-                "description": "SPARQL endpoint",
-                "access_url": "http://adl-gazetteer.geog.ucsb.edu:8080/sparql/select",
-                "status": ""
-            }
-        ],
+        "sparql": [],
         "doi": "https://doi.org/10.5281/zenodo.14058232",
         "contact_point": {
             "name": "Istituto di Scienze e Tecnologie della Cognizione del CNR - Semantic Technology Lab (STLab) ",
@@ -2618,14 +2485,7 @@
         "links": [],
         "_id": "Music-Note-Ontology",
         "time": "",
-        "sparql": [
-            {
-                "title": "",
-                "description": "SPARQL endpoint",
-                "access_url": "http://adl-gazetteer.geog.ucsb.edu:8080/sparql/select",
-                "status": ""
-            }
-        ],
+        "sparql": [],
         "doi": "",
         "contact_point": {
             "name": "Andrea Poltronieri",
@@ -2687,14 +2547,7 @@
         "links": [],
         "_id": "HaMSE",
         "time": "",
-        "sparql": [
-            {
-                "title": "",
-                "description": "SPARQL endpoint",
-                "access_url": "http://adl-gazetteer.geog.ucsb.edu:8080/sparql/select",
-                "status": ""
-            }
-        ],
+        "sparql": [],
         "doi": "",
         "contact_point": {
             "name": "Andrea Poltronieri",
@@ -2737,14 +2590,7 @@
         "links": [],
         "_id": "FOod",
         "time": "",
-        "sparql": [
-            {
-                "title": "",
-                "description": "SPARQL endpoint",
-                "access_url": "http://adl-gazetteer.geog.ucsb.edu:8080/sparql/select",
-                "status": ""
-            }
-        ],
+        "sparql": [],
         "doi": "",
         "contact_point": {
             "name": "stlab-istc-cnr",
@@ -2812,14 +2658,7 @@
         "links": [],
         "_id": "ATLAS-Italian-Digital-CH",
         "time": "",
-        "sparql": [
-            {
-                "title": "",
-                "description": "SPARQL endpoint",
-                "access_url": "http://adl-gazetteer.geog.ucsb.edu:8080/sparql/select",
-                "status": ""
-            }
-        ],
+        "sparql": [],
         "doi": "https://zenodo.org/records/14058144",
         "contact_point": {
             "name": "",
