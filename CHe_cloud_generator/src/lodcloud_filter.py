@@ -227,12 +227,12 @@ class LODCloudFilter:
         client = OpenAI(api_key=openai_api_key)
         categorize_prompt = '''
             I give you some description and title about dataset in the Linked Open Data Cloud, I have to categorize it as Cultural Heritage or Not.  
-            For datasets that are Cultural Heritage, you also need to further specify whether it is Tangible, Intangible, Natural Heritage and finally those that define thesaurus and data models, classify them as Terminology.  
+            For datasets that are Cultural Heritage, you also need to further specify whether it is #, In#, Natural Heritage and finally those that define thesaurus and data models, classify them as Terminology.  
             You will be provided with a dataset description, title and the id, and you will output a json object containinig the following information:
             {
                 "id": "dataset_id",
                 "category": "Cultural Heritage",
-                "sub_category": "Tangible"
+                "sub_category": "#"
             }
             If the dataset is not part of the Cultural Heritage category, do not enter the "category" key. If the dataset is of type Cultural Heritage, but you cannot define the sub category, do not enter the key “sub_category”.
         '''
@@ -457,7 +457,7 @@ class LODCloudFilter:
             json.dump(self.lodcloud_data, file,indent=4)
 
 l = LODCloudFilter()
-l.merge_cultural_heritage_datasets_with_other_from_lodcloud('../data/keywords_from_SLR/CHlodcloud_data_title_description_optimal_keywords_no_history.json')
+#l.merge_cultural_heritage_datasets_with_other_from_lodcloud('../data/keywords_from_SLR/CHlodcloud_data_title_description_optimal_keywords_no_history.json')
 #l.convert_final_CSV_annotated(os.path.join(here,'../data/manually_annotated_kgs/LODCloud_CH_Final_Selection.csv'))
 #l.merge_cultural_heritage_datasets_with_other_from_lodcloud('../data/CHlodcloud_data_title_description_optimal_keywords_no_history.json')
 '''
@@ -475,8 +475,8 @@ ch_optimal_subset['generic'] = {
 with open(os.path.join(here,'../data/CH_optimal_subsets.json'), "w", encoding="utf-8") as file:
     json.dump(ch_optimal_subset, file,indent=4)'
 '''
-optimal_keywords = json.load(open(os.path.join(here,'../data/keywords_from_SLR/CH_optimal_keywords.json'), "r", encoding="utf-8"))
-optimal_keywords = optimal_keywords['optimal_keywords']
-l.filter_by_title_description_and_keywords(keywords=optimal_keywords)
+#optimal_keywords = json.load(open(os.path.join(here,'../data/keywords_from_SLR/CH_optimal_keywords.json'), "r", encoding="utf-8"))
+#optimal_keywords = optimal_keywords['optimal_keywords']
+#l.filter_by_title_description_and_keywords(keywords=optimal_keywords)
 
-#l.convert_final_CSV_annotated(os.path.join(here,'../data/manually_annotated_kgs/LODCloud_CH_Final_Selection.csv'))
+l.convert_final_CSV_annotated(os.path.join(here,'../data/manually_annotated_kgs/LODCloud_CH_Final_Selection.csv'))
