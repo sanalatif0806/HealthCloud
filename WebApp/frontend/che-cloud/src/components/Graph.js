@@ -20,7 +20,7 @@ const StaticGraph = ({ data }) => {
         const categories = Array.from(new Set(data.nodes.map(node => node.category)));
         const colorScale = d3.scaleOrdinal()
             .domain(categories)
-            .range(["#8bc4bf", "#d3f0e3", '#A8C0B5']);
+            .range(["#bddbcf", "#f6f0e4", '#6fa990','#debaa9']);
 
         // Define the boundary between connected and isolated nodes
         const boundaryX = width * 0.6;
@@ -365,6 +365,44 @@ const StaticGraph = ({ data }) => {
         document.body.removeChild(link);
     };
 
+    const handleDownloadPNG = () => {
+        const svgElement = document.getElementById("graph");
+        const serializer = new XMLSerializer();
+        const svgData = serializer.serializeToString(svgElement);
+    
+        const scaleFactor = 1;
+        const originalWidth = svgElement.clientWidth;
+        const originalHeight = svgElement.clientHeight;
+        const width = originalWidth * scaleFactor;
+        const height = originalHeight * scaleFactor;
+    
+        const canvas = document.createElement("canvas");
+        canvas.width = width;
+        canvas.height = height;
+    
+        const ctx = canvas.getContext("2d");
+    
+        const image = new Image();
+        const svgBlob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
+        const url = URL.createObjectURL(svgBlob);
+    
+        image.onload = () => {
+            ctx.drawImage(image, 0, 0, width, height);
+            URL.revokeObjectURL(url);
+    
+            canvas.toBlob(blob => {
+                const link = document.createElement("a");
+                link.download = "static-graph.png";
+                link.href = URL.createObjectURL(blob);
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }, "image/png");
+        };
+    
+        image.src = url;
+    };
+
     return (
         <div style={{ height: "100vh", width: "100vw", margin: 0, padding: 0 }}>
             <button 
@@ -378,6 +416,17 @@ const StaticGraph = ({ data }) => {
                 }}
             >
                 Download SVG
+            </button>
+            <button 
+                onClick={handleDownloadPNG}
+                style={{
+                    position: "absolute",
+                    top: 50,
+                    right: 10,
+                    zIndex: 10
+                }}
+            >
+                Download PNG
             </button>
             <svg id="graph" width="100%" height="100%">
                 {data.nodes.length === 0 && (
