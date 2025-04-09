@@ -205,7 +205,7 @@ def get_mime_type(url):
     
     return None  # Could not determine MIME type
 
-def recover_doi_from_lodcloud(kg_id,path_to_lodcloud_data_to_use = '../data/only_CH_lodcloud/CHlodcloud_manually_added.json'):
+def recover_doi_from_lodcloud(kg_id,path_to_lodcloud_data_to_use = '../data/only_CH_lodcloud/CHe_cloud_merged.json'):
     with open(os.path.join(here,path_to_lodcloud_data_to_use), "r", encoding="utf-8") as file:
         lodcloud_data = json.load(file)
         
@@ -239,7 +239,7 @@ def check_publisher_info(row):
 
     return 1 if author_query or author_metadata or contributors or  publishers or sources else 0
 
-def check_if_ontology(kg_id,path_to_lodcloud_data_to_use = '../data/only_CH_lodcloud/CHlodcloud_manually_added.json'):
+def check_if_ontology(kg_id,path_to_lodcloud_data_to_use = '../data/only_CH_lodcloud/CHe_cloud_merged.json'):
     with open(os.path.join(here,path_to_lodcloud_data_to_use), "r", encoding="utf-8") as file:
         lodcloud_data = json.load(file)
         
@@ -251,7 +251,6 @@ def check_if_ontology(kg_id,path_to_lodcloud_data_to_use = '../data/only_CH_lodc
         return False
     
 def check_meta_in_sparql(endpoint_url):
-    print(endpoint_url)
     sparql = SPARQLWrapper(endpoint_url)
     query = """
     PREFIX void: <http://rdfs.org/ns/void#>
@@ -282,22 +281,21 @@ def check_meta_in_sparql(endpoint_url):
             else:
                 return 0
         elif isinstance(results,Document):
-            if isinstance(results,Document): #IF RESULT IS IN XML 
-                li = []
-                literalList = results.getElementsByTagName('literal')
-                numTags = results.getElementsByTagName("literal").length
-                for i in range(numTags):
-                    if literalList[i].firstChild is not None:
-                        literal = literalList[i].firstChild.nodeValue
-                        li.append(literal)
-                if len(li) > 0:
-                    return 1
-                else:
-                    return 0
+            li = []
+            literalList = results.getElementsByTagName('literal')
+            numTags = results.getElementsByTagName("literal").length
+            for i in range(numTags):
+                if literalList[i].firstChild is not None:
+                    literal = literalList[i].firstChild.nodeValue
+                    li.append(literal)
+            if len(li) > 0:
+                return 1
+            else:
+                return 0
     except:
         return 0
 
-def get_sparql_url(kg_id,path_to_lodcloud_data_to_use = '../data/only_CH_lodcloud/CHlodcloud_manually_added.json'):
+def get_sparql_url(kg_id,path_to_lodcloud_data_to_use = '../data/only_CH_lodcloud/CHe_cloud_merged.json'):
     with open(os.path.join(here,path_to_lodcloud_data_to_use), "r", encoding="utf-8") as file:
         lodcloud_data = json.load(file)
         
@@ -316,12 +314,14 @@ def check_if_fair_vocabs(vocabs):
     vocabs = vocabs.replace(']','')
     vocabs = vocabs.split(',')
     total_vocabs = len(vocabs)
-    fair_vocabularies = []
+    fair_vocabularies_defined = []
     for vocab in vocabs:
         vocab = vocab.strip()
+        vocab = vocab.replace("'","")
+        vocab = vocab.replace('"',"")
         if vocab in fair_vocabularies:
-            fair_vocabularies.append(vocab)
-    return len(fair_vocabularies) / total_vocabs if total_vocabs > 0 else 0
+            fair_vocabularies_defined.append(vocab)
+    return len(fair_vocabularies_defined) / total_vocabs if total_vocabs > 0 else 0
 
 def compare_fairness_on_manually_refined(no_manually_refined_path='../data/fairness_evaluation/CHe-Cloud_no_refined.csv', manually_refined_path='../data/fairness_evaluation/CHe-Cloud_manually_refined.csv'):
     no_manually_refined_df = pd.read_csv(no_manually_refined_path)
@@ -342,7 +342,7 @@ def compare_fairness_on_manually_refined(no_manually_refined_path='../data/fairn
 
     merged_df.to_csv('../data/fairness_evaluation/CHe-Cloud_no_manually_refined_vs_manually_refined.csv', index=False)
 
-def find_search_engine_from_keywords(kg_id,path_to_lodcloud_data_to_use = '../data/only_CH_lodcloud/CHlodcloud_manually_added.json'):
+def find_search_engine_from_keywords(kg_id,path_to_lodcloud_data_to_use = '../data/only_CH_lodcloud/CHe_cloud_merged.json'):
     with open(os.path.join(here,path_to_lodcloud_data_to_use), "r", encoding="utf-8") as file:
         lodcloud_data = json.load(file)
     kg_metadata = lodcloud_data[kg_id]
@@ -355,9 +355,31 @@ def find_search_engine_from_keywords(kg_id,path_to_lodcloud_data_to_use = '../da
             return 0
     return 0
 
+
+def check_at_least_sparql_on(sparql_url):
+    '''
+    Check if the SPARQL endpoint return a 200 status, also if the sparql editor is not interoperable
+    '''
+    try:
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+        }
+
+        response = requests.get(sparql_url, headers=headers, timeout=10,verify=False)
+
+        if 200 <= response.status_code < 300:
+            return 1
+        else:
+            return 0
+        
+    except requests.exceptions.RequestException as e:
+        # Handle any exceptions that may occur
+        return 0
+
+
 #LodCloudDataHandler.merge_lodcloud_data(['../data/lodcloud_data.json','../data/CHlodcloud_data_title_description_optimal_keywords.json'],'../data/complete_lodcloud_with_CH_domain/Complete-CHlodcloud_data_title_description_optimal_keywords.json')
 
-#compare_fairness_on_manually_refined()
+compare_fairness_on_manually_refined()
     
 #filter_quality_data("../data/CHlodcloud_data_manual_selected.json", "../data/quality_data/2025-03-16.csv","../data/quality_data/2025-03-16_CHe_cloud_manually_extracted.csv")
 #calculate_precision_recall("../data/complete_lodcloud_with_CH_domain/Complete-CHlodcloud_data_manual_selected(Eligible).json", "../data/complete_lodcloud_with_CH_domain/Complete-CHlodcloud_data_title_description_optimal_keywords_no_history.json")
