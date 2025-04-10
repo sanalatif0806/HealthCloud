@@ -14622,7 +14622,32 @@
         "other_download": [],
         "domain": "cultural-heritage",
         "namespace": "",
-        "links": [],
+        "links": [
+            {
+                "target": "cbdb.library.sh.cn",
+                "value": 34048
+            },
+            {
+                "target": "data.library.sh.cn",
+                "value": 11404
+            },
+            {
+                "target": "cba.ac.cn",
+                "value": 2758
+            },
+            {
+                "target": "viaf.org",
+                "value": 1589
+            },
+            {
+                "target": "geonames.org",
+                "value": 140
+            },
+            {
+                "target": "id.loc.gov",
+                "value": 61
+            }
+        ],
         "_id": "Shanghai-Library-Open-Data-Platform",
         "time": "",
         "sparql": [
@@ -16784,6 +16809,56 @@
         "contact_point": {
             "name": "",
             "email": ""
+        }
+    },
+    "ARIADNE": {
+        "owner": {
+            "name": "",
+            "email": ""
+        },
+        "identifier": "ARIADNE",
+        "website": "https://portal.ariadne-infrastructure.eu/",
+        "triples": 0,
+        "full_download": [],
+        "keywords": [
+            "cultural-heritage",
+            "ch-tangible",
+            "github"
+        ],
+        "description": {
+            "en": "The ARIADNEPlus Knowledge Base is an archaeological Linked Open Data set modeled according to the ARIADNE ontology and provided by an international network of organisations. It is openly accessible via: (i) The ARIADNE portal (https://portal.ariadne-infrastructure.eu/) that is backed by an OpenSearch index server; (ii) A GraphDB instance, that can be queried via a web graphical user interface or programmatically with SPARQL queries (free registration to the ARIADNEplus_Lab Virtual Research Environment required). The Knowledge Base is accompanied by documentation in the form of a Jupyter Notebook, allowing users to get acquainted with the API and the data model thanks to code that can be run live on the GraphDB instance."
+        },
+        "title": "ARIADNEplus Knowledge Base",
+        "Image": "",
+        "example": [],
+        "license": "https://creativecommons.org/licenses/by/4.0/deed.en",
+        "other_download": [
+            {
+                "media_type": "text/html; charset=utf-8",
+                "description": "",
+                "status": "",
+                "title": "",
+                "mirror": [],
+                "access_url": "https://github.com/ariadne-infrastructure"
+            }
+        ],
+        "domain": "cultural-heritage",
+        "namespace": "",
+        "links": [],
+        "_id": "ARIADNE",
+        "time": "",
+        "sparql": [
+            {
+                "title": "",
+                "description": "SPARQL endpoint",
+                "access_url": "https://ariadne.d4science.org/group/ariadneplus_lab/graphdb",
+                "status": ""
+            }
+        ],
+        "doi": "",
+        "contact_point": {
+            "name": "",
+            "email": "https://portal.ariadne-infrastructure.eu/contact"
         }
     }
 }
