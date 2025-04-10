@@ -4,7 +4,7 @@ import utils
 class EvaluateFAIRness:
 
     def __init__(self,quality_data_to_evaluate, output_file_path):
-        if 'manually_picked.csv' in quality_data_to_evaluate:
+        if 'manually_picked' in quality_data_to_evaluate:
             self.manually_picked = True
         else:
             self.manually_picked = False
@@ -83,7 +83,9 @@ class EvaluateFAIRness:
         if self.manually_picked:
             sparql_metadata = self.quality_data["SPARQL endpoint URL"].apply(utils.check_meta_in_sparql)
             void_availability = self.quality_data["Availability VoID file"].apply(lambda x: 1 if x == 'VoID file available' else 0)
-            self.fairness_evaluation["A1-M Metadata availability via working primary sources"].apply(lambda x: 1 if sparql_metadata == 1 or void_availability == 1 else 0)
+            self.fairness_evaluation["A1-M Metadata availability via working primary sources"] = (
+                (sparql_metadata == 1) | (void_availability == 1)
+            ).astype(int)
         else:
             self.fairness_evaluation["A1-M Metadata availability via working primary sources"] = 1
 
@@ -180,7 +182,7 @@ class EvaluateFAIRness:
         self.fairness_evaluation.to_csv(self.output_file_path,index=False)
     
 
-fairness = EvaluateFAIRness('../data/quality_data/2025-04-04__LODCloud_manually_refined.csv','../data/fairness_evaluation/CHe-Cloud_manually_refined.csv')
+fairness = EvaluateFAIRness('../data/quality_data/2025-04-09_manually_picked.csv','../data/fairness_evaluation/CHe-Cloud_manually_picked.csv')
 fairness.evaluate_findability()
 fairness.evaluate_availability()
 fairness.evaluate_interoperability()

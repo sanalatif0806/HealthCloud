@@ -351,8 +351,6 @@ def find_search_engine_from_keywords(kg_id,path_to_lodcloud_data_to_use = '../da
         keyword = keyword.strip()
         if any(k in keyword for k in ['github', 'zenodo', 'fairsharing']):
             return 1
-        else:
-            return 0
     return 0
 
 
