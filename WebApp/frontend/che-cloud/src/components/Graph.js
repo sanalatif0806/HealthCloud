@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import * as d3 from 'd3';
+import { jsPDF } from 'jspdf';
+import 'svg2pdf.js';
 
 const StaticGraph = ({ data }) => {
     const [graphRendered, setGraphRendered] = useState(false);
@@ -403,6 +405,71 @@ const StaticGraph = ({ data }) => {
         image.src = url;
     };
 
+    const handleDownloadPDF = () => {
+        const svgElement = document.getElementById("graph");
+        const svgWidth = svgElement.clientWidth;
+        const svgHeight = svgElement.clientHeight;
+        
+        const clonedSvg = svgElement.cloneNode(true);
+        
+        clonedSvg.setAttribute("viewBox", `0 0 ${svgWidth} ${svgHeight}`);
+        
+        clonedSvg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+        clonedSvg.setAttribute("xmlns:xlink", "http://www.w3.org/1999/xlink");
+        
+        // Add styles for exported PDF
+        const styleElement = document.createElementNS("http://www.w3.org/2000/svg", "style");
+        styleElement.textContent = `
+            .link { stroke: #aaa; stroke-width: 2; }
+            .highlighted { stroke: orange; stroke-width: 4; }
+            .link.highlighted {
+                stroke: orange;
+                stroke-width: 4px;
+                stroke-opacity: 1;
+            }
+            .legend { font-size: 12px; }
+            .isolated { opacity: 0.8; }
+            .node-circle {
+                stroke: none;
+                stroke-width: 2px;
+            }
+            .node-circle.highlighted {
+                stroke: orange;
+                stroke-width: 4px;
+            }
+        `;
+        clonedSvg.insertBefore(styleElement, clonedSvg.firstChild);
+        
+        const serializer = new XMLSerializer();
+        const svgData = serializer.serializeToString(clonedSvg);
+        
+        let orientation = svgWidth > svgHeight ? 'landscape' : 'portrait';
+        
+        // Create a new PDF with jsPDF
+        const pdf = new jsPDF({
+            orientation: orientation,
+            unit: 'pt',
+            format: [svgWidth, svgHeight]
+        });
+        
+        // Add SVG to PDF document
+        const element = document.createElement('div');
+        element.innerHTML = svgData;
+        const svgElement2 = element.firstChild;
+        
+        // Convert SVG to PDF
+        pdf.svg(svgElement2, {
+            x: 0,
+            y: 0,
+            width: svgWidth,
+            height: svgHeight
+        })
+        .then(() => {
+            // Save the PDF file
+            pdf.save('static-graph.pdf');
+        });
+    };
+
     return (
         <div style={{ height: "100vh", width: "100vw", margin: 0, padding: 0 }}>
             <button 
@@ -427,6 +494,17 @@ const StaticGraph = ({ data }) => {
                 }}
             >
                 Download PNG
+            </button>
+            <button 
+                onClick={handleDownloadPDF}
+                style={{
+                    position: "absolute",
+                    top: 90,
+                    right: 10,
+                    zIndex: 10
+                }}
+            >
+                Download PDF
             </button>
             <svg id="graph" width="100%" height="100%">
                 {data.nodes.length === 0 && (
