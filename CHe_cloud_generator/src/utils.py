@@ -374,11 +374,27 @@ def check_at_least_sparql_on(sparql_url):
         # Handle any exceptions that may occur
         return 0
 
+def merge_fairness_evaluation(che_cloud_data,che_cloud_manually_refined,manually_picked):
+    original_df = pd.read_csv(che_cloud_data)
+    refined_df = pd.read_csv(che_cloud_manually_refined)
+    additional_df = pd.read_csv(manually_picked)
+    original_df.set_index("KG id", inplace=True)
+    refined_df.set_index("KG id", inplace=True)
+
+    original_df.update(refined_df)
+
+    original_df.reset_index(inplace=True)
+
+    new_rows = additional_df[~additional_df['KG id'].isin(original_df['KG id'])]
+
+    final_df = pd.concat([original_df, new_rows], ignore_index=True)
+
+    final_df.to_csv('../data/fairness_evaluation/CHe-Cloud_merged(lodcloud+refined+manually_picked).csv', index=False)
 
 #LodCloudDataHandler.merge_lodcloud_data(['../data/lodcloud_data.json','../data/CHlodcloud_data_title_description_optimal_keywords.json'],'../data/complete_lodcloud_with_CH_domain/Complete-CHlodcloud_data_title_description_optimal_keywords.json')
 
-compare_fairness_on_manually_refined()
-    
+#compare_fairness_on_manually_refined()
+merge_fairness_evaluation('../data/fairness_evaluation/CHe-Cloud_no_refined.csv','../data/fairness_evaluation/CHe-Cloud_manually_refined.csv','../data/fairness_evaluation/CHe-Cloud_manually_picked.csv')   
 #filter_quality_data("../data/CHlodcloud_data_manual_selected.json", "../data/quality_data/2025-03-16.csv","../data/quality_data/2025-03-16_CHe_cloud_manually_extracted.csv")
 #calculate_precision_recall("../data/complete_lodcloud_with_CH_domain/Complete-CHlodcloud_data_manual_selected(Eligible).json", "../data/complete_lodcloud_with_CH_domain/Complete-CHlodcloud_data_title_description_optimal_keywords_no_history.json")
 
