@@ -107,9 +107,9 @@ class EvaluateFAIRness:
 
         self.fairness_evaluation['R1.1 Machine- or human-readable license retrievable via any primary source'] = self.quality_data.apply(
             lambda row: 1 if (
-                pd.notna(row['License machine redeable (metadata)']) and row['License machine redeable (metadata)'] not in ['-', '']
+                pd.notna(row['License machine redeable (metadata)']) and row['License machine redeable (metadata)'] not in ['-', '',False,'False']
             ) or (
-                pd.notna(row['License machine redeable (query)']) and row['License machine redeable (query)'] not in ['-', '']
+                pd.notna(row['License machine redeable (query)']) and row['License machine redeable (query)'] not in ['-', ''] 
             ) or (
                 row['License human redeable'] in [True, 'True']
             ) else 0,
@@ -182,7 +182,7 @@ class EvaluateFAIRness:
         self.fairness_evaluation.to_csv(self.output_file_path,index=False)
     
 
-fairness = EvaluateFAIRness('../data/quality_data/2025-04-09_manually_picked.csv','../data/fairness_evaluation/CHe-Cloud_manually_picked.csv')
+fairness = EvaluateFAIRness('../data/quality_data/LOD-Cloud_manually_refined.csv','../data/fairness_evaluation/CHe-Cloud_manually_refined.csv')
 fairness.evaluate_findability()
 fairness.evaluate_availability()
 fairness.evaluate_interoperability()

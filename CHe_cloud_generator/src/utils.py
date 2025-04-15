@@ -327,17 +327,13 @@ def compare_fairness_on_manually_refined(no_manually_refined_path='../data/fairn
     no_manually_refined_df = pd.read_csv(no_manually_refined_path)
     manually_refined_df = pd.read_csv(manually_refined_path)
 
-    # Trova i KG id comuni tra df1 e df2
     common_kg_ids = no_manually_refined_df["KG id"].isin(manually_refined_df["KG id"])
 
-    # Filtra i DataFrame per mantenere solo i KG id comuni
     df1_filtered = no_manually_refined_df[common_kg_ids].copy()
     df2_filtered = manually_refined_df[manually_refined_df["KG id"].isin(no_manually_refined_df["KG id"])].copy()
 
-    # Modifica il KG id nel secondo DataFrame
     df2_filtered["KG id"] = df2_filtered["KG id"] + "_refined"
 
-    # Concatena le righe alternando df1 e df2
     merged_df = pd.concat([df1_filtered, df2_filtered]).sort_values(by="KG id").reset_index(drop=True)
 
     merged_df.to_csv('../data/fairness_evaluation/CHe-Cloud_no_manually_refined_vs_manually_refined.csv', index=False)
@@ -393,8 +389,8 @@ def merge_fairness_evaluation(che_cloud_data,che_cloud_manually_refined,manually
 
 #LodCloudDataHandler.merge_lodcloud_data(['../data/lodcloud_data.json','../data/CHlodcloud_data_title_description_optimal_keywords.json'],'../data/complete_lodcloud_with_CH_domain/Complete-CHlodcloud_data_title_description_optimal_keywords.json')
 
-#compare_fairness_on_manually_refined()
-merge_fairness_evaluation('../data/fairness_evaluation/CHe-Cloud_no_refined.csv','../data/fairness_evaluation/CHe-Cloud_manually_refined.csv','../data/fairness_evaluation/CHe-Cloud_manually_picked.csv')   
+compare_fairness_on_manually_refined()
+#merge_fairness_evaluation('../data/fairness_evaluation/CHe-Cloud_no_refined.csv','../data/fairness_evaluation/CHe-Cloud_manually_refined.csv','../data/fairness_evaluation/CHe-Cloud_manually_picked.csv')   
 #filter_quality_data("../data/CHlodcloud_data_manual_selected.json", "../data/quality_data/2025-03-16.csv","../data/quality_data/2025-03-16_CHe_cloud_manually_extracted.csv")
 #calculate_precision_recall("../data/complete_lodcloud_with_CH_domain/Complete-CHlodcloud_data_manual_selected(Eligible).json", "../data/complete_lodcloud_with_CH_domain/Complete-CHlodcloud_data_title_description_optimal_keywords_no_history.json")
 
