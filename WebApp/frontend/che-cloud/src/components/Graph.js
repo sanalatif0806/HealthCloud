@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import * as d3 from 'd3';
 import { jsPDF } from 'jspdf';
 import 'svg2pdf.js';
+import { Download, ImageDown } from "lucide-react";
+
 
 const StaticGraph = ({ data }) => {
     const [graphRendered, setGraphRendered] = useState(false);
@@ -45,6 +47,7 @@ const StaticGraph = ({ data }) => {
         legend.selectAll("text")
             .data(categories)
             .enter().append("text")
+            .attr("font-family", "Arial")
             .attr("x", 30)
             .attr("y", (d, i) => i * 20 + 12)
             .text(d => d)
@@ -68,13 +71,34 @@ const StaticGraph = ({ data }) => {
             return linkedNodeIds.has(sourceId) && linkedNodeIds.has(targetId);
         });
         
+        // Calculate the number of incoming links for each node
+        const incomingLinkCounts = {};
+        data.nodes.forEach(node => {
+            incomingLinkCounts[node.id] = 0;
+        });
+        
+        data.links.forEach(link => {
+            const targetId = typeof link.target === 'object' ? link.target.id : link.target;
+            incomingLinkCounts[targetId] = (incomingLinkCounts[targetId] || 0) + 1;
+        });
+        
+        // Create a scale for node sizes based on incoming links
+        const minNodeSize = 25;
+        const maxNodeSize = 60;
+        const maxIncomingLinks = Math.max(1, ...Object.values(incomingLinkCounts));
+        
+        const nodeSizeScale = d3.scaleLinear()
+            .domain([0, maxIncomingLinks])
+            .range([minNodeSize, maxNodeSize])
+            .clamp(true);
+        
         // Pre-calculate positions for connected nodes using D3 force layout
         // but run it synchronously without animation
         const simulation = d3.forceSimulation(connectedNodes)
             .force("link", d3.forceLink(validLinks).id(d => d.id).distance(150))
             .force("charge", d3.forceManyBody().strength(-25))
             .force("center", d3.forceCenter(width / 3, height / 2))
-            .force("collide", d3.forceCollide(35))
+            .force("collide", d3.forceCollide(d => nodeSizeScale(incomingLinkCounts[d.id]) + 10)) // Adjust collision radius based on node size
             .force("x", d3.forceX(width / 3).strength(0.05))
             .force("y", d3.forceY(height / 2).strength(0.05));
         
@@ -119,6 +143,7 @@ const StaticGraph = ({ data }) => {
                 .attr("y", 30)
                 .attr("text-anchor", "middle")
                 .attr("font-size", "14px")
+                .attr("font-family", "Arial")
                 .attr("font-weight", "bold")
                 .text("Isolated Nodes");
         }
@@ -150,23 +175,30 @@ const StaticGraph = ({ data }) => {
             
         connectedNodeGroups.each(function(d) {
             const g = d3.select(this);
+            const nodeSize = nodeSizeScale(incomingLinkCounts[d.id]);
+            
+            // Add a tooltip with link count information
+            const tooltip = g.append("title")
+                .text(d => `${d.title || d.id}\nIncoming links: ${incomingLinkCounts[d.id]}`);
+                
             const a = g.append("a")
                 .attr("xlink:href", d => d.url)
                 .attr("target", "_blank")
                 .style("cursor", "pointer");
                 
             a.append("circle")
-                .attr("r", 25)
+                .attr("r", nodeSize)
                 .attr("fill", d => colorScale(d.category))
                 .attr("class", "node-circle");
             
             a.append("text")
                 .attr("fill", "black")
-                .attr("font-size", "10px")
+                .attr("font-size", d => Math.min(10 + (nodeSize - minNodeSize) / 5, 14) + "px") // Scale font size with node
+                .attr("font-family", "Arial")
                 .attr("font-weight", "bold")
                 .attr("text-anchor", "middle")
                 .attr("dy", ".35em")
-                .text(d => abbreviateText(d.title || d.id, 6));
+                .text(d => abbreviateText(d.title || d.id, nodeSize));
         });
         
         // Draw isolated nodes
@@ -180,23 +212,30 @@ const StaticGraph = ({ data }) => {
             
         isolatedNodeGroups.each(function(d) {
             const g = d3.select(this);
+            // Isolated nodes get the minimum size
+            const nodeSize = minNodeSize;
+            
+            const tooltip = g.append("title")
+                .text(d => `${d.title || d.id}\nIncoming links: 0`);
+                
             const a = g.append("a")
                 .attr("xlink:href", d => d.url)
                 .attr("target", "_blank")
                 .style("cursor", "pointer");
                 
             a.append("circle")
-                .attr("r", 25)
+                .attr("r", nodeSize)
                 .attr("fill", d => colorScale(d.category))
                 .style("opacity", 0.8);
             
             a.append("text")
                 .attr("fill", "black")
                 .attr("font-size", "10px")
+                .attr("font-family", "Arial")
                 .attr("font-weight", "bold")
                 .attr("text-anchor", "middle")
                 .attr("dy", ".35em")
-                .text(d => abbreviateText(d.title || d.id, 6));
+                .text(d => abbreviateText(d.title || d.id, nodeSize));
         });
         
         // Add hover effects for connected nodes
@@ -232,7 +271,7 @@ const StaticGraph = ({ data }) => {
             svg.selectAll(".node-circle").classed("highlighted", false);
         });
 
-        // Add hover effects for connected nodes
+        // Add hover effects for isolated nodes
         isolatedNodeGroups.on("mouseover", (event, d) => {
             // Highlight links connected to this node
             d3.select(event.currentTarget).select("circle").classed("highlighted", true);
@@ -243,8 +282,13 @@ const StaticGraph = ({ data }) => {
         });
     };
     
-    function abbreviateText(text, maxLength) {
+    function abbreviateText(text, nodeRadius) {
         if (!text) return "";
+        
+        // Determine maxLength based on the node size (scale factor can be adjusted)
+        const scaleFactor = 0.22; // tweak this to control label length per radius unit
+        const maxLength = Math.floor(nodeRadius * scaleFactor);
+        
         if (text.length > maxLength) {
             return text.substring(0, maxLength) + "...";
         }
@@ -471,50 +515,80 @@ const StaticGraph = ({ data }) => {
     };
 
     return (
-        <div style={{ height: "100vh", width: "100vw", margin: 0, padding: 0 }}>
-            <button 
-                id="download" 
-                onClick={handleDownload}
-                style={{
-                    position: "absolute",
-                    top: 10,
-                    right: 10,
-                    zIndex: 10
-                }}
-            >
-                Download SVG
-            </button>
-            <button 
-                onClick={handleDownloadPNG}
-                style={{
-                    position: "absolute",
-                    top: 50,
-                    right: 10,
-                    zIndex: 10
-                }}
-            >
-                Download PNG
-            </button>
-            <button 
-                onClick={handleDownloadPDF}
-                style={{
-                    position: "absolute",
-                    top: 90,
-                    right: 10,
-                    zIndex: 10
-                }}
-            >
-                Download PDF
-            </button>
+        <div
+          style={{
+            height: "100vh",
+            width: "100vw",
+            margin: 0,
+            padding: 0,
+            display: "flex",
+            flexDirection: "column",
+            fontFamily: "sans-serif",
+          }}
+        >
+          {/* Graph Area */}
+          <div style={{ flex: 1, position: "relative" }}>
             <svg id="graph" width="100%" height="100%">
-                {data.nodes.length === 0 && (
-                    <text x="50%" y="50%" textAnchor="middle" fontSize="16px">
-                        Loading graph data...
-                    </text>
-                )}
+              {data.nodes.length === 0 && (
+                <text x="50%" y="50%" textAnchor="middle" fontSize="16px" fill="#555">
+                  Loading graph data...
+                </text>
+              )}
             </svg>
+          </div>
+      
+          {/* Button Bar */}
+          <div
+            style={{
+              padding: "20px",
+              display: "flex",
+              justifyContent: "center",
+              gap: "20px",
+              backgroundColor: "#f9fafb",
+              borderTop: "1px solid #e5e7eb",
+            }}
+          >
+            <button
+              id="download"
+              onClick={handleDownload}
+              style={buttonStyle("#3B82F6", "#2563EB")}
+              onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#2563EB")}
+              onMouseOut={(e) => (e.currentTarget.style.backgroundColor = "#3B82F6")}
+            >
+              Download cloud as SVG
+            </button>
+            <button
+              onClick={handleDownloadPNG}
+              style={buttonStyle("#10B981", "#059669")}
+              onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#059669")}
+              onMouseOut={(e) => (e.currentTarget.style.backgroundColor = "#10B981")}
+            >
+              Download Cloud as PNG
+            </button>
+            <button
+              onClick={handleDownloadPDF}
+              style={buttonStyle("#EF4444", "#DC2626")}
+              onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#DC2626")}
+              onMouseOut={(e) => (e.currentTarget.style.backgroundColor = "#EF4444")}
+            >
+              Download Cloud as PDF
+            </button>
+          </div>
         </div>
-    );
+      );
+
+    function buttonStyle(color, hoverColor) {
+        return {
+        padding: "10px 20px",
+        backgroundColor: color,
+        color: "white",
+        border: "none",
+        borderRadius: "9999px",
+        boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+        cursor: "pointer",
+        transition: "all 0.3s ease",
+        };
+    }
 };
 
 export default StaticGraph;
