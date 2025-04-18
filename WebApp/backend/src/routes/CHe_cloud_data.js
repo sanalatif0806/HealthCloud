@@ -1,6 +1,14 @@
 const router = require('express').Router();
 const { response } = require('express');
 const { getAllIdsAndLinks } = require('../models/CHe_cloud_data');
+const express = require('express');
+const fs = require('fs');
+const csv = require('csv-parser');
+require('dotenv').config();
+const path = require('path');
+
+const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:3000';
+const fairness_page = 'CHe-Cloud/fairness-info';
 
 router.get('/all_ch_links', async (req, res) => {
     try {
@@ -26,7 +34,7 @@ router.get('/all_ch_links', async (req, res) => {
             return {
                 "id": item.identifier,
                 "title" : item.title,
-                "url": `https://example.com/${item.identifier}`,
+                "url": `${frontendUrl}${fairness_page}?dataset_id=${item.identifier}`,
                 "category": matchedKeyword || 'Generic'
             }
         });
@@ -49,6 +57,34 @@ router.get('/all_ch_links', async (req, res) => {
         }
         res.json(response);
         
+    } catch (error) {
+        res.status(500).json({ message: "Server error" });
+    }
+});
+
+router.get('/fairness_data/:id', async (req, res) => {
+    try{
+        const csvPath = path.join(__dirname, '../../data/fairness-data.csv'); 
+        const targetId = req.params.id;
+        let found = false;
+        fs.createReadStream(csvPath)
+            .pipe(csv())
+            .on('data', (row) => {
+            if (row['KG id'] === targetId) {
+                found = true;
+                res.json(row);
+            }
+            })
+            .on('end', () => {
+            if (!found) {
+                res.status(404).json({ message: 'Row not found' });
+            }
+            })
+            .on('error', (err) => {
+            console.error(err);
+            res.status(500).json({ error: 'Error reading CSV file' });
+            });
+
     } catch (error) {
         res.status(500).json({ message: "Server error" });
     }
