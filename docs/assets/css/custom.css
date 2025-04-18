@@ -1,6 +1,6 @@
 .page-header {
     background-color: #1a1a1a !important;
-    background-image: url('../images/CHe-Cloud.pdf'); /* Optional image */
+    background-image: url('../images/CHe-Cloud.png'); /* Optional image */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -9,4 +9,8 @@
   .project-name,
   .project-tagline {
     color: #ffffff !important;
+  }
+
+  footer[role="contentinfo"] {
+    display: none !important;
   }
