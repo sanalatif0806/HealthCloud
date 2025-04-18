@@ -1,5 +1,5 @@
 .page-header {
-    background-color: #1a1a1a !important;
+    background-color: white !important;
     background-image: url('../images/CHe-Cloud.png'); /* Optional image */
     background-size: cover;
     background-position: center;
@@ -14,3 +14,21 @@
   footer[role="contentinfo"] {
     display: none !important;
   }
+
+  /* Change title color to black */
+header h1, header h2 {
+  color: black !important;
+}
+
+/* Change "View on GitHub" button to black background with white text */
+.btn {
+  background-color: black !important;
+  color: white !important;
+  border-color: black !important;
+}
+
+/* Optional: hover effect */
+.btn:hover {
+  background-color: #333 !important;
+  border-color: #333 !important;
+}
