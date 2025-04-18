@@ -65,7 +65,7 @@ event-media,EventMedia,http://eventmedia.eurecom.fr/sparql,[],False,1,0.0,1,0.67
 eventkg,EventKG,,[],False,1,0.0,1,0.44,0,1,0.57,0.0,1,0.0,1,0.5,1,0,0.0,1,0.5,1,1,1,0,0.75,2.32
 freeyork-org,Freeyork,,[],False,1,0.0,1,0.44,0,1,0.57,0.0,1,0.0,1,0.5,1,0,0.0,1,0.5,1,1,1,0,0.75,2.32
 geographic-names-information-system-gnis,Geographic Names Information System (GNIS),https://gnis-ld.org/queries,[],False,1,0.0,1,0.44,0,1,0.57,0.5,1,0.0,1,0.62,1,0,0.0,1,0.5,0,1,1,0,0.5,2.19
-getty-aat,Art & Architecture Thesaurus,http://vocab.getty.edu/sparql,[],False,1,0.0,1,0.78,0,1,0.63,1.0,1,0.0,1,0.75,1,1,0.0,1,0.75,1,1,1,1,1.0,3.13
+getty-aat,Art & Architecture Thesaurus,https://vocab.getty.edu/sparql,[],False,1,0.0,1,0.44,1,1,0.74,0.5,0,0.0,1,0.38,1,0,0.0,0,0.25,1,1,1,0,0.75,2.12
 getty-tgn,The Getty Thesaurus of Geographic Names,http://vocab.getty.edu/sparql,[],False,1,0.0,1,0.67,0,1,0.61,1.0,1,0.0,1,0.75,1,0,0.0,1,0.5,1,1,1,0,0.75,2.61
 glastonbury-2011,Glastonbury 2011 Programme,,[],False,1,0.0,1,0.33,0,1,0.56,0.0,1,0.0,1,0.5,1,0,0.0,0,0.25,1,1,1,0,0.75,2.06
 googleart-wrapper,GoogleArt wrapper,,[],False,1,0.0,1,0.33,0,1,0.56,0.0,1,0.0,1,0.5,1,0,0.0,1,0.5,0,1,1,0,0.5,2.06
@@ -146,7 +146,6 @@ yso,YSO - General Finnish Ontology,,"['http://finto.fi/rest/v1/yso/data?format=t
 zbw-pressemappe20,20th Century Press Archives,https://zbw.eu/beta/sparql/pm20/query,[],False,1,0.0002,1,0.44,0,1,0.57,1.0,1,1.0,1,1.0,1,1,0.0,1,0.75,0,1,1,1,0.75,3.07
 zitgist-musicbrainz,MusicBrainz (zitgist.com),,[],False,1,0.0,1,0.33,0,1,0.56,0.0,1,0.0,1,0.5,1,0,0.0,1,0.5,1,1,1,0,0.75,2.31
 performing-arts.ch,performing-arts.ch,https://www.performing-arts.ch/sparql,[],False,0,0.8,1,0.44,0,0,0.37,1.0,0,1.0,0,0.5,1,1,0.0,1,0.75,1,1,1,1,1.0,2.62
-The-AA-Thesaurus,The Art & Architecture Thesaurus,https://vocab.getty.edu/sparql,[],False,1,0.0,1,0.44,1,1,0.74,0.5,0,0.0,1,0.38,1,0,0.0,0,0.25,1,1,1,0,0.75,2.12
 MiMoTextBase,MiMoTextBase,https://query.mimotext.uni-trier.de/,[],False,1,0.0,1,0.33,1,1,0.72,0.5,0,0.0,1,0.38,1,0,0.0,0,0.25,0,1,1,0,0.5,1.85
 NLS,National Library of Sweden,https://libris.kb.se/sparql,[],False,0,0.2,1,0.22,0,1,0.4,1.0,0,1.0,1,0.75,1,0,0.0,0,0.25,0,1,1,0,0.5,1.9
 Japan-Search,Japan Search,https://jpsearch.go.jp/rdf/sparql/,[],False,0,0.2,1,0.44,0,0,0.27,1.0,0,1.0,0,0.5,1,1,0.0,1,0.75,1,1,1,1,1.0,2.52
