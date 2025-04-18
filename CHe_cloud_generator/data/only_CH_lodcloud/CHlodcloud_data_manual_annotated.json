@@ -7769,7 +7769,7 @@
             {
                 "title": "SPARQL Endpoint",
                 "description": "",
-                "access_url": "http://vocab.getty.edu/sparql",
+                "access_url": "https://vocab.getty.edu/sparql",
                 "status": "FAIL (500)"
             }
         ],
