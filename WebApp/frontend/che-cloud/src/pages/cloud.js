@@ -13,7 +13,18 @@ function Cloud(){
 
     return (
         <div>
-            <h1>CHe Cloud!</h1>
+            <h1 style={{
+                textAlign: 'center',
+                fontSize: '3rem',
+                margin: '1rem 0',
+                color: '#8da89f',
+                fontFamily: 'Segoe UI, sans-serif',
+                letterSpacing: '1px',
+                textShadow: '1px 1px 2px rgba(0,0,0,0.1)',
+                animation: 'fadeIn 1s ease-in-out'
+            }}>
+                CHe Cloud!
+            </h1>
             <Graph data={data}/>
         </div>
     )
