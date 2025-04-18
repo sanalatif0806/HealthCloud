@@ -1,24 +1,19 @@
 .page-header {
     background-color: white !important;
     background-image: url('../images/CHe-Cloud.png'); /* Optional image */
-    background-size: cover;
+    background-size: 100% auto;
     background-position: center;
     background-repeat: no-repeat;
   }
   
   .project-name,
   .project-tagline {
-    color: #ffffff !important;
+    color: #000000 !important;
   }
 
   footer[role="contentinfo"] {
     display: none !important;
   }
-
-  /* Change title color to black */
-header h1, header h2 {
-  color: black !important;
-}
 
 /* Change "View on GitHub" button to black background with white text */
 .btn {
