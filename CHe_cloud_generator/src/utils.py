@@ -389,8 +389,8 @@ def merge_fairness_evaluation(che_cloud_data,che_cloud_manually_refined,manually
 
 #LodCloudDataHandler.merge_lodcloud_data(['../data/lodcloud_data.json','../data/CHlodcloud_data_title_description_optimal_keywords.json'],'../data/complete_lodcloud_with_CH_domain/Complete-CHlodcloud_data_title_description_optimal_keywords.json')
 
-compare_fairness_on_manually_refined()
-#merge_fairness_evaluation('../data/fairness_evaluation/CHe-Cloud_no_refined.csv','../data/fairness_evaluation/CHe-Cloud_manually_refined.csv','../data/fairness_evaluation/CHe-Cloud_manually_picked.csv')   
+#compare_fairness_on_manually_refined()
+merge_fairness_evaluation('../data/fairness_evaluation/CHe-Cloud_no_refined.csv','../data/fairness_evaluation/CHe-Cloud_manually_refined.csv','../data/fairness_evaluation/CHe-Cloud_manually_picked.csv')   
 #filter_quality_data("../data/CHlodcloud_data_manual_selected.json", "../data/quality_data/2025-03-16.csv","../data/quality_data/2025-03-16_CHe_cloud_manually_extracted.csv")
 #calculate_precision_recall("../data/complete_lodcloud_with_CH_domain/Complete-CHlodcloud_data_manual_selected(Eligible).json", "../data/complete_lodcloud_with_CH_domain/Complete-CHlodcloud_data_title_description_optimal_keywords_no_history.json")
 
