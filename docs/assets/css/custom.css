@@ -1,29 +1,7 @@
-.page-header {
-    background-color: white !important;
-    background-image: url('../images/CHe-Cloud.png'); /* Optional image */
-    background-size: 100% auto;
-    background-position: center;
-    background-repeat: no-repeat;
-  }
-  
-  .project-name,
-  .project-tagline {
-    color: #000000 !important;
-  }
-
-  footer[role="contentinfo"] {
-    display: none !important;
-  }
-
-/* Change "View on GitHub" button to black background with white text */
-.btn {
-  background-color: black !important;
-  color: white !important;
-  border-color: black !important;
-}
-
-/* Optional: hover effect */
-.btn:hover {
-  background-color: #333 !important;
-  border-color: #333 !important;
+footer[role="contentinfo"], footer.site-footer {
+  display: none !important;
+  height: 0 !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
 }
