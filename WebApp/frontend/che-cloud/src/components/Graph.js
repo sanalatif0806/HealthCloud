@@ -3,7 +3,7 @@ import * as d3 from 'd3';
 import { jsPDF } from 'jspdf';
 import 'svg2pdf.js';
 import { Download, ImageDown } from "lucide-react";
-
+import Footer from './footer';
 
 const StaticGraph = ({ data }) => {
     const [graphRendered, setGraphRendered] = useState(false);
@@ -517,8 +517,8 @@ const StaticGraph = ({ data }) => {
     return (
         <div
           style={{
-            height: "100vh",
-            width: "100vw",
+            height: "100vh", // Full height of the viewport
+            width: "100vw",  // Full width of the viewport
             margin: 0,
             padding: 0,
             display: "flex",
@@ -536,16 +536,16 @@ const StaticGraph = ({ data }) => {
               )}
             </svg>
           </div>
-      
+    
           {/* Button Bar */}
           <div
             style={{
-              padding: "20px",
-              display: "flex",
-              justifyContent: "center",
-              gap: "20px",
-              backgroundColor: "#f9fafb",
-              borderTop: "1px solid #e5e7eb",
+                padding: "20px",
+                display: "flex",
+                justifyContent: "center",
+                gap: "20px",
+                backgroundColor: "#f9fafb",
+                borderTop: "1px solid #e5e7eb",
             }}
           >
             <button
@@ -574,6 +574,7 @@ const StaticGraph = ({ data }) => {
               Download Cloud as PDF
             </button>
           </div>
+          <Footer />
         </div>
       );
 

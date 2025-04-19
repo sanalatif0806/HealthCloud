@@ -12,4 +12,17 @@ async function getAllIdsAndLinks() {
     }
 }
 
-module.exports = { getAllIdsAndLinks };
+async function getAllJsonData(dataset_id) {
+    try {
+        const db = await connectToMongoDB();
+        const collection = db.collection('CHe_cloud_data'); 
+
+        const data = await collection.findOne({ identifier: dataset_id });
+        return data;
+    } catch (error) {
+        console.error("Error during data recovering:", error);
+        throw error;
+    }
+}
+
+module.exports = { getAllIdsAndLinks, getAllJsonData};
