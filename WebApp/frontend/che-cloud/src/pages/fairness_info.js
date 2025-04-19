@@ -7,13 +7,15 @@ import RadialBarChart from '../components/radial_bar';
 import GaugeChart from '../components/gauge_chart';
 import { Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import Footer from '../components/footer';
 
 function FairnessInfo(){
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     const dataset_id = queryParams.get('dataset_id');
     const [fairness_data, setFairnessData] = useState({});
-    const [believability_data, setBelievabilityData] = useState(false);
+    const [dataset_metadata, setDatasetMetadata] = useState(false);
+    const [showDownloads, setShowDownloads] = useState(false);
 
     useEffect(() => {
         async function getFairnessData(){
@@ -25,22 +27,23 @@ function FairnessInfo(){
             }
         } 
         getFairnessData();
-        async function getBelievabilityData(){
+        async function getJsonData(){
             try {
                 //Same trasformation done by KGHeartBeat
-                let sanitizedId = dataset_id.replace(/[\\/*?:"<>|]/g, "");
-                sanitizedId = dataset_id.replace(/[\\/*?:"<>|]/g, "");
-                sanitizedId = sanitizedId.replace(/[!"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~]/g, "");
-                sanitizedId = sanitizedId.replace(/\s+/g, "");
-
-                const response = await axios.get(`${kghb_url}trust/believability?id=${sanitizedId}`);
-                console.log(response.data[0])
-                setBelievabilityData(response.data[0])
+                
+                //let sanitizedId = dataset_id.replace(/[\\/*?:"<>|]/g, "");
+                //sanitizedId = dataset_id.replace(/[\\/*?:"<>|]/g, "");
+                //sanitizedId = sanitizedId.replace(/[!"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~]/g, "");
+                //sanitizedId = sanitizedId.replace(/\s+/g, "");
+                //const response = await axios.get(`${kghb_url}trust/believability?id=${sanitizedId}`);
+                const response = await axios.get(`${base_url}/CHe_cloud_data/dataset_metadata/${dataset_id}`);
+                console.log(response.data)
+                setDatasetMetadata(response.data)
             } catch (error) {
             console.error("Error:",error)
             }
         } 
-        getBelievabilityData();
+        getJsonData();
     }, [])
 
     const chartReady = fairness_data && Object.keys(fairness_data).length > 0;
@@ -83,10 +86,10 @@ function FairnessInfo(){
             </div>
             <div className="container mt-3">
                 <div className="text-center mb-4">
-                {fairness_data.isOntology ? (
+                {fairness_data.Ontology == 'True' ? (
                     <>
                     <h1 className="d-inline mb-4">{fairness_data['KG name']}</h1>
-                    <span className="badge bg-primary d-inline ms-2">Ontology</span>
+                    <span className="badge bg-warning text-dark d-inline ms-2">Ontology</span>
                     </>
                 ) : (
                     <>
@@ -96,11 +99,73 @@ function FairnessInfo(){
                 )}
                 </div>
 
-                {believability_data ? (
-                    <p className="text-center mb-5">{believability_data.Quality_category_array.Believability.description}</p>
+                {dataset_metadata ? (
+                    <p className="text-justify mb-5">{dataset_metadata.description.en}</p>
                 ) : (
-                    <p className="text-center mb-5">Loading Believability data</p>
+                    <p className="text-center mb-5">Loading Description data</p>
                 )}
+
+            {dataset_metadata && (
+                <div className="card shadow-sm p-4 mb-5">
+                    <h5 className="mb-3">Dataset Information</h5>
+                    <Row>
+                        {dataset_metadata.website && (
+                            <Col md={6} className="mb-3">
+                                <strong>Website: </strong>
+                                <a href={dataset_metadata.website} target="_blank" rel="noopener noreferrer">
+                                    {dataset_metadata.website}
+                                </a>
+                            </Col>
+                        )}
+                        {dataset_metadata.license ? (
+                            <Col md={6} className="mb-3">
+                                <strong>License: </strong>{dataset_metadata.license}
+                            </Col>
+                        ) : (
+                            <Col md={6} className="mb-3">
+                                <strong>License: </strong>Not specified
+                            </Col>
+                        )}
+                        {dataset_metadata.sparql[0] ? (
+                            <Col md={6} className="mb-3">
+                                <strong>SPARQL Endpoint: </strong>
+                                <a href={dataset_metadata.sparql[0].access_url} target="_blank" rel="noopener noreferrer">
+                                    {dataset_metadata.sparql[0].access_url}
+                                </a>
+                            </Col>
+                        ) : (
+                            <Col md={6} className="mb-3">
+                                <strong>SPARQL Endpoint: </strong>Not specified
+                            </Col>
+                        )}
+                        {(dataset_metadata?.other_download?.length > 0 || dataset_metadata?.full_download?.length > 0) && (
+                             <Col md={6} className="mb-3">
+                                <button
+                                    className="btn btn-outline-secondary"
+                                    onClick={() => setShowDownloads(!showDownloads)}
+                                >
+                                    {showDownloads ? 'Hide Downloadable Resources' : 'Show Downloadable Resources'}
+                                </button>
+                            </Col>
+                        )}
+                        {showDownloads && (
+                            <div className="card shadow-sm p-4 mb-5">
+                                <h5 className="mb-3">Downloadable Resources</h5>
+                                {[...(dataset_metadata.full_download || []), ...(dataset_metadata.other_download || [])].map((item, index) => (
+                                    <div key={index} className="mb-3">
+                                        <p className="mb-1">
+                                            <strong>{item.title || "Untitled resource"}</strong>
+                                        </p>
+                                        <a href={item.access_url || item.download_url} target="_blank" rel="noopener noreferrer" className="btn btn-outline-primary btn-sm">
+                                            {item.access_url || item.download_url}
+                                        </a>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                    </Row>
+                </div>
+            )}
 
                 {chartReady ? (
                     <Row className="g-4">
@@ -134,6 +199,7 @@ function FairnessInfo(){
                     <p className="text-center">Loading fairness data...</p>
                 )}
             </div>
+            <Footer />
         </>
       );
 }
