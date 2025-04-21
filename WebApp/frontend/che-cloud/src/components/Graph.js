@@ -98,7 +98,7 @@ const StaticGraph = ({ data }) => {
             .force("link", d3.forceLink(validLinks).id(d => d.id).distance(150))
             .force("charge", d3.forceManyBody().strength(-25))
             .force("center", d3.forceCenter(width / 3, height / 2))
-            .force("collide", d3.forceCollide(d => nodeSizeScale(incomingLinkCounts[d.id]) + 10)) // Adjust collision radius based on node size
+            .force("collide", d3.forceCollide(d => nodeSizeScale(incomingLinkCounts[d.id]) + 9)) // Adjust collision radius based on node size
             .force("x", d3.forceX(width / 3).strength(0.05))
             .force("y", d3.forceY(height / 2).strength(0.05));
         
