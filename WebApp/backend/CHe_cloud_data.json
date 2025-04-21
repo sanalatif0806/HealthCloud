@@ -1,6 +1,6 @@
 [
     {
-        "_id": "NSZL",
+        "_id": "hungarian-national-library-catalog",
         "identifier": "hungarian-national-library-catalog",
         "doi": "",
         "image": "",
@@ -71,7 +71,7 @@
     },
     {
         "_id": "deutsche-biographie",
-        "identifier": "DeBio",
+        "identifier": "deutsche-biographie",
         "doi": "",
         "image": "",
         "keywords": [
@@ -126,7 +126,7 @@
         }
     },
     {
-        "_id": "Cultura",
+        "_id": "culturalinkeddata",
         "identifier": "culturalinkeddata",
         "doi": "",
         "image": "",
@@ -176,7 +176,7 @@
         }
     },
     {
-        "_id": "DSS",
+        "_id": "dutch-ships-and-sailors",
         "identifier": "dutch-ships-and-sailors",
         "doi": "",
         "image": "",
@@ -261,7 +261,7 @@
         }
     },
     {
-        "_id": "GNIS",
+        "_id": "geographic-names-information-system-gnis",
         "identifier": "geographic-names-information-system-gnis",
         "doi": "",
         "image": "",
@@ -340,7 +340,7 @@
         }
     },
     {
-        "_id": "Nomisma",
+        "_id": "nomisma_org",
         "identifier": "nomisma_org",
         "sparql": [
             {
@@ -428,7 +428,7 @@
         }
     },
     {
-        "_id": "RISM",
+        "_id": "rism",
         "identifier": "rism",
         "doi": "",
         "image": "",
@@ -602,7 +602,7 @@
                 "value": "7500000"
             }
         ],
-        "_id": "EULib",
+        "_id": "the-european-library-open-dataset0000018aeec2aa8f",
         "time": "0000018aeec2aa8f",
         "sparql": [
             {
@@ -619,7 +619,7 @@
         }
     },
     {
-        "_id": "ZBW",
+        "_id": "zbw-pressemappe20",
         "identifier": "zbw-pressemappe20",
         "doi": "",
         "image": "",
@@ -743,7 +743,7 @@
         }
     },
     {
-        "_id": "Pali",
+        "_id": "pali-english-lexicon",
         "identifier": "pali-english-lexicon",
         "doi": "",
         "image": "",
@@ -849,7 +849,7 @@
         }
     },
     {
-        "_id": "Discogs",
+        "_id": "data-incubator-discogs",
         "identifier": "data-incubator-discogs",
         "doi": "",
         "image": "",
@@ -920,7 +920,7 @@
         }
     },
     {
-        "_id": "DBtropes",
+        "_id": "dbtropes",
         "identifier": "dbtropes",
         "doi": "",
         "image": "",
@@ -1002,7 +1002,7 @@
         }
     },
     {
-        "_id": "Moseley",
+        "_id": "data-incubator-moseley",
         "identifier": "data-incubator-moseley",
         "doi": "",
         "image": "",
@@ -1104,7 +1104,7 @@
         }
     },
     {
-        "_id": "Enslaved.org",
+        "_id": "enslaved.org",
         "owner": {
             "name": "",
             "email": "seilage@msu.edu"
@@ -1162,7 +1162,7 @@
         "identifier": "enslaved.org"
     },
     {
-        "_id": "Gutenberg",
+        "_id": "gutenberg",
         "identifier": "gutenberg",
         "doi": "",
         "image": "",
@@ -1243,7 +1243,7 @@
         }
     },
     {
-        "_id": "DM2E",
+        "_id": "dm2e",
         "identifier": "dm2e",
         "doi": "",
         "image": "",
@@ -1325,7 +1325,7 @@
         }
     },
     {
-        "_id": "JITA",
+        "_id": "jita",
         "identifier": "jita",
         "doi": "",
         "image": "",
@@ -1433,7 +1433,7 @@
         }
     },
     {
-        "_id": "EventKG",
+        "_id": "eventkg",
         "identifier": "eventkg",
         "doi": "",
         "image": "",
@@ -1557,7 +1557,7 @@
                 "value": "1"
             }
         ],
-        "_id": "ROAD",
+        "_id": "roceeh-road0000018fe7952923",
         "time": "0000018fe7952923",
         "sparql": [
             {
@@ -1575,7 +1575,7 @@
         "doi": ""
     },
     {
-        "_id": "LCSH",
+        "_id": "lcsh",
         "identifier": "lcsh",
         "doi": "",
         "image": "",
@@ -1657,7 +1657,7 @@
         }
     },
     {
-        "_id": "LCSubjects",
+        "_id": "lcsubjects",
         "identifier": "lcsubjects",
         "doi": "",
         "image": "",
@@ -1733,7 +1733,7 @@
         }
     },
     {
-        "_id": "Talis",
+        "_id": "talis-openlibrary",
         "identifier": "talis-openlibrary",
         "doi": "",
         "image": "",
@@ -2034,7 +2034,7 @@
                 "value": "176"
             }
         ],
-        "_id": "BNCF",
+        "_id": "bncf-ns000001932a10400a",
         "time": "000001932a10400a",
         "sparql": [
             {
@@ -2052,7 +2052,7 @@
         }
     },
     {
-        "_id": "COURAGE",
+        "_id": "http:cultural-opposition.eu",
         "owner": {
             "name": "",
             "email": "micsikandras@gmail.com"
@@ -2115,7 +2115,7 @@
         "image": "https://tti.abtk.hu/images/esemenyek/2016/COURAGE_new_logo_zoom.jpg"
     },
     {
-        "_id": "BLL",
+        "_id": "bll-thesaurus",
         "identifier": "bll-thesaurus",
         "doi": "",
         "image": "",
@@ -2241,7 +2241,7 @@
         }
     },
     {
-        "_id": "ALIADA",
+        "_id": "aliada-scanbit-net",
         "identifier": "aliada-scanbit-net",
         "doi": "",
         "image": "",
@@ -2549,7 +2549,7 @@
                 "value": "55707"
             }
         ],
-        "_id": "Cinema",
+        "_id": "cinematheque-quebecoise-linked-open-data000001938f9b5a76",
         "time": "000001938f9b5a76",
         "sparql": [
             {
@@ -2567,7 +2567,7 @@
         "doi": ""
     },
     {
-        "_id": "Temples",
+        "_id": "classical_temples",
         "owner": {
             "name": "",
             "email": "jmuccigr@gmail.com"
@@ -2624,7 +2624,7 @@
         "identifier": "classical_temples"
     },
     {
-        "_id": "ECCO-TCP",
+        "_id": "ecco-tcp-linked-data",
         "identifier": "ecco-tcp-linked-data",
         "doi": "",
         "image": "",
@@ -2703,7 +2703,7 @@
         }
     },
     {
-        "_id": "HeBIS",
+        "_id": "hebis-bibliographic-resources",
         "identifier": "hebis-bibliographic-resources",
         "doi": "",
         "image": "",
@@ -2838,7 +2838,7 @@
         }
     },
     {
-        "_id": "LCCN",
+        "_id": "linkedlccn",
         "identifier": "linkedlccn",
         "doi": "",
         "image": "",
@@ -2937,7 +2937,7 @@
         }
     },
     {
-        "_id": "MovieDB",
+        "_id": "linkedmdb",
         "identifier": "linkedmdb",
         "doi": "",
         "image": "",
@@ -3036,7 +3036,7 @@
         }
     },
     {
-        "_id": "NLR",
+        "_id": "nlr-dataset-mod",
         "identifier": "nlr-dataset-mod",
         "doi": "",
         "image": "",
@@ -3132,7 +3132,7 @@
         }
     },
     {
-        "_id": "OpenLib",
+        "_id": "open-library",
         "identifier": "open-library",
         "doi": "",
         "image": "",
@@ -3221,7 +3221,7 @@
         }
     },
     {
-        "_id": "Orlando",
+        "_id": "orlando-womens-writing-linked-open-data-set",
         "identifier": "orlando-womens-writing-linked-open-data-set",
         "doi": "",
         "image": "",
@@ -3362,7 +3362,7 @@
         }
     },
     {
-        "_id": "Polymath",
+        "_id": "polymath-virtual-library",
         "identifier": "polymath-virtual-library",
         "doi": "",
         "image": "",
@@ -3470,7 +3470,7 @@
         }
     },
     {
-        "_id": "Prelinger",
+        "_id": "prelinger_archives",
         "identifier": "prelinger_archives",
         "doi": "",
         "image": "",
@@ -3586,7 +3586,7 @@
         }
     },
     {
-        "_id": "Princenton",
+        "_id": "princeton-library-findingaids",
         "identifier": "princeton-library-findingaids",
         "doi": "",
         "image": "",
@@ -3640,7 +3640,7 @@
         }
     },
     {
-        "_id": "SurgeRadio",
+        "_id": "surge-radio",
         "identifier": "surge-radio",
         "doi": "",
         "image": "",
@@ -3698,7 +3698,7 @@
         }
     },
     {
-        "_id": "zitgist.com",
+        "_id": "zitgist-musicbrainz",
         "identifier": "zitgist-musicbrainz",
         "doi": "",
         "image": "",
@@ -3843,7 +3843,7 @@
                 "value": "2421"
             }
         ],
-        "_id": "NTUE",
+        "_id": "ASCDC-AS-NTUE-School-Art-Textbooks0000018e70941b9b",
         "time": "0000018e70941b9b",
         "sparql": [
             {
@@ -3861,7 +3861,7 @@
         "doi": ""
     },
     {
-        "_id": "TFD",
+        "_id": "ASCDC-AS-TFD-Fish-Species",
         "owner": {
             "name": "",
             "email": "luluyen1210@gmail.com"
@@ -3979,7 +3979,7 @@
         "identifier": "ASCDC-AS-TFD-Fish-Species"
     },
     {
-        "_id": "CRB",
+        "_id": "ASCDC-CRB",
         "owner": {
             "name": "",
             "email": "luluyen1210@gmail.com"
@@ -4103,7 +4103,7 @@
         "identifier": "ASCDC-CRB"
     },
     {
-        "_id": "CTS-TV",
+        "_id": "ASCDC-CTS-TV-Programs",
         "owner": {
             "name": "",
             "email": "luluyen1210@gmail.com"
@@ -4221,7 +4221,7 @@
         "identifier": "ASCDC-CTS-TV-Programs"
     },
     {
-        "_id": "DQOT",
+        "_id": "ASCDC-DQOT",
         "owner": {
             "name": "",
             "email": "luluyen1210@gmail.com"
@@ -4322,7 +4322,7 @@
         "identifier": "ASCDC-DQOT"
     },
     {
-        "_id": "IHP-WCD",
+        "_id": "ASCDC-IHP-WCD",
         "owner": {
             "name": "",
             "email": "luluyen1210@gmail.com"
@@ -4438,7 +4438,7 @@
         "identifier": "ASCDC-IHP-WCD"
     },
     {
-        "_id": "Artists",
+        "_id": "ASCDC-Linked-Taiwan-Artists",
         "owner": {
             "name": "",
             "email": "luluyen1210@gmail.com"
@@ -4563,7 +4563,7 @@
         "identifier": "ASCDC-Linked-Taiwan-Artists"
     },
     {
-        "_id": "Animals",
+        "_id": "ASCDC-NMMBA-Aquatic-Animals-in-Taiwan",
         "owner": {
             "name": "",
             "email": "luluyen1210@gmail.com"
@@ -4670,7 +4670,7 @@
         "identifier": "ASCDC-NMMBA-Aquatic-Animals-in-Taiwan"
     },
     {
-        "_id": "Fish",
+        "_id": "ASCDC-NMMBA-Fish-Otoliths",
         "owner": {
             "name": "",
             "email": "luluyen1210@gmail.com"
@@ -4889,7 +4889,7 @@
                 "value": "97"
             }
         ],
-        "_id": "Qing",
+        "_id": "ASCDC-Qing-Secret-Societies000001926f32dacb",
         "time": "000001926f32dacb",
         "sparql": [
             {
@@ -4992,7 +4992,7 @@
                 "value": "4884"
             }
         ],
-        "_id": "Tibet",
+        "_id": "ASCDC-Tibetan-Audio-Archive000001911262acf0",
         "time": "000001911262acf0",
         "sparql": [
             {
@@ -5010,7 +5010,7 @@
         "doi": ""
     },
     {
-        "_id": "NTM",
+        "_id": "ASCDC-_NTM-Formosan-Aborigines",
         "owner": {
             "name": "",
             "email": "luluyen1210@gmail.com"
@@ -5120,7 +5120,7 @@
         "identifier": "ASCDC-_NTM-Formosan-Aborigines"
     },
     {
-        "_id": "CCP",
+        "_id": "ASCDC_-_CCP_Archive",
         "owner": {
             "name": "",
             "email": "luluyen1210@gmail.com"
@@ -5236,7 +5236,7 @@
         "identifier": "ASCDC_-_CCP_Archive"
     },
     {
-        "_id": "DNB",
+        "_id": "ASCDC_-_DNB",
         "owner": {
             "name": "",
             "email": "qa8302@gmail.com"
@@ -5395,7 +5395,7 @@
         }
     },
     {
-        "_id": "CH_Songs",
+        "_id": "Chinese_Red_Classic_Song_Linked_Data_Dataset",
         "identifier": "Chinese_Red_Classic_Song_Linked_Data_Dataset",
         "sparql": [
             {
@@ -5571,7 +5571,7 @@
                 "value": "51823"
             }
         ],
-        "_id": "Phasalia",
+        "_id": "LucaniPharsalia0000018ae110f661",
         "time": "0000018ae110f661",
         "sparql": [
             {
@@ -5633,7 +5633,7 @@
                 "value": "14745"
             }
         ],
-        "_id": "Querolus",
+        "_id": "Querolus0000018ae126f0e5",
         "time": "0000018ae126f0e5",
         "sparql": [
             {
@@ -5696,7 +5696,7 @@
                 "value": "44331"
             }
         ],
-        "_id": "UDante",
+        "_id": "UDante0000018b240b14a8",
         "time": "0000018b240b14a8",
         "sparql": [
             {
@@ -5714,7 +5714,7 @@
         "doi": "https://doi.org/10.5281/zenodo.8435313"
     },
     {
-        "_id": "B3KAT",
+        "_id": "b3kat",
         "identifier": "b3kat",
         "doi": "",
         "image": "",
@@ -5857,7 +5857,7 @@
         }
     },
     {
-        "_id": "BNEscolar",
+        "_id": "biblioteca-nacional-escolar-bnescolar",
         "identifier": "biblioteca-nacional-escolar-bnescolar",
         "doi": "",
         "image": "",
@@ -5935,7 +5935,7 @@
         }
     },
     {
-        "_id": "bluk-BNB",
+        "_id": "bluk-bnb",
         "identifier": "bluk-bnb",
         "doi": "",
         "image": "",
@@ -6170,7 +6170,7 @@
                 "value": "1"
             }
         ],
-        "_id": "CEO",
+        "_id": "ceo0000018bdd6b12ef",
         "time": "0000018bdd6b12ef",
         "sparql": [
             {
@@ -6188,7 +6188,7 @@
         }
     },
     {
-        "_id": "Chronicling",
+        "_id": "chronicling-america",
         "identifier": "chronicling-america",
         "doi": "",
         "image": "",
@@ -6284,7 +6284,7 @@
     },
     {
         "_id": "cht",
-        "identifier": "CHT",
+        "identifier": "cht",
         "sparql": [
             {
                 "title": "Cultuurhistorische Thesaurus SPARQL",
@@ -6360,7 +6360,7 @@
         }
     },
     {
-        "_id": "BNF",
+        "_id": "data-bnf-fr",
         "identifier": "data-bnf-fr",
         "doi": "",
         "image": "",
@@ -6520,7 +6520,7 @@
         }
     },
     {
-        "_id": "BNE",
+        "_id": "datos-bne-es",
         "identifier": "datos-bne-es",
         "doi": "",
         "image": "",
@@ -6640,7 +6640,7 @@
         }
     },
     {
-        "_id": "DT-classical",
+        "_id": "dbtune-classical",
         "identifier": "dbtune-classical",
         "doi": "",
         "image": "",
@@ -6710,7 +6710,7 @@
         }
     },
     {
-        "_id": "DT-Peel",
+        "_id": "dbtune-john-peel-sessions",
         "identifier": "dbtune-john-peel-sessions",
         "doi": "",
         "image": "",
@@ -6790,7 +6790,7 @@
         }
     },
     {
-        "_id": "DeNB",
+        "_id": "deutsche-nationalbibliografie-dnb",
         "identifier": "deutsche-nationalbibliografie-dnb",
         "doi": "",
         "image": "",
@@ -7213,7 +7213,7 @@
                 "value": "1785108"
             }
         ],
-        "_id": "GND",
+        "_id": "dnb-gemeinsame-normdatei0000018da796a714",
         "time": "0000018da796a714",
         "sparql": [],
         "doi": "",
@@ -7223,7 +7223,7 @@
         }
     },
     {
-        "_id": "EnHeritage",
+        "_id": "english-heritage-periods-list",
         "identifier": "english-heritage-periods-list",
         "doi": "",
         "image": "",
@@ -7333,7 +7333,7 @@
         }
     },
     {
-        "_id": "Europeana_v1",
+        "_id": "europeana-lod-v1",
         "identifier": "europeana-lod-v1",
         "doi": "",
         "image": "",
@@ -7616,7 +7616,7 @@
         }
     },
     {
-        "_id": "Europeana",
+        "_id": "europeana-sparql",
         "identifier": "europeana-sparql",
         "doi": "",
         "image": "",
@@ -7769,7 +7769,7 @@
             {
                 "title": "SPARQL Endpoint",
                 "description": "",
-                "access_url": "http://vocab.getty.edu/sparql",
+                "access_url": "https://vocab.getty.edu/sparql",
                 "status": "FAIL (500)"
             }
         ],
@@ -7959,7 +7959,7 @@
         }
     },
     {
-        "_id": "GCAM",
+        "_id": "greekchildrensartmuseum",
         "links": [
             {
                 "_id": "ed552487-b6e1-5799-262b-f002ccce92e0",
@@ -8072,7 +8072,7 @@
         }
     },
     {
-        "_id": "GCAM_2",
+        "_id": "https:www.childrensartmuseum.grLD-project",
         "links": [
             {
                 "_id": "143f06c1-4de9-9622-6cde-a622875dbd2b",
@@ -8130,7 +8130,7 @@
         }
     },
     {
-        "_id": "Lab317",
+        "_id": "iislod-test",
         "identifier": "iislod-test",
         "doi": "",
         "image": "",
@@ -8196,7 +8196,7 @@
         }
     },
     {
-        "_id": "JudaicaLink",
+        "_id": "judaicalink",
         "identifier": "judaicalink",
         "doi": "",
         "image": "",
@@ -8455,7 +8455,7 @@
                 "value": "1798"
             }
         ],
-        "_id": "LDT",
+        "_id": "ldt@library0000018b37a6b93c",
         "time": "0000018b37a6b93c",
         "sparql": [
             {
@@ -8473,7 +8473,7 @@
         "doi": ""
     },
     {
-        "_id": "LIBRIS",
+        "_id": "libris",
         "identifier": "libris",
         "doi": "",
         "image": "",
@@ -8548,7 +8548,7 @@
         }
     },
     {
-        "_id": "SubHead",
+        "_id": "lista-encabezamientos-materia",
         "identifier": "lista-encabezamientos-materia",
         "doi": "",
         "image": "",
@@ -8666,7 +8666,7 @@
         }
     },
     {
-        "_id": "GNOSS",
+        "_id": "mismuseos-gnoss",
         "identifier": "mismuseos-gnoss",
         "doi": "",
         "image": "",
@@ -8822,7 +8822,7 @@
         }
     },
     {
-        "_id": "Munnin",
+        "_id": "muninn-world-war-i",
         "identifier": "muninn-world-war-i",
         "doi": "",
         "image": "",
@@ -8980,7 +8980,7 @@
         }
     },
     {
-        "_id": "ES_Museum",
+        "_id": "museosespania-gnoss",
         "identifier": "museosespania-gnoss",
         "doi": "",
         "image": "",
@@ -9106,7 +9106,7 @@
         }
     },
     {
-        "_id": "Muziekweb",
+        "_id": "muziekweb",
         "identifier": "muziekweb",
         "sparql": [
             {
@@ -9408,7 +9408,7 @@
                 "value": "2"
             }
         ],
-        "_id": "NOM",
+        "_id": "nom0000018bf8c08726",
         "time": "0000018bf8c08726",
         "sparql": [
             {
@@ -9426,7 +9426,7 @@
         "doi": ""
     },
     {
-        "_id": "NTNU",
+        "_id": "ntnusc",
         "identifier": "ntnusc",
         "doi": "",
         "image": "",
@@ -9514,7 +9514,7 @@
         }
     },
     {
-        "_id": "Pleiades",
+        "_id": "pleiades",
         "identifier": "pleiades",
         "doi": "",
         "image": "",
@@ -9594,7 +9594,7 @@
         }
     },
     {
-        "_id": "R&A",
+        "_id": "rainis-and-aspazija-linked-digital-collection",
         "identifier": "rainis-and-aspazija-linked-digital-collection",
         "doi": "",
         "image": "",
@@ -9695,7 +9695,7 @@
         }
     },
     {
-        "_id": "Authorities",
+        "_id": "rism-authorities",
         "identifier": "rism-authorities",
         "doi": "",
         "image": "",
@@ -9766,7 +9766,7 @@
         }
     },
     {
-        "_id": "sandrart.net",
+        "_id": "sandrart-net",
         "identifier": "sandrart-net",
         "doi": "",
         "image": "",
@@ -9836,7 +9836,7 @@
         }
     },
     {
-        "_id": "SLOD",
+        "_id": "slod",
         "identifier": "slod",
         "sparql": [
             {
@@ -9892,7 +9892,7 @@
         }
     },
     {
-        "_id": "STITCH",
+        "_id": "stitch-rameau",
         "identifier": "stitch-rameau",
         "doi": "",
         "image": "",
@@ -9992,7 +9992,7 @@
         }
     },
     {
-        "_id": "Swedish",
+        "_id": "swedish-open-cultural-heritage",
         "identifier": "swedish-open-cultural-heritage",
         "doi": "",
         "image": "",
@@ -10086,7 +10086,7 @@
         }
     },
     {
-        "_id": "sztaki",
+        "_id": "sztaki-lod",
         "identifier": "sztaki-lod",
         "doi": "",
         "image": "",
@@ -10172,7 +10172,7 @@
         }
     },
     {
-        "_id": "VIAF",
+        "_id": "viaf",
         "identifier": "viaf",
         "doi": "",
         "image": "",
@@ -10289,7 +10289,7 @@
         }
     },
     {
-        "_id": "WarSampo",
+        "_id": "warsampo",
         "identifier": "warsampo",
         "doi": "",
         "image": "",
@@ -10400,7 +10400,7 @@
         }
     },
     {
-        "_id": "WASABI",
+        "_id": "wasabi",
         "owner": {
             "name": "",
             "email": "franck.s.michel@gmail.com"
@@ -10516,7 +10516,7 @@
         "domain": "cultural-heritage",
         "namespace": "",
         "links": [],
-        "_id": "WL",
+        "_id": "wl-kg000001922006f4ea",
         "time": "000001922006f4ea",
         "sparql": [
             {
@@ -10534,7 +10534,7 @@
         "doi": "https://doi.org/10.5281/zenodo.13830349"
     },
     {
-        "_id": "WorldWarI",
+        "_id": "ww1lod",
         "identifier": "ww1lod",
         "doi": "",
         "image": "",
@@ -10625,7 +10625,7 @@
         }
     },
     {
-        "_id": "YSO",
+        "_id": "yso",
         "identifier": "yso",
         "sparql": [],
         "full_download": [
@@ -10708,7 +10708,7 @@
         }
     },
     {
-        "_id": "Calames",
+        "_id": "calames",
         "identifier": "calames",
         "doi": "",
         "image": "",
@@ -10772,7 +10772,7 @@
         }
     },
     {
-        "_id": "Radatana",
+        "_id": "radatana",
         "identifier": "radatana",
         "doi": "",
         "image": "",
@@ -10871,7 +10871,7 @@
         }
     },
     {
-        "_id": "PoLib",
+        "_id": "ISSN:0080-3626",
         "links": [],
         "namespace": "",
         "full_download": [],
@@ -10903,7 +10903,7 @@
         }
     },
     {
-        "_id": "ECLAP",
+        "_id": "eclap",
         "identifier": "eclap",
         "doi": "",
         "image": "",
@@ -10951,7 +10951,7 @@
         }
     },
     {
-        "_id": "Amsterdam",
+        "_id": "amsterdam-museum-as-edm-lod",
         "identifier": "amsterdam-museum-as-edm-lod",
         "doi": "",
         "image": "",
@@ -11032,7 +11032,7 @@
         }
     },
     {
-        "_id": "BBC-M",
+        "_id": "bbc-music",
         "identifier": "bbc-music",
         "doi": "",
         "image": "",
@@ -11105,7 +11105,7 @@
         }
     },
     {
-        "_id": "BBC-W",
+        "_id": "bbc-wildlife-finder",
         "identifier": "bbc-wildlife-finder",
         "doi": "",
         "image": "",
@@ -11180,7 +11180,7 @@
         }
     },
     {
-        "_id": "BritishM",
+        "_id": "british-museum-collection",
         "identifier": "british-museum-collection",
         "doi": "",
         "image": "",
@@ -11239,7 +11239,7 @@
         }
     },
     {
-        "_id": "HNM",
+        "_id": "data-hnm-hu",
         "identifier": "data-hnm-hu",
         "doi": "",
         "image": "",
@@ -11405,7 +11405,7 @@
         }
     },
     {
-        "_id": "Climb",
+        "_id": "data-incubator-climb",
         "identifier": "data-incubator-climb",
         "doi": "",
         "image": "",
@@ -11502,7 +11502,7 @@
         }
     },
     {
-        "_id": "MusicBrainz",
+        "_id": "data-incubator-musicbrainz",
         "identifier": "data-incubator-musicbrainz",
         "doi": "",
         "image": "",
@@ -11605,7 +11605,7 @@
         "license": "https://opendefinition.org/licenses/fal"
     },
     {
-        "_id": "HuM",
+        "_id": "data-szepmuveszeti-hu",
         "identifier": "data-szepmuveszeti-hu",
         "doi": "",
         "image": "",
@@ -11770,7 +11770,7 @@
         }
     },
     {
-        "_id": "ARTIUM",
+        "_id": "datos-artium-org",
         "identifier": "datos-artium-org",
         "doi": "",
         "image": "",
@@ -11967,7 +11967,7 @@
         }
     },
     {
-        "_id": "DT-last.fm",
+        "_id": "dbtune-artists-last-fm",
         "identifier": "dbtune-artists-last-fm",
         "doi": "",
         "image": "",
@@ -12027,7 +12027,7 @@
         }
     },
     {
-        "_id": "Scrobbler",
+        "_id": "dbtune-audioscrobbler",
         "identifier": "dbtune-audioscrobbler",
         "doi": "",
         "image": "",
@@ -12079,7 +12079,7 @@
         }
     },
     {
-        "_id": "DT-MT",
+        "_id": "dbtune-magnatune",
         "identifier": "dbtune-magnatune",
         "doi": "",
         "image": "",
@@ -12153,7 +12153,7 @@
         }
     },
     {
-        "_id": "DT-MB",
+        "_id": "dbtune-musicbrainz",
         "identifier": "dbtune-musicbrainz",
         "doi": "",
         "image": "",
@@ -12221,7 +12221,7 @@
         }
     },
     {
-        "_id": "DTMySpace",
+        "_id": "dbtune-myspace",
         "identifier": "dbtune-myspace",
         "doi": "",
         "image": "",
@@ -12274,7 +12274,7 @@
         }
     },
     {
-        "_id": "EventMedia",
+        "_id": "event-media",
         "identifier": "event-media",
         "doi": "",
         "image": "",
@@ -12416,7 +12416,7 @@
         }
     },
     {
-        "_id": "Glastonbury11",
+        "_id": "glastonbury-2011",
         "identifier": "glastonbury-2011",
         "doi": "",
         "image": "",
@@ -12482,7 +12482,7 @@
         }
     },
     {
-        "_id": "GoogleArt",
+        "_id": "googleart-wrapper",
         "identifier": "googleart-wrapper",
         "doi": "",
         "image": "",
@@ -12566,7 +12566,7 @@
         }
     },
     {
-        "_id": "Hedatuz",
+        "_id": "hedatuz",
         "identifier": "hedatuz",
         "doi": "",
         "image": "",
@@ -12649,7 +12649,7 @@
         }
     },
     {
-        "_id": "Jamendo",
+        "_id": "jamendo-dbtune",
         "identifier": "jamendo-dbtune",
         "doi": "",
         "image": "",
@@ -12728,7 +12728,7 @@
         }
     },
     {
-        "_id": "JISC_BL",
+        "_id": "jiscopenbib-bl_bnb-1",
         "identifier": "jiscopenbib-bl_bnb-1",
         "doi": "",
         "image": "",
@@ -12809,7 +12809,7 @@
         }
     },
     {
-        "_id": "JGoodwins",
+        "_id": "john-goodwins-family-tree",
         "identifier": "john-goodwins-family-tree",
         "doi": "",
         "image": "",
@@ -12881,7 +12881,7 @@
         }
     },
     {
-        "_id": "LibVer",
+        "_id": "libver",
         "identifier": "libver",
         "doi": "",
         "image": "",
@@ -12977,7 +12977,7 @@
         }
     },
     {
-        "_id": "IT_Museum",
+        "_id": "museums-in-italy",
         "identifier": "museums-in-italy",
         "doi": "",
         "image": "",
@@ -13063,7 +13063,7 @@
         }
     },
     {
-        "_id": "NLG",
+        "_id": "national-library-of-greece-authority-records",
         "identifier": "national-library-of-greece-authority-records",
         "doi": "",
         "image": "",
@@ -13124,7 +13124,7 @@
         }
     },
     {
-        "_id": "PBAC",
+        "_id": "printed-book-auction-catalogues",
         "identifier": "printed-book-auction-catalogues",
         "doi": "",
         "image": "",
@@ -13203,7 +13203,7 @@
         }
     },
     {
-        "_id": "lastfm",
+        "_id": "rdfize-lastfm",
         "identifier": "rdfize-lastfm",
         "doi": "",
         "image": "",
@@ -13279,7 +13279,7 @@
         }
     },
     {
-        "_id": "SRCMF",
+        "_id": "srcmf",
         "identifier": "srcmf",
         "doi": "",
         "image": "",
@@ -13382,7 +13382,7 @@
         }
     },
     {
-        "_id": "ViewFrom",
+        "_id": "the-view-from",
         "identifier": "the-view-from",
         "doi": "",
         "image": "",
@@ -13459,7 +13459,7 @@
         }
     },
     {
-        "_id": "ThesaurusW",
+        "_id": "thesaurus-w",
         "identifier": "thesaurus-w",
         "doi": "",
         "image": "",
@@ -13559,7 +13559,7 @@
         }
     },
     {
-        "_id": "TIP",
+        "_id": "tip",
         "identifier": "tip",
         "doi": "",
         "image": "",
@@ -13629,7 +13629,7 @@
         }
     },
     {
-        "_id": "Mannheim",
+        "_id": "ub-mannheim-linked-data",
         "identifier": "ub-mannheim-linked-data",
         "doi": "",
         "image": "",
@@ -13733,7 +13733,7 @@
         "domain": "cultural-heritage",
         "namespace": "TakeTones",
         "links": [],
-        "_id": "CFM",
+        "_id": "Copyright_Free_Music00000193a96f29dc",
         "time": "00000193a96f29dc",
         "sparql": [],
         "contact_point": {
@@ -13743,7 +13743,7 @@
         "doi": ""
     },
     {
-        "_id": "JaLib",
+        "_id": "Kronika_naukowa_Biblioteki_Jagiello\u0144skiej",
         "links": [],
         "namespace": "",
         "full_download": [],
@@ -13776,7 +13776,7 @@
         }
     },
     {
-        "_id": "SherryWine",
+        "_id": "Sherry_Wine",
         "owner": {
             "name": "",
             "email": "corado42@gmail.com"
@@ -13820,7 +13820,7 @@
         "identifier": "Sherry_Wine"
     },
     {
-        "_id": "SherryWine_",
+        "_id": "Sherry_Wine_",
         "owner": {
             "name": "",
             "email": "100471234@alumnos.uc3m.es"
@@ -13853,7 +13853,7 @@
         "identifier": "Sherry_Wine_"
     },
     {
-        "_id": "freeyork.org",
+        "_id": "freeyork-org",
         "identifier": "freeyork-org",
         "doi": "",
         "image": "https://freeyork.b-cdn.net/wp-content/uploads/2018/02/header-logo-freeyork-mini.png",
@@ -13976,7 +13976,7 @@
         "identifier": "Kumar,_Gireesh__and_Singh,_Anand"
     },
     {
-        "_id": "MassObs",
+        "_id": "massobservationarchivecatalogue",
         "identifier": "massobservationarchivecatalogue",
         "doi": "",
         "image": "",
@@ -14049,7 +14049,7 @@
         }
     },
     {
-        "_id": "PeriodO",
+        "_id": "periodo",
         "identifier": "periodo",
         "doi": "",
         "image": "",
@@ -14246,7 +14246,7 @@
                 "value": 1
             }
         ],
-        "_id": "CHE-Arts",
+        "_id": "performing-arts.ch",
         "time": "",
         "sparql": [
             {
@@ -14317,7 +14317,7 @@
                 "value": 2
             }
         ],
-        "_id": "A&A",
+        "_id": "The-AA-Thesaurus",
         "time": "",
         "sparql": [
             {
@@ -14368,7 +14368,7 @@
         "domain": "cultural-heritage",
         "namespace": "",
         "links": [],
-        "_id": "MiMo",
+        "_id": "MiMoTextBase",
         "time": "",
         "sparql": [
             {
@@ -14491,7 +14491,7 @@
                 "value": 1
             }
         ],
-        "_id": "JA-Search",
+        "_id": "Japan-Search",
         "time": "",
         "sparql": [
             {
@@ -14583,7 +14583,7 @@
                 "value": 33673
             }
         ],
-        "_id": "FI-Lib",
+        "_id": "FI-Library",
         "time": "",
         "sparql": [
             {
@@ -14622,8 +14622,33 @@
         "other_download": [],
         "domain": "cultural-heritage",
         "namespace": "",
-        "links": [],
-        "_id": "ShanghaiP",
+        "links": [
+            {
+                "target": "cbdb.library.sh.cn",
+                "value": 34048
+            },
+            {
+                "target": "data.library.sh.cn",
+                "value": 11404
+            },
+            {
+                "target": "cba.ac.cn",
+                "value": 2758
+            },
+            {
+                "target": "viaf.org",
+                "value": 1589
+            },
+            {
+                "target": "geonames.org",
+                "value": 140
+            },
+            {
+                "target": "id.loc.gov",
+                "value": 61
+            }
+        ],
+        "_id": "Shanghai-Library-Open-Data-Platform",
         "time": "",
         "sparql": [
             {
@@ -14722,7 +14747,7 @@
         "domain": "cultural-heritage",
         "namespace": "",
         "links": [],
-        "_id": "NL-Lib",
+        "_id": "National-Library-Netherlands",
         "time": "",
         "sparql": [
             {
@@ -14769,7 +14794,7 @@
         "domain": "cultural-heritage",
         "namespace": "",
         "links": [],
-        "_id": "Renaissance",
+        "_id": "Antique-Renaissance",
         "time": "",
         "sparql": [
             {
@@ -14819,7 +14844,7 @@
         "domain": "cultural-heritage",
         "namespace": "",
         "links": [],
-        "_id": "ARTSDATA",
+        "_id": "ARTSDATA-CA",
         "time": "",
         "sparql": [
             {
@@ -14982,7 +15007,7 @@
                 "value": 73
             }
         ],
-        "_id": "Conferment",
+        "_id": "ConfermentSampo",
         "time": "",
         "sparql": [
             {
@@ -15023,7 +15048,7 @@
         "domain": "cultural-heritage",
         "namespace": "",
         "links": [],
-        "_id": "FI-Mus",
+        "_id": "FI-Museum",
         "time": "",
         "sparql": [
             {
@@ -15395,7 +15420,7 @@
                 "value": 47210
             }
         ],
-        "_id": "Kalevala",
+        "_id": "Semantic-Kalevala",
         "time": "",
         "sparql": [
             {
@@ -15513,7 +15538,7 @@
         "domain": "cultural-heritage",
         "namespace": "",
         "links": [],
-        "_id": "ZeriPhoto",
+        "_id": "Zeri-Photo-Archive",
         "time": "",
         "sparql": [
             {
@@ -15554,7 +15579,7 @@
         "domain": "cultural-heritage",
         "namespace": "",
         "links": [],
-        "_id": "ArchivesHub",
+        "_id": "Archives-Hub",
         "time": "",
         "sparql": [
             {
@@ -15845,7 +15870,7 @@
         "domain": "cultural-heritage",
         "namespace": "",
         "links": [],
-        "_id": "Zeri",
+        "_id": "Fondazione-Zeri",
         "time": "",
         "sparql": [],
         "doi": "",
@@ -15896,7 +15921,7 @@
         "domain": "cultural-heritage",
         "namespace": "",
         "links": [],
-        "_id": "USA-Lib",
+        "_id": "Library-of-America",
         "time": "",
         "sparql": [],
         "doi": "",
@@ -15954,7 +15979,7 @@
         "domain": "cultural-heritage",
         "namespace": "",
         "links": [],
-        "_id": "NZ-Mus",
+        "_id": "Auckland-Museum",
         "time": "",
         "sparql": [],
         "doi": "",
@@ -16020,7 +16045,7 @@
         "domain": "cultural-heritage",
         "namespace": "",
         "links": [],
-        "_id": "KR-Lib",
+        "_id": "Korea-Library",
         "time": "",
         "sparql": [],
         "doi": "",
@@ -16053,7 +16078,7 @@
         "domain": "cultural-heritage",
         "namespace": "",
         "links": [],
-        "_id": "RUS-Lib",
+        "_id": "Russian-Museum",
         "time": "",
         "sparql": [],
         "doi": "",
@@ -16121,7 +16146,7 @@
         "domain": "cultural-heritage",
         "namespace": "",
         "links": [],
-        "_id": "SCT-Lib",
+        "_id": "National-Library-of-Scotland",
         "time": "",
         "sparql": [],
         "doi": "",
@@ -16164,7 +16189,7 @@
         "domain": "cultural-heritage",
         "namespace": "",
         "links": [],
-        "_id": "Epigraphic",
+        "_id": "Epigraphic-Database-Heidelberg",
         "time": "",
         "sparql": [],
         "doi": "https://doi.org/10.5281/zenodo.3575155",
@@ -16208,7 +16233,7 @@
         "domain": "cultural-heritage",
         "namespace": "",
         "links": [],
-        "_id": "OntoComedy",
+        "_id": "OntoComedySources",
         "time": "",
         "sparql": [],
         "doi": "",
@@ -16260,7 +16285,7 @@
         "domain": "cultural-heritage",
         "namespace": "",
         "links": [],
-        "_id": "OntoCeramic",
+        "_id": "OntoCeramic-2.0",
         "time": "",
         "sparql": [],
         "doi": "",
@@ -16294,7 +16319,7 @@
         "domain": "cultural-heritage",
         "namespace": "",
         "links": [],
-        "_id": "SaintGall",
+        "_id": "SaintGall-Ontology",
         "time": "",
         "sparql": [],
         "doi": "",
@@ -16338,7 +16363,7 @@
         "domain": "cultural-heritage",
         "namespace": "",
         "links": [],
-        "_id": "Phenomena",
+        "_id": "Linguistic-Phenomena-Ontology",
         "time": "",
         "sparql": [],
         "doi": "",
@@ -16503,7 +16528,7 @@
         "domain": "cultural-heritage",
         "namespace": "",
         "links": [],
-        "_id": "ATLAS",
+        "_id": "Atlas-of-Paths",
         "time": "",
         "sparql": [],
         "doi": "https://doi.org/10.5281/zenodo.14058232",
@@ -16604,7 +16629,7 @@
         "domain": "cultural-heritage",
         "namespace": "",
         "links": [],
-        "_id": "Music",
+        "_id": "Music-Note-Ontology",
         "time": "",
         "sparql": [],
         "doi": "",
@@ -16709,7 +16734,7 @@
         "domain": "cultural-heritage",
         "namespace": "",
         "links": [],
-        "_id": "FOOD",
+        "_id": "FOod",
         "time": "",
         "sparql": [],
         "doi": "",
@@ -16777,7 +16802,7 @@
         "domain": "cultural-heritage",
         "namespace": "",
         "links": [],
-        "_id": "IT-ATLAS",
+        "_id": "ATLAS-Italian-Digital-CH",
         "time": "",
         "sparql": [],
         "doi": "https://zenodo.org/records/14058144",
