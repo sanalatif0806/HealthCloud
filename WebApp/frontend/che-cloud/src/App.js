@@ -7,10 +7,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
-      <Router basename='/CHe-Cloud'>
+      <Router basename='/CHe-cloud'>
         <Routes>
-          <Route basename={'/CHe-Cloud'} path='*' element={<Cloud />} /> 
-          <Route basename={'/CHe-Cloud'} path='/fairness-info' element={<FairnessInfo />} />
+          <Route basename={'/CHe-cloud'} path='*' element={<Cloud />} /> 
+          <Route basename={'/CHe-cloud'} path='/fairness-info' element={<FairnessInfo />} />
         </Routes>
       </Router>
   );

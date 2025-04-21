@@ -1,6 +1,6 @@
 {
   "name": "che-cloud",
-  "homepage": "/CHe-Cloud",
+  "homepage": "/CHe-cloud",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
