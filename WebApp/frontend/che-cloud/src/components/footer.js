@@ -1,4 +1,5 @@
 import React from 'react';
+import logo from '../img/logo_uni.png';
 
 function Footer() {
   return (
@@ -8,7 +9,7 @@ function Footer() {
         <small>Antonio Lieto, Maria Angela Pellegrino and Gabriele Tuozzo</small>
         <div className="footer-image" style={{ marginTop: "10px" }}>
           <img
-            src='/logo_uni.png'  
+            src={logo} 
             alt="UNISA logo"
             style={{ width: "150px", height: "auto" }} // Adjust size as needed
           />
