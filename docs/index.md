@@ -5,7 +5,7 @@ title: CHe Cloud!
 
 This page contains supplementary material supporting the article “The FAIRness of CHeCLOUD: the Cultural Heritage Linked Open Data Cloud.”
 
-[Explore the CHe Cloud now!][CHe Cloud!](http://isislab.it:12280/CHe-cloud)
+[Explore the CHe Cloud now!](http://isislab.it:12280/CHe-cloud)
 
 ## 📚 Table of contents
 - [Dataset IDs Mapping table](./mapping-table.md)
