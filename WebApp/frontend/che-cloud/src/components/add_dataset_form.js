@@ -24,7 +24,7 @@ const FormComponent = () => {
     owner : {
         name: '',
         email : '',
-    }
+    },
     keywords: [],
   });
 
