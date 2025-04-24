@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes, Link} from 'react-router-dom';
 import Cloud from './pages/cloud';
 import FairnessInfo from './pages/fairness_info';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import AddDataset from './pages/add_dataset';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <Routes>
           <Route basename={'/CHe-cloud'} path='*' element={<Cloud />} /> 
           <Route basename={'/CHe-cloud'} path='/fairness-info' element={<FairnessInfo />} />
+          <Route basename={'/CHe-cloud'} path='/add-dataset' element={<AddDataset />} />
         </Routes>
       </Router>
   );
