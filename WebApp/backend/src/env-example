@@ -1,3 +1,7 @@
 MONGO_DB_CONN_STR = 
 DB_NAME = 
 PORT = 
+GIT_USERNAME=github-actions[bot]
+GIT_EMAIL=github-actions[bot]@users.noreply.github.com
+GIT_TOKEN=ghp_tuoTokenQui
+REPO_URL=https://github.com/tuo-username/main-repo.git
