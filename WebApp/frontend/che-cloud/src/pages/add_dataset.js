@@ -5,7 +5,7 @@ const ContactPage = () => {
   return (
     <main className="container mt-5">
       <section className="bg-light p-5 rounded shadow-sm">
-        <h1 className="mb-4 text-primary">
+        <h1 className="mb-4 text-success">  
           Add a New Dataset into the  <span className="fw-bold">CHe Cloud</span>
         </h1>
         <p className="mb-4 text-muted">
