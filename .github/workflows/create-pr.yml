@@ -1,0 +1,23 @@
+name: Create Pull Request for Monitoring Request
+
+on:
+  push:
+    branches:
+      - 'monitoring-request-*'
+
+jobs:
+  create-pull-request:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.ref }} # Explicitly checkout the branch that triggered the workflow
+
+      - name: Create pull request
+        run: |
+          PR_URL=$(gh pr create --base main --head "$GITHUB_REF_NAME" --title "New Monitoring Request" --body "This pull request adds a new monitoring request submitted via the form.")
+          echo "Created PR: $PR_URL"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
