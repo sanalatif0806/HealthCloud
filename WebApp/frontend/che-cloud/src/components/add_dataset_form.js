@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { base_url } from '../api';
 
 const FormComponent = () => {
   const [formData, setFormData] = useState({
@@ -180,6 +181,7 @@ const FormComponent = () => {
     e.preventDefault();
     const form = e.target;
     if (!form.checkValidity()) {
+      console.log('Form is invalid');
       form.classList.add('was-validated'); 
       return;
     }
@@ -203,21 +205,19 @@ const FormComponent = () => {
         return;
     }
 
-    console.log(formData)
     try {
-      const response = await fetch('http://localhost:5000/api/submit', {
+      const response = await fetch(`${base_url}/monitoring_requests/submit`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formattedData)
       });
-
       if (!response.ok) {
         throw new Error('Failed to submit');
       }
 
       await response.json();
       setSubmitted(true);
-      setFormData({ name: '', email: '', message: '', sparql: [], full_download: [], contact_point: {name:'',email:''}, keywords: [], example: [], other_download: [] });
+      setFormData({ title: '', email: '', message: '', sparql: [], full_download: [], contact_point: {name:'',email:''}, keywords: [], example: [], other_download: [] });
     } catch (err) {
       setError('Something went wrong. Please try again later.');
     }
