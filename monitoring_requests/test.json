@@ -1,0 +1,36 @@
+{
+  "tretergdf": {
+    "_id": "",
+    "identifier": "tretergdf",
+    "title": "gfgfdgdf",
+    "doi": "",
+    "license": "",
+    "sparql": [
+      {}
+    ],
+    "full_download": [],
+    "website": "http://localn.ci",
+    "domain": "cultural-heritage",
+    "contact_point": {
+      "name": "fdsf",
+      "email": "fsdfds@unidvdsv.oid"
+    },
+    "owner": {
+      "name": "fdsfsdf",
+      "email": "fdffds@d.c"
+    },
+    "keywords": [],
+    "newKeyword": "",
+    "Image": "",
+    "example": [],
+    "other_download": [],
+    "namespace": "",
+    "links": [],
+    "time": "",
+    "triples": "1",
+    "contact-point-name": "fdsf",
+    "contact-point-email": "fsdfds@unidvdsv.oid",
+    "owner-name": "fdsfsdf",
+    "owner-email": "fdffds@d.c"
+  }
+}
