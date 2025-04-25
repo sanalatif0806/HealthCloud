@@ -217,7 +217,42 @@ const FormComponent = () => {
 
       await response.json();
       setSubmitted(true);
-      setFormData({ title: '', email: '', message: '', sparql: [], full_download: [], contact_point: {name:'',email:''}, keywords: [], example: [], other_download: [] });
+      setFormData(
+        {
+          _id: '',
+          identifier: '',
+          title: '',
+          doi: '',
+          license: '',
+          sparql: [{
+              access_url: '',
+              title: '',
+              description: {
+                 en: ''
+              }
+          }],
+          full_download: [],
+          website: '',
+          domain: "cultural-heritage",
+          contact_point: {
+              name: '',
+              email : '',
+          },
+          owner : {
+              name: '',
+              email : '',
+          },
+          keywords: [],
+          newKeyword: "",
+          Image: '',
+          example: [],
+          other_download: [],
+          namespace: '',
+          links: [], //todo
+          time: '',
+          triples: 0,
+        }
+      );
     } catch (err) {
       setError('Something went wrong. Please try again later.');
     }
