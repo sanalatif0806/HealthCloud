@@ -109,6 +109,24 @@ const FormComponent = () => {
             keywords: updatedKeywords
           };
         });
+      } else if (name.startsWith('contact-point-')) {
+        const field = name.split('contact-point-')[1];
+        setFormData(prev => ({
+          ...prev,
+          contact_point: {
+            ...prev.contact_point,
+            [field]: value
+          }
+        }));
+      } else if (name.startsWith('owner-')) {
+        const field = name.split('owner-')[1];
+        setFormData(prev => ({
+          ...prev,
+          owner: {
+            ...prev.owner,
+            [field]: value
+          }
+        }));
       }
       else {
         setFormData(prev => ({
@@ -160,6 +178,11 @@ const FormComponent = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const form = e.target;
+    if (!form.checkValidity()) {
+      form.classList.add('was-validated'); 
+      return;
+    }
     setSubmitted(false);
     setError(null);
 
@@ -185,7 +208,7 @@ const FormComponent = () => {
       const response = await fetch('http://localhost:5000/api/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(formattedData)
       });
 
       if (!response.ok) {
@@ -194,7 +217,7 @@ const FormComponent = () => {
 
       await response.json();
       setSubmitted(true);
-      setFormData({ name: '', email: '', message: '', sparql: [], full_download: [], contact_point: '', keywords: [], example: [], other_download: [] });
+      setFormData({ name: '', email: '', message: '', sparql: [], full_download: [], contact_point: {name:'',email:''}, keywords: [], example: [], other_download: [] });
     } catch (err) {
       setError('Something went wrong. Please try again later.');
     }
@@ -272,8 +295,6 @@ const FormComponent = () => {
     });
   };
 
-
-
   return (
     <div className="container mt-3">
 
@@ -291,18 +312,19 @@ const FormComponent = () => {
 
       <form onSubmit={handleSubmit} className="needs-validation" noValidate>
         <div className="mb-3">
-          <label htmlFor="name" className="form-label">Dataset ID (max 10 characters) </label>
+          <label htmlFor="name" className="form-label">Dataset ID (min 5 max 10 characters) </label>
           <input
             type="text"
             className="form-control"
             id="identifier"
             name="identifier"
             maxLength="10"
+            minLength="5"
             required
             value={formData.identifier}
             onChange={handleChange}
           />
-          <div className="invalid-feedback">Please enter the an ID for the Dataset</div>
+          <div className="invalid-feedback">Please enter an ID for the Dataset</div>
         </div>
 
         <div className="mb-3">
@@ -326,11 +348,11 @@ const FormComponent = () => {
             className={`form-control ${!doiValid && formData.doi ? 'is-invalid' : ''}`}
             id="doi"
             name="doi"
-            placeholder='Example: 10.1234/abcd.efgh'
+            placeholder='e.g.: 10.1234/abcd.efgh'
             value={formData.doi}
             onChange={handleChange}
           />
-          <div className="invalid-feedback">Please enter a valid dataset DOI.</div>
+          <div className="invalid-feedback">Please enter a valid DOI.</div>
         </div>
 
         <div className="mb-3">
@@ -340,7 +362,7 @@ const FormComponent = () => {
             className="form-control"
             id="license"
             name="license"
-            placeholder='Better to use a URL'
+            placeholder='A link leading to the license is recommended, e.g.: https://creativecommons.org/licenses/by/4.0/'
             value={formData.license}
             onChange={handleChange}
           />
@@ -354,25 +376,26 @@ const FormComponent = () => {
             className="form-control"
             id="website"
             name="website"
+            placeholder='e.g.: https://example.com'
             required
             value={formData.website}
             onChange={handleChange}
           />
-          <div className="invalid-feedback">Please enter a valid email.</div>
+          <div className="invalid-feedback">Please enter a valid website URL.</div>
         </div>
 
         <div className="mb-3">
           <label htmlFor="triples" className="form-label">Number of triples</label>
           <input
             type="number"
+            min="1"
             className="form-control"
             id="triples"
             name="triples"
-            required
             value={formData.triples}
             onChange={handleChange}
           />
-          <div className="invalid-feedback">Please enter a valid number.</div>
+          <div className="invalid-feedback">Please enter a number of triples higher than 0.</div>
         </div>
 
         <div className="border p-3 mt-3 mb-3 rounded">
@@ -380,7 +403,7 @@ const FormComponent = () => {
             <div className="mb-3">
               <label htmlFor="contact-point-name" className="form-label">Name</label>
               <input
-                type="url"
+                type="text"
                 className="form-control"
                 id="contact-point-name"
                 name="contact-point-name"
@@ -388,15 +411,15 @@ const FormComponent = () => {
                 onChange={handleChange}
                 required
               />
-              <div className="invalid-feedback">Please enter a valid URL.</div>
+              <div className="invalid-feedback">Please enter a valid Name.</div>
             </div>
             <div className="mb-3">
               <label htmlFor="contact-point-email" className="form-label">Email address</label>
               <input
                 type="email"
                 className="form-control"
-                id="contact-point-mail"
-                name="contact-point-mail"
+                id="contact-point-email"
+                name="contact-point-email"
                 value={formData.contact_point.email}
                 onChange={handleChange}
                 required
@@ -410,28 +433,26 @@ const FormComponent = () => {
             <div className="mb-3">
               <label htmlFor="owner-name" className="form-label">Name</label>
               <input
-                type="url"
+                type="text"
                 className="form-control"
                 id="owner-name"
                 name="owner-name"
                 value={formData.owner.name}
                 onChange={handleChange}
-                required
               />
-              <div className="invalid-feedback">Please enter a valid URL.</div>
+              <div className="invalid-feedback">Please enter a valid Name.</div>
             </div>
             <div className="mb-3">
               <label htmlFor="owner-email" className="form-label">Email address</label>
               <input
                 type="email"
                 className="form-control"
-                id="owner-mail"
-                name="owner-mail"
+                id="owner-email"
+                name="owner-email"
                 value={formData.owner.email}
                 onChange={handleChange}
-                required
               />
-              <div className="invalid-feedback">Please enter a valid e-mail.</div>
+              <div className="invalid-feedback">Please enter a valid e-mail address.</div>
             </div>
         </div>
         {/* Keywords section */ }
@@ -479,7 +500,6 @@ const FormComponent = () => {
             className="form-control"
             id="website"
             name="website"
-            required
             value={formData.website}
             onChange={handleChange}
           />
@@ -535,6 +555,7 @@ const FormComponent = () => {
         <option value="ch-natural">Natural</option>
         <option value="ch-generic">Generic</option>
       </select>
+      <div className="invalid-feedback">Please enter one sub-category.</div>
     </div>
 
     <div className="d-flex gap-3 mb-4">
@@ -644,6 +665,7 @@ const FormComponent = () => {
                 onChange={handleChange}
                 required
               />
+              <div className="invalid-feedback">Please enter a valid URL.</div>
             </div>
 
             <div className="mb-3">
@@ -696,6 +718,7 @@ const FormComponent = () => {
                 onChange={handleChange}
                 required
               />
+              <div className="invalid-feedback">Please enter a valid URL.</div>
             </div>
 
             <div className="mb-3">
@@ -748,6 +771,7 @@ const FormComponent = () => {
                 onChange={handleChange}
                 required
               />
+              <div className="invalid-feedback">Please enter a valid URL.</div>
             </div>
 
             <div className="mb-3">
