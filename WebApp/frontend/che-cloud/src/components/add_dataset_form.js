@@ -8,12 +8,13 @@ const FormComponent = () => {
     title: '',
     doi: '',
     license: '',
+    description: {
+      en: ''
+    },
     sparql: [{
         access_url: '',
         title: '',
-        description: {
-           en: ''
-        }
+        description: ''
     }],
     full_download: [],
     website: '',
@@ -45,7 +46,6 @@ const FormComponent = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
     if (name === 'doi') {
         setDoiValid(DOI_REGEX.test(value)); 
     }
@@ -82,7 +82,7 @@ const FormComponent = () => {
           example: newResources
         }));
       }
-      else if (name.startsWith('other-')){
+      else if (name.startsWith('other_download-')){
         const [_, index, field] = name.split('-'); 
         const newResources = [...formData.other_download];
         newResources[index] = {
@@ -106,7 +106,6 @@ const FormComponent = () => {
       
           return {
             ...prev,
-            category: value,
             keywords: updatedKeywords
           };
         });
@@ -128,13 +127,22 @@ const FormComponent = () => {
             [field]: value
           }
         }));
+      } else if (name == 'description') {
+        setFormData(prev => ({
+          ...prev,
+          description: {
+            ...prev.description,
+            'en': value
+          }
+        }));
       }
-      else {
+      else if(!name.startsWith('sparql-') && !name.startsWith('full_download-') && !name.startsWith('example-') && !name.startsWith('other_download-') && name !== 'contact-point-name' && name !== 'contact-point-email' && name !== 'owner-name' && name !== 'owner-email' && name !== 'sub-category' && name !== 'resourceType'){
         setFormData(prev => ({
           ...prev,
           [name]: value
         }));
       }
+      console.log(formData);
   };
 
   const handleAddKeyword = () => {
@@ -226,12 +234,13 @@ const FormComponent = () => {
           title: '',
           doi: '',
           license: '',
+          description: {
+            en: ''
+          },
           sparql: [{
               access_url: '',
               title: '',
-              description: {
-                 en: ''
-              }
+              description: ''
           }],
           full_download: [],
           website: '',
@@ -380,6 +389,21 @@ const FormComponent = () => {
         </div>
 
         <div className="mb-3">
+          <label htmlFor="name" className="form-label">Dataset Description</label> <span className="text-danger">*</span>
+          <textarea
+            className="form-control"
+            id="description"
+            name="description"
+            required
+            value={formData.description.en}
+            onChange={handleChange}
+            rows="4"
+            style={{ minHeight: "120px", resize: "vertical" }}
+          ></textarea>
+          <div className="invalid-feedback">Please enter the dataset description.</div>
+        </div>
+
+        <div className="mb-3">
           <label htmlFor="name" className="form-label">DOI</label>
           <input
             type="text"
@@ -423,17 +447,17 @@ const FormComponent = () => {
         </div>
 
         <div className="mb-3">
-          <label htmlFor="triples" className="form-label">Number of triples</label> <span className="text-danger">*</span>
+          <label htmlFor="triples" className="form-label">Number of triples</label>
           <input
             type="number"
-            min="1"
+            min="0"
             className="form-control"
             id="triples"
             name="triples"
             value={formData.triples}
             onChange={handleChange}
           />
-          <div className="invalid-feedback">Please enter a number of triples higher than 0.</div>
+          <div className="invalid-feedback">Please enter a number of triples positive (also 0).</div>
         </div>
 
         <div className="border p-3 mt-3 mb-3 rounded">
@@ -445,7 +469,6 @@ const FormComponent = () => {
                 className="form-control"
                 id="contact-point-name"
                 name="contact-point-name"
-                value={formData.contact_point.name}
                 onChange={handleChange}
                 required
               />
@@ -458,7 +481,6 @@ const FormComponent = () => {
                 className="form-control"
                 id="contact-point-email"
                 name="contact-point-email"
-                value={formData.contact_point.email}
                 onChange={handleChange}
                 required
               />
@@ -475,7 +497,6 @@ const FormComponent = () => {
                 className="form-control"
                 id="owner-name"
                 name="owner-name"
-                value={formData.owner.name}
                 onChange={handleChange}
               />
               <div className="invalid-feedback">Please enter a valid Name.</div>
@@ -487,7 +508,6 @@ const FormComponent = () => {
                 className="form-control"
                 id="owner-email"
                 name="owner-email"
-                value={formData.owner.email}
                 onChange={handleChange}
               />
               <div className="invalid-feedback">Please enter a valid e-mail address.</div>
@@ -532,13 +552,13 @@ const FormComponent = () => {
       </div>
 
       <div className="mb-3">
-          <label htmlFor="website" className="form-label">Namespace</label>
+          <label htmlFor="namespace" className="form-label">Namespace</label>
           <input
             type="url"
             className="form-control"
-            id="website"
-            name="website"
-            value={formData.website}
+            id="namespace"
+            name="namespace"
+            value={formData.namespace}
             onChange={handleChange}
           />
           <div className="invalid-feedback">Please enter a valid namespace.</div>
@@ -583,7 +603,6 @@ const FormComponent = () => {
         className="form-select"
         id="sub-category"
         name="sub-category"
-        value={formData.category}
         onChange={handleChange}
         required
       >
@@ -639,7 +658,6 @@ const FormComponent = () => {
                 className="form-control"
                 id="sparql-url"
                 name="sparql-url"
-                value={formData.sparql.access_url}
                 onChange={handleChange}
                 required
               />
@@ -653,7 +671,6 @@ const FormComponent = () => {
                 className="form-control"
                 id="sparql-title"
                 name="sparql-title"
-                value={formData.sparql.title}
                 onChange={handleChange}
               />
               <div className="invalid-feedback">Please enter the SPARQL endpoint title.</div>
@@ -666,7 +683,6 @@ const FormComponent = () => {
                 className="form-control"
                 id="sparql-description"
                 name="sparql-description"
-                value={formData.sparql.description}
                 onChange={handleChange}
               />
               <div className="invalid-feedback">Please enter the SPARQL endpoint description.</div>
@@ -687,7 +703,6 @@ const FormComponent = () => {
                 className="form-control"
                 id={`full_download-${index}-title`}
                 name={`full_download-${index}-title`}
-                value={resource.title}
                 onChange={handleChange}
               />
             </div>
@@ -699,7 +714,6 @@ const FormComponent = () => {
                 className="form-control"
                 id={`full_download-${index}-download_url`}
                 name={`full_download-${index}-download_url`}
-                value={resource.download_url}
                 onChange={handleChange}
                 required
               />
@@ -712,7 +726,6 @@ const FormComponent = () => {
                 className="form-control"
                 id={`full_download-${index}-description`}
                 name={`full_download-${index}-description`}
-                value={resource.description}
                 onChange={handleChange}
               />
             </div>
@@ -752,7 +765,6 @@ const FormComponent = () => {
                 className="form-control"
                 id={`example-${index}-access_url`}
                 name={`example-${index}-access_url`}
-                value={resource.download_url}
                 onChange={handleChange}
                 required
               />
@@ -765,7 +777,6 @@ const FormComponent = () => {
                 className="form-control"
                 id={`example-${index}-description`}
                 name={`example-${index}-description`}
-                value={resource.description}
                 onChange={handleChange}
               />
             </div>
@@ -793,7 +804,6 @@ const FormComponent = () => {
                 className="form-control"
                 id={`other_download-${index}-title`}
                 name={`other_download-${index}-title`}
-                value={resource.title}
                 onChange={handleChange}
               />
             </div>
@@ -805,7 +815,6 @@ const FormComponent = () => {
                 className="form-control"
                 id={`other_download-${index}-access_url`}
                 name={`other_download-${index}-access_url`}
-                value={resource.download_url}
                 onChange={handleChange}
                 required
               />
@@ -818,7 +827,6 @@ const FormComponent = () => {
                 className="form-control"
                 id={`other_download-${index}-description`}
                 name={`other_download-${index}-description`}
-                value={resource.description}
                 onChange={handleChange}
               />
             </div>
