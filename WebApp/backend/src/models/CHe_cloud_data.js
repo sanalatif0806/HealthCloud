@@ -12,7 +12,7 @@ async function getAllIdsAndLinks() {
     }
 }
 
-async function getAllJsonData(dataset_id) {
+async function getAllJsonDataByID(dataset_id) {
     try {
         const db = await connectToMongoDB();
         const collection = db.collection('CHe_cloud_data'); 
@@ -38,4 +38,4 @@ async function getAllJsonData() {
     }
 }
 
-module.exports = { getAllIdsAndLinks, getAllJsonData};
+module.exports = { getAllIdsAndLinks, getAllJsonData, getAllJsonDataByID};
