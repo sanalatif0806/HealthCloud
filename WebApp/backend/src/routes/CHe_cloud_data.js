@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { response } = require('express');
-const { getAllIdsAndLinks, getAllJsonData } = require('../models/CHe_cloud_data');
+const { getAllIdsAndLinks, getAllJsonDataByID } = require('../models/CHe_cloud_data');
 const express = require('express');
 const fs = require('fs');
 const csv = require('csv-parser');
@@ -93,7 +93,7 @@ router.get('/fairness_data/:id', async (req, res) => {
 router.get('/dataset_metadata/:id', async (req, res) => {
     try{
         const dataset_id = req.params.id;
-        const json_data = await getAllJsonData(dataset_id);
+        const json_data = await getAllJsonDataByID(dataset_id);
         if (json_data){
             res.status(200).json(json_data);
         } else {
