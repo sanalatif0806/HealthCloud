@@ -174,3 +174,4 @@ gpt_tasks.jsonl
 gpt_results.json
 batch_job_results.jsonl
 .DS_Store
+WebApp/backend/CHe_cloud_data.json
