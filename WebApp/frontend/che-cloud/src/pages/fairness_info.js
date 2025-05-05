@@ -88,18 +88,18 @@ function FairnessInfo(){
                 <div className="text-center mb-4">
                 {fairness_data.Ontology == 'True' ? (
                     <>
-                    <h1 className="d-inline mb-4">{fairness_data['KG name']}</h1>
+                    <h1 className="d-inline mb-4">{dataset_metadata.title}</h1>
                     <span className="badge bg-warning text-dark d-inline ms-2">Ontology</span>
                     </>
                 ) : (
                     <>
-                    <h1 className="d-inline mb-4">{fairness_data['KG name']}</h1>
+                    <h1 className="d-inline mb-4">{dataset_metadata.title}</h1>
                     <span className="badge bg-secondary d-inline ms-2">Dataset</span>
                     </>
                 )}
                 </div>
 
-                {dataset_metadata ? (
+                {dataset_metadata.description ? (
                     <p className="text-justify mb-5">{dataset_metadata.description.en}</p>
                 ) : (
                     <p className="text-center mb-5">Loading Description data</p>
