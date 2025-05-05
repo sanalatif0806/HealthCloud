@@ -1,6 +1,4 @@
-#!/bin/bash
-
-ACTIVATE_PATH="$PROJECT_ROOT/CHe_cloud_generator/venv/bin/activate"
+                                 #!/bin/bash
 
 # Get the absolute path to the project root (where this script lives)
 PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -11,7 +9,8 @@ git pull
 
 # Run the Python script
 cd "$PROJECT_ROOT/CHe_cloud_generator" || exit 1
-source "$ACTIVATE_PATH"
+source venv/bin/activate
+cd "$PROJECT_ROOT/CHe_cloud_generator/src" || exit 1
 python3 update_CHe_cloud.py
 
 # Run the cleanup and import script
@@ -21,3 +20,5 @@ cd "$PROJECT_ROOT/WebApp/backend" || exit 1
 # Remove the local clone of the CHe cloud repo
 cd "$PROJECT_ROOT/WebApp/backend/src" || exit 1
 rm -r local-clone
+
+
