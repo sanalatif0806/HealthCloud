@@ -14,4 +14,7 @@ python3 update_CHe_cloud.py
 # Run the cleanup and import script
 cd "$PROJECT_ROOT/WebApp/backend" || exit 1
 ./clean_and_reimport_data_db.sh
+
+# Remove the local clone of the CHe cloud repo
+cd "$PROJECT_ROOT/WebApp/backend/src" || exit 1
 rm -r local-clone
