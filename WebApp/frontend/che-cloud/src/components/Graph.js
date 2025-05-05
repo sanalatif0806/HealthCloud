@@ -22,9 +22,15 @@ const StaticGraph = ({ data }) => {
         const height = svgElement.clientHeight;
         const svg = d3.select("#graph");
         const categories = Array.from(new Set(data.nodes.map(node => node.category)));
+        const categoryColors = {
+            "Tangible": "#bddbcf",
+            "Intangible": "#6fa990",
+            "Generic": "#debaa9",
+            "Natural": "#f6f0e4"
+        };
         const colorScale = d3.scaleOrdinal()
-            .domain(categories)
-            .range(["#bddbcf", "#f6f0e4", '#6fa990','#debaa9']);
+            .domain(Object.keys(categoryColors))
+            .range(Object.values(categoryColors));
 
         // Define the boundary between connected and isolated nodes
         const boundaryX = width * 0.6;
