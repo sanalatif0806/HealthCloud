@@ -1,6 +1,5 @@
 import os
 import json
-import LOD_Cloudify
 import glob
 
 def create_list_and_move(data_to_convert):
@@ -15,7 +14,7 @@ def create_list_and_move(data_to_convert):
         json.dump(lodcloud_data_list, f, indent=4)
 
 def merge_cloud_with_monitoring_requests(path_dataset_to_include_in_the_cloud):
-    monitoring_requests_path = os.path.abspath(os.path.join('..','..','WebApp/monitoring_requests/'))
+    monitoring_requests_path = os.path.abspath(os.path.join('..','..','monitoring_requests/'))
 
     json_files = glob.glob(os.path.join(monitoring_requests_path, '*.json'))
     
