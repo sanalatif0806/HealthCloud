@@ -14,7 +14,7 @@ function Cloud(){
     }, []);
 
     const handleInsertResource = () => {
-        navigate('/add-dataset'); // naviga alla pagina /add-dataset
+        navigate('/add-dataset'); 
     }
 
     return (
