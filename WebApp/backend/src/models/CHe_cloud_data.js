@@ -25,4 +25,17 @@ async function getAllJsonData(dataset_id) {
     }
 }
 
+async function getAllJsonData() {
+    try {
+        const db = await connectToMongoDB();
+        const collection = db.collection('CHe_cloud_data'); 
+
+        const data = await collection.find({}).toArray();;
+        return data;
+    } catch (error) {
+        console.error("Error during data recovering:", error);
+        throw error;
+    }
+}
+
 module.exports = { getAllIdsAndLinks, getAllJsonData};

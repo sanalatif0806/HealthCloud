@@ -105,4 +105,16 @@ router.get('/dataset_metadata/:id', async (req, res) => {
     }
 });
 
+router.get('/get_all', async (req, res) => {
+    try {
+        const items = await getAllJsonData();
+        if (!items.length) {
+            return res.status(404).json({ message: "No elements founded." });
+        }
+        res.json(items);
+    } catch (error) {
+        res.status(500).json({ message: "Server error" });
+    }
+});
+
 module.exports = router;
