@@ -158,7 +158,7 @@ const FormComponent = () => {
   const handleKeywordKeyDown = (e) => {
     const key = e.key;
   
-    if (key === 'Enter' || key === ',' || key === ' ') {
+    if (key === 'Enter' || key === ',' || key === ' ' || key === 'Tab' || key === ';') {
       e.preventDefault(); // prevent form submit or unwanted input
       const newKw = formData.newKeyword.trim();
   
@@ -212,10 +212,12 @@ const FormComponent = () => {
         body: JSON.stringify(formattedData)
       });
       if (!response.ok) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
         throw new Error('Failed to submit');
       }
 
       await response.json();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
       setSubmitted(true);
       setFormData(
         {
@@ -254,6 +256,7 @@ const FormComponent = () => {
         }
       );
     } catch (err) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
       setError('Something went wrong. Please try again later.');
     }
   };
@@ -335,7 +338,7 @@ const FormComponent = () => {
 
       {submitted && (
         <div className="alert alert-success" role="alert">
-          Your message has been sent successfully!
+          Your request to insert a new resource in the CHe Cloud has been sent successfully, check the GitHub repository for updates: <a href='https://github.com/GabrieleT0/CHe-Cloud' target="_blank" rel="noopener noreferrer">https://github.com/GabrieleT0/CHe-Cloud</a>
         </div>
       )}
 
@@ -347,7 +350,7 @@ const FormComponent = () => {
 
       <form onSubmit={handleSubmit} className="needs-validation" noValidate>
         <div className="mb-3">
-          <label htmlFor="name" className="form-label">Dataset ID (min 5 max 10 characters) </label>
+          <label htmlFor="name" className="form-label">Dataset ID (min 5 max 10 characters) </label> <span className="text-danger">*</span>
           <input
             type="text"
             className="form-control"
@@ -363,7 +366,7 @@ const FormComponent = () => {
         </div>
 
         <div className="mb-3">
-          <label htmlFor="name" className="form-label">Dataset Name</label>
+          <label htmlFor="name" className="form-label">Dataset Name</label> <span className="text-danger">*</span>
           <input
             type="text"
             className="form-control"
@@ -405,7 +408,7 @@ const FormComponent = () => {
         </div>
 
         <div className="mb-3">
-          <label htmlFor="website" className="form-label">Website</label>
+          <label htmlFor="website" className="form-label">Website</label> <span className="text-danger">*</span>
           <input
             type="url"
             className="form-control"
@@ -420,7 +423,7 @@ const FormComponent = () => {
         </div>
 
         <div className="mb-3">
-          <label htmlFor="triples" className="form-label">Number of triples</label>
+          <label htmlFor="triples" className="form-label">Number of triples</label> <span className="text-danger">*</span>
           <input
             type="number"
             min="1"
@@ -434,9 +437,9 @@ const FormComponent = () => {
         </div>
 
         <div className="border p-3 mt-3 mb-3 rounded">
-            <h5>Contact point</h5>
+            <h5>Contact point <span className="text-danger">*</span></h5> 
             <div className="mb-3">
-              <label htmlFor="contact-point-name" className="form-label">Name</label>
+              <label htmlFor="contact-point-name" className="form-label">Name</label> <span className="text-danger">*</span>
               <input
                 type="text"
                 className="form-control"
@@ -449,7 +452,7 @@ const FormComponent = () => {
               <div className="invalid-feedback">Please enter a valid Name.</div>
             </div>
             <div className="mb-3">
-              <label htmlFor="contact-point-email" className="form-label">Email address</label>
+              <label htmlFor="contact-point-email" className="form-label">Email address</label> <span className="text-danger">*</span>
               <input
                 type="email"
                 className="form-control"
