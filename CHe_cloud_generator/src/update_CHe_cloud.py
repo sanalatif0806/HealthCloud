@@ -7,6 +7,9 @@ def create_list_and_move(data_to_convert):
     lodcloud_data_list = []
     # Create a list of dictionaries
     for key in data_to_convert:
+        item = data_to_convert[key]
+        if '_id' in item and item['_id'] == '':
+            item['_id'] = item['identifier']
         lodcloud_data_list.append(data_to_convert[key])
 
     absolute_path = os.path.abspath(os.path.join('..','..','WebApp/backend/'))
