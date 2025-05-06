@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { response } = require('express');
-const { getAllIdsAndLinks, getAllJsonDataByID } = require('../models/CHe_cloud_data');
+const { getAllIdsAndLinks, getAllJsonDataByID, getAllJsonData } = require('../models/CHe_cloud_data');
 const express = require('express');
 const fs = require('fs');
 const csv = require('csv-parser');
