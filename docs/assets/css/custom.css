@@ -7,12 +7,21 @@ footer[role="contentinfo"], footer.site-footer {
 }
 
 table {
-  font-size: 16px; /* or 1em */
+  display: block;
   width: 100%;
-  table-layout: auto;
+  overflow-x: auto;
+  word-wrap: break-word;
+  border-collapse: collapse;
 }
 
-table th, table td {
-  padding: 10px;
-  word-wrap: break-word;
+th, td {
+  padding: 12px;
+  text-align: left;
+  border: 1px solid #ccc;
+}
+
+@media (max-width: 768px) {
+  table {
+    font-size: 14px;
+  }
 }
