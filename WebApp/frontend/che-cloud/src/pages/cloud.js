@@ -48,7 +48,7 @@ function Cloud(){
                     onMouseOver={(e) => e.target.style.backgroundColor = '#7b978c'}
                     onMouseOut={(e) => e.target.style.backgroundColor = '#8da89f'}
                 >
-                    Ask to insert a new resource
+                    Ask to insert a new dataset
                 </button>
             </div>
             <Graph data={data}/>
