@@ -20,6 +20,15 @@
   </p>
 </div>
 
+## Repository structure
+The [CHe_cloud_generator/src](./CHe_cloud_generator/src/) folder contains:
+- The Python code used to generate the CHe CLOUD based on the annotations provided by the two researchers, as well as the code for the experiment using the keywords extracted from the SLR and that for the LLMs.
+- The [evaluate_fairness.py](./CHe_cloud_generator/src/evaluate_fairness.py) script, which enables the computation of dataset fairness based on the results from KGHeartBeat.
+
+The [CHe_cloud_generator/data](./CHe_cloud_generator/data/) folder contains:
+- The [keyword_from_SLR](./CHe_cloud_generator/data/keywords_from_SLR/) folder, which includes the keywords extracted from the papers identified using an SLR approach. These keywords were used to automatically categorize the datasets in the LOD cloud.
+- The [WebApp](./WebApp/) folder, which contains the code required to serve the CHe CLOUD.
+
 ### Built With
 * ![image](https://img.shields.io/badge/Python-FFD43B?style=for-the-badge&logo=python&logoColor=blue)
 * ![image](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
