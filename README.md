@@ -12,7 +12,7 @@
     <a href="http://isislab.it:12280/CHe-cloud/"><strong>Explore the CHe Cloud »</strong></a>
     <br />
     <br />
-    <a href="https://gabrielet0.github.io/CHe-Cloud/">See the additional material for the Article</a>
+    <a href=gabrielet0.github.io/CHe-CLOUD/">See the additional material for the Article</a>
     <!-- &middot;
     <a href="https://github.com/github_username/repo_name/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
     &middot;
