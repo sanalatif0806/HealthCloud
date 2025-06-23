@@ -9,6 +9,34 @@ const path = require('path');
 
 const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:3000';
 const fairness_page = 'CHe-cloud/fairness-info';
+const khgeartbeatUrl = process.env.KGHEARTBEAT_API
+
+const keyMapping = {
+  f1M: 'F1-M Unique and persistent ID',
+  f1D: 'F1-D URIs dereferenceability',
+  f2aM: 'F2a-M - Metadata availability via standard primary sources',
+  f2bM: 'F2b-M Metadata availability for all the attributes covered in the FAIR score computation',
+  f3M: 'F3-M Data referrable via a DOI',
+  f4M: 'F4-M Metadata registered in a searchable engine',
+  f_score: 'F score',
+  a1D: 'A1-D Working access point(s)',
+  a1M: 'A1-M Metadata availability via working primary sources',
+  a1_2: 'A1.2 Authentication & HTTPS support',
+  a2M: 'A2-M Registered in search engines',
+  a_score: 'A score',
+  r1_1: 'R1.1 Machine- or human-readable license retrievable via any primary source',
+  r1_2: 'R1.2 Publisher information, such as authors, contributors, publishers, and sources',
+  r1_3D: 'R1.3-D Data organized in a standardized way',
+  r1_3M: 'R1.3-M Metadata are described with VoID/DCAT predicates',
+  r_score: 'R score',
+  i1D: 'I1-D Standard & open representation format',
+  i1M: 'I1-M Metadata are described with VoID/DCAT predicates',
+  i2: 'I2 Use of FAIR vocabularies',
+  i3D: 'I3-D Degree of connection',
+  i_score: 'I score',
+  fair_score: 'FAIR score'
+};
+
 
 router.get('/all_ch_links', async (req, res) => {
     try {
@@ -64,26 +92,21 @@ router.get('/all_ch_links', async (req, res) => {
 
 router.get('/fairness_data/:id', async (req, res) => {
     try{
-        const csvPath = path.join(__dirname, '../../data/fairness-data.csv'); 
         const targetId = req.params.id;
-        let found = false;
-        fs.createReadStream(csvPath)
-            .pipe(csv())
-            .on('data', (row) => {
-            if (row['KG id'] === targetId) {
-                found = true;
-                res.json(row);
-            }
-            })
-            .on('end', () => {
-            if (!found) {
-                res.status(404).json({ message: 'Row not found' });
-            }
-            })
-            .on('error', (err) => {
-            console.error(err);
-            res.status(500).json({ error: 'Error reading CSV file' });
-            });
+        const response = await fetch(`http://isislab.it:12280/kgheartbeat/api/fairness/${targetId}`);
+        const data = await response.json();
+        const mappedData = Object.fromEntries(
+        Object.entries(data).map(([key, value]) => [
+            keyMapping[key] || key, // fallback to original key if no mapping
+            value
+            ])
+        ); 
+
+        if (mappedData) {
+            return res.json(mappedData);
+        } else {
+            return res.status(404).json({ message: "Dataset not found" });
+        }
 
     } catch (error) {
         res.status(500).json({ message: "Server error" });

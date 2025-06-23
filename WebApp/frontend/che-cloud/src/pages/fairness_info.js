@@ -20,8 +20,14 @@ function FairnessInfo(){
     useEffect(() => {
         async function getFairnessData(){
             try {
-            const response = await axios.get(`${base_url}/CHe_cloud_data/fairness_data/${dataset_id}`);
-            setFairnessData(response.data)
+                //Same trasformation done by KGHeartBeat
+                
+                let sanitizedId = dataset_id.replace(/[\\/*?:"<>|]/g, "");
+                sanitizedId = dataset_id.replace(/[\\/*?:"<>|]/g, "");
+                sanitizedId = sanitizedId.replace(/[!"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~]/g, "");
+                sanitizedId = sanitizedId.replace(/\s+/g, "");
+                const response = await axios.get(`${base_url}/CHe_cloud_data/fairness_data/${sanitizedId}`);
+                setFairnessData(response.data)
             } catch (error) {
             console.error("Error:",error)
             }
@@ -29,15 +35,7 @@ function FairnessInfo(){
         getFairnessData();
         async function getJsonData(){
             try {
-                //Same trasformation done by KGHeartBeat
-                
-                //let sanitizedId = dataset_id.replace(/[\\/*?:"<>|]/g, "");
-                //sanitizedId = dataset_id.replace(/[\\/*?:"<>|]/g, "");
-                //sanitizedId = sanitizedId.replace(/[!"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~]/g, "");
-                //sanitizedId = sanitizedId.replace(/\s+/g, "");
-                //const response = await axios.get(`${kghb_url}trust/believability?id=${sanitizedId}`);
                 const response = await axios.get(`${base_url}/CHe_cloud_data/dataset_metadata/${dataset_id}`);
-                console.log(response.data)
                 setDatasetMetadata(response.data)
             } catch (error) {
             console.error("Error:",error)
