@@ -27,6 +27,7 @@ function FairnessInfo(){
                 sanitizedId = sanitizedId.replace(/[!"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~]/g, "");
                 sanitizedId = sanitizedId.replace(/\s+/g, "");
                 const response = await axios.get(`${base_url}/CHe_cloud_data/fairness_data/${sanitizedId}`);
+                console.log("Fairness Data:", response.data);
                 setFairnessData(response.data)
             } catch (error) {
             console.error("Error:",error)
@@ -164,7 +165,15 @@ function FairnessInfo(){
                     </Row>
                 </div>
             )}
-
+                <div className="mb-3">
+                    <small className="text-muted">
+                        FAIR metrics last updated on: <b>{new Date(fairness_data.analysis_date).toLocaleDateString('en-US', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                        })}</b>. Assessment provided by <a href='http://www.isislab.it:12280/kgheartbeat/kgheartbeat' target='_blank' rel="noopener noreferrer">KGHeartBeat</a>.
+                    </small>
+                </div>
                 {chartReady ? (
                     <Row className="g-4">
                     <Col md={4} sm={12}>

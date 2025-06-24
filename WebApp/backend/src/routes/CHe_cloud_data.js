@@ -34,7 +34,8 @@ const keyMapping = {
   i2: 'I2 Use of FAIR vocabularies',
   i3D: 'I3-D Degree of connection',
   i_score: 'I score',
-  fair_score: 'FAIR score'
+  fair_score: 'FAIR score',
+  analysis_date: 'analysis_date'
 };
 
 
