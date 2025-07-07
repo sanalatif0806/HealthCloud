@@ -38,9 +38,11 @@ async function getAllJsonData() {
     }
 }
 
-async function getCollection(name) {
-  const database = await connectDB();
-  return database.collection(name);
+async function getCollection() {
+    const db = await connectToMongoDB();
+    const collection = db.collection('CHe_cloud_data'); 
+    
+    return collection
 }
 
 module.exports = { getAllIdsAndLinks, getAllJsonData, getAllJsonDataByID, getCollection};
