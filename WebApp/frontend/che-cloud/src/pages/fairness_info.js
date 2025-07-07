@@ -81,7 +81,8 @@ function FairnessInfo(){
     return (
         <>
             <div className="mt-2 ms-3">
-                <Link to="/" className="btn btn-outline-success">Return to the Cloud</Link>
+                <Link to="/search" className="btn btn-outline-success">Search</Link>
+                <Link to="/" className="btn btn-outline-success" style={{marginLeft: '5px'}}>Return to the Cloud</Link>
             </div>
             <div className="container mt-3">
                 <div className="text-center mb-4">

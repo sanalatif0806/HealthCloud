@@ -17,6 +17,10 @@ function Cloud(){
         navigate('/add-dataset'); 
     }
 
+    const handleSearch = () => {
+        navigate('/search'); 
+    }
+
     return (
         <div>
             <h1 style={{
@@ -32,6 +36,26 @@ function Cloud(){
                 CHe CLOUD!
             </h1>
             <div style={{ textAlign: 'left', marginBottom: '1.5rem', marginLeft: '2rem' }}>
+                <button 
+                    onClick={handleSearch}
+                    style={{
+                        padding: '0.5rem 1.3rem',
+                        marginRight: '1rem',
+                        fontSize: '1rem',
+                        backgroundColor: '#8da89f',
+                        color: '#fff',
+                        border: 'none',
+                        borderRadius: '5px',
+                        cursor: 'pointer',
+                        boxShadow: '0 2px 5px rgba(0,0,0,0.2)',
+                        transition: 'background-color 0.3s ease'
+                    }}
+                    onMouseOver={(e) => e.target.style.backgroundColor = '#7b978c'}
+                    onMouseOut={(e) => e.target.style.backgroundColor = '#8da89f'}
+                >
+                    Search
+                </button>
+
                 <button 
                     onClick={handleInsertResource}
                     style={{

@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { response } = require('express');
-const { getAllIdsAndLinks, getAllJsonDataByID, getAllJsonData } = require('../models/CHe_cloud_data');
+const { getAllIdsAndLinks, getAllJsonDataByID, getAllJsonData, getCollection } = require('../models/CHe_cloud_data');
 const express = require('express');
 const fs = require('fs');
 const csv = require('csv-parser');
@@ -125,7 +125,7 @@ router.get('/dataset_metadata/:id', async (req, res) => {
         }
     } catch (error) {
         console.log(error)
-        res.status(500).json({ message: "Server error" });
+        res.status(500).json({ åmessage: "Server error" });
     }
 });
 
@@ -140,5 +140,34 @@ router.get('/get_all', async (req, res) => {
         res.status(500).json({ message: "Server error" });
     }
 });
+
+router.get('/search', async (req, res) => {
+  const title = req.query.title || '';
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 10;
+  const skip = (page - 1) * limit;
+
+  try {
+    const collection = await getCollection()
+    const query = { title: { $regex: title, $options: 'i' } };
+    const projection = { title: 1, identifier: 1, _id: 0 };
+
+    const [results, total] = await Promise.all([
+      collection.find(query, { projection }).skip(skip).limit(limit).toArray(),
+      collection.countDocuments(query)
+    ]);
+
+    res.json({
+      results,
+      total,
+      page,
+      totalPages: Math.ceil(total / limit)
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 
 module.exports = router;
