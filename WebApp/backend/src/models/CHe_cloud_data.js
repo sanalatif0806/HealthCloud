@@ -38,4 +38,9 @@ async function getAllJsonData() {
     }
 }
 
-module.exports = { getAllIdsAndLinks, getAllJsonData, getAllJsonDataByID};
+async function getCollection(name) {
+  const database = await connectDB();
+  return database.collection(name);
+}
+
+module.exports = { getAllIdsAndLinks, getAllJsonData, getAllJsonDataByID, getCollection};
