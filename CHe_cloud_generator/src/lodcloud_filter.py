@@ -227,7 +227,7 @@ class LODCloudFilter:
         client = OpenAI(api_key=openai_api_key)
         categorize_prompt = '''
             I give you some description and title about dataset in the Linked Open Data Cloud, I have to categorize it as Cultural Heritage or Not.  
-            For datasets that are Cultural Heritage, you also need to further specify whether it is #, In#, Natural Heritage and finally those that define thesaurus and data models, classify them as Terminology.  
+            For datasets that are Cultural Heritage, you also need to further specify whether it is tangible, Intangible, Natural Heritage and finally those that define thesaurus and data models, classify them as Generic.  
             You will be provided with a dataset description, title and the id, and you will output a json object containinig the following information:
             {
                 "id": "dataset_id",
