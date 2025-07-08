@@ -45,6 +45,7 @@ const FormComponent = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalData, setModalData] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isInitialSubmitting, setIsInitialSubmitting] = useState(false);
 
 
   const handleChange = (e) => {
@@ -145,7 +146,6 @@ const FormComponent = () => {
           [name]: value
         }));
       }
-      console.log(formData);
   };
 
   const handleAddKeyword = () => {
@@ -192,12 +192,12 @@ const FormComponent = () => {
     e.preventDefault();
     const form = e.target;
     if (!form.checkValidity()) {
-      console.log('Form is invalid');
       form.classList.add('was-validated'); 
       return;
     }
     setSubmitted(false);
     setError(null);
+    setIsInitialSubmitting(true);
 
     const formattedData = {
         ...formData,
@@ -213,30 +213,31 @@ const FormComponent = () => {
 
     if (!DOI_REGEX.test(formData.doi) && formData.doi !== '') {
         setDoiValid(false);
+        setIsInitialSubmitting(false);
         return;
     }
 
     try {
-      const response = await fetch(`${base_url}/CHe_cloud_data/llm_topic`, {
+      const response = await fetch(`${base_url}/llm/llm_topic`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formattedData)
       });
-
       const responseData = await response.json();
       setModalData(responseData);
       setShowModal(true);
       
       if (!response.ok) {
         window.scrollTo({ top: 0, behavior: 'smooth' });
-        setError(err.message || 'Something went wrong. Please try again later.');
         setModalData('Failed to submit');
+        throw new Error('Failed to submit');
       }
 
     } catch (err) {
       window.scrollTo({ top: 0, behavior: 'smooth' });
       setError(err.message || 'Something went wrong. Please try again later.');
     } finally {
+      setIsInitialSubmitting(false);
       setIsSubmitting(false);
     }
   }
@@ -247,15 +248,18 @@ const FormComponent = () => {
       const response = await fetch(`${base_url}/monitoring_requests/submit`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
+        body: JSON.stringify({
+          'formData': formData,
+          'llm_topic': modalData.llm_response
+          })
       });
 
       if (!response.ok) {
         window.scrollTo({ top: 0, behavior: 'smooth' });
-        setError(err.message || 'Something went wrong. Please try again later.');
         setModalData('Failed to submit');
+        throw new Error('Failed to submit');
       }
-
+      window.scrollTo({ top: 0, behavior: 'smooth' });
       // Success - reset form and show success message
       setShowModal(false);
       setSubmitted(true);
@@ -381,13 +385,29 @@ const FormComponent = () => {
 
   return (
     <div className="container mt-3">
+      {/* Loading Screen */}
+      {isInitialSubmitting && (
+        <div className="modal show d-block" tabIndex="-1" style={{ backgroundColor: 'rgba(0,0,0,0.7)' }}>
+          <div className="modal-dialog modal-dialog-centered">
+            <div className="modal-content">
+              <div className="modal-body text-center p-4">
+                <div className="spinner-border text-primary mb-3" role="status" style={{ width: '3rem', height: '3rem' }}>
+                  <span className="visually-hidden">Loading...</span>
+                </div>
+                <h5 className="mb-2">Processing your submission...</h5>
+                <p className="text-muted mb-0">Please wait while we analyze your dataset metadata with LLM to check if is a CH dataset.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
       {/* Modal */}
       {showModal && (
         <div className="modal show d-block" tabIndex="-1" style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}>
           <div className="modal-dialog modal-lg">
             <div className="modal-content">
               <div className="modal-header">
-                <h5 className="modal-title">Dataset Validation Results</h5>
+                <h5 className="modal-title">LLM result</h5>
                 <button
                   type="button"
                   className="btn-close"
@@ -397,39 +417,24 @@ const FormComponent = () => {
               </div>
               <div className="modal-body">
                 {modalData && (
-                  <div>
-                    {modalData.errors && modalData.errors.length > 0 && (
-                      <div className="alert alert-warning">
-                        <h6>Issues found:</h6>
-                        <ul className="mb-0">
-                          {modalData.errors.map((error, index) => (
-                            <li key={index}>{error}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-                    
-                    {modalData.warnings && modalData.warnings.length > 0 && (
-                      <div className="alert alert-info">
-                        <h6>Warnings:</h6>
-                        <ul className="mb-0">
-                          {modalData.warnings.map((warning, index) => (
-                            <li key={index}>{warning}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-                    
-                    {modalData.message && (
-                      <div className="alert alert-success">
-                        {modalData.message}
-                      </div>
-                    )}
-                    
-                    {modalData.summary && (
+                  <div>                  
+                    {modalData.llm_response.category != '' ? (
                       <div>
-                        <h6>Dataset Summary:</h6>
-                        <p>{modalData.summary}</p>
+                        <b>LLM categorized your data as:</b> {modalData.llm_response.category} <br></br>
+                        <b>LLM assign this sub-category: </b> 
+                        {modalData.llm_response.sub_category != '' ? (
+                          modalData.llm_response.sub_category 
+                        ):(
+                          'No sub-category assigned by the LLM'
+                        )} <br></br>
+                        <b>Model used:</b> {modalData.model_used}
+                      </div>
+                    ) : (
+                      <div>
+                        <h6>LLM could not categorize your data as Cultural Heritage based on your description and name of the dataset</h6>
+                        <p>You can review your metadata or you can submit anyway the dataset and a human operator will check 
+                          if your dataset satisfy the inclusion criteria for the CHe Cloud.</p>
+                        <b>Model used:</b> {modalData.model_used}
                       </div>
                     )}
                   </div>

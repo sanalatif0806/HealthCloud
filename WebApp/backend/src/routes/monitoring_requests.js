@@ -2,6 +2,8 @@ const fs = require('fs');
 const path = require('path');
 const simpleGit = require('simple-git');
 const router = require('express').Router();
+const axios = require('axios');
+
 require('dotenv').config();
 
 const LOCAL_REPO_PATH = path.resolve('local-clone');
@@ -9,7 +11,8 @@ const PROJECT_ROOT = path.resolve(__dirname, '../../../../');
 const SOURCE_JSON_DIR = path.join(PROJECT_ROOT, 'monitoring_requests');
 
 router.post('/submit', async (req, res) => {
-  const fileData = req.body;
+  const fileData = req.body.formData;
+  const llm_topic = req.body.llm_topic;
   const fileName = fileData.identifier || `request-${Date.now()}`;
   const monitoring_request = {};
   monitoring_request[fileData.identifier] = fileData;
@@ -75,13 +78,38 @@ router.post('/submit', async (req, res) => {
     // Force push the branch to remote
     console.log(`Pushing branch ${branchName} to origin...`);
     await repoGit.push('origin', branchName, { '--force': null });
+    const repoName = process.env.REPO_NAME
+    const prTitle = `Monitoring Request: ${fileData.title}`;
+    const prBody = `This PR is a request to insert a new dataset into the CHeCLOUD uploaded via the form.\n\n**Identifier**: ${fileData.identifier}\n**Title**: ${fileData.title}\n**Description**: ${fileData.description.en}\n**LLM Topic**: ${llm_topic?.category || 'Not classified'}${llm_topic?.sub_category ? ` - ${llm_topic.sub_category}` : ''}`;
 
-    res.json({ 
-      success: true, 
-      message: 'Monitoring request committed and pushed!', 
-      branch: branchName,
-      file: `${fileName}.json`
-    });
+    try {
+      const prResponse = await axios.post(
+        `https://api.github.com/repos/${process.env.GIT_USERNAME}/${repoName}/pulls`,
+        {
+          title: prTitle,
+          head: branchName,
+          base: 'main',
+          body: prBody
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${process.env.GIT_TOKEN}`,
+            'Accept': 'application/vnd.github+json'
+          }
+        }
+      );
+
+      console.log(`Pull request created: ${prResponse.data.html_url}`);
+
+      res.json({ 
+        success: true, 
+        message: 'Monitoring request committed, pushed and PR created!', 
+        branch: branchName,
+        file: `${fileName}.json`
+      });
+    } catch (apiError) {
+      console.error('Failed to create pull request via GitHub API:', apiError.response?.data || apiError.message);
+    }
   } catch (error) {
     console.error('Error in submit endpoint:', error);
     res.status(500).json({ success: false, error: error.message });
