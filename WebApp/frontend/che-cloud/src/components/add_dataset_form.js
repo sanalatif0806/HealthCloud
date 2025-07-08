@@ -42,6 +42,9 @@ const FormComponent = () => {
   const DOI_REGEX = /^10\.\d{4,9}\/[-._;()/:A-Z0-9]+$/i;
   const [doiValid, setDoiValid] = useState(true)
   const [showSparqlForm, setShowSparqlForm] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [modalData, setModalData] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
 
   const handleChange = (e) => {
@@ -214,60 +217,94 @@ const FormComponent = () => {
     }
 
     try {
-      const response = await fetch(`${base_url}/monitoring_requests/submit`, {
+      const response = await fetch(`${base_url}/CHe_cloud_data/llm_topic`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formattedData)
       });
+
+      const responseData = await response.json();
+      setModalData(responseData);
+      setShowModal(true);
+      
       if (!response.ok) {
         window.scrollTo({ top: 0, behavior: 'smooth' });
-        throw new Error('Failed to submit');
+        setError(err.message || 'Something went wrong. Please try again later.');
+        setModalData('Failed to submit');
       }
 
-      await response.json();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      setSubmitted(true);
-      setFormData(
-        {
-          _id: '',
-          identifier: '',
-          title: '',
-          doi: '',
-          license: '',
-          description: {
-            en: ''
-          },
-          sparql: [{
-              access_url: '',
-              title: '',
-              description: ''
-          }],
-          full_download: [],
-          website: '',
-          domain: "cultural-heritage",
-          contact_point: {
-              name: '',
-              email : '',
-          },
-          owner : {
-              name: '',
-              email : '',
-          },
-          keywords: [],
-          newKeyword: "",
-          Image: '',
-          example: [],
-          other_download: [],
-          namespace: '',
-          links: [], //todo
-          time: '',
-          triples: 0,
-        }
-      );
     } catch (err) {
       window.scrollTo({ top: 0, behavior: 'smooth' });
-      setError('Something went wrong. Please try again later.');
+      setError(err.message || 'Something went wrong. Please try again later.');
+    } finally {
+      setIsSubmitting(false);
     }
+  }
+
+  const handleFinalSubmit = async () => {
+    try {
+      setIsSubmitting(true);
+      const response = await fetch(`${base_url}/monitoring_requests/submit`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+
+      if (!response.ok) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        setError(err.message || 'Something went wrong. Please try again later.');
+        setModalData('Failed to submit');
+      }
+
+      // Success - reset form and show success message
+      setShowModal(false);
+      setSubmitted(true);
+      setFormData({
+        _id: '',
+        identifier: '',
+        title: '',
+        doi: '',
+        license: '',
+        description: {
+          en: ''
+        },
+        sparql: [{
+            access_url: '',
+            title: '',
+            description: ''
+        }],
+        full_download: [],
+        website: '',
+        domain: "cultural-heritage",
+        contact_point: {
+            name: '',
+            email : '',
+        },
+        owner : {
+            name: '',
+            email : '',
+        },
+        keywords: [],
+        newKeyword: "",
+        Image: '',
+        example: [],
+        other_download: [],
+        namespace: '',
+        links: [],
+        time: '',
+        triples: 0,
+      });
+    } catch (err) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        setError(err.message || 'Something went wrong. Please try again later.');
+        setModalData('Failed to submit');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleModifyForm = () => {
+    setShowModal(false);
   };
 
   const handleAddResource = () => {
@@ -344,7 +381,82 @@ const FormComponent = () => {
 
   return (
     <div className="container mt-3">
-
+      {/* Modal */}
+      {showModal && (
+        <div className="modal show d-block" tabIndex="-1" style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}>
+          <div className="modal-dialog modal-lg">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title">Dataset Validation Results</h5>
+                <button
+                  type="button"
+                  className="btn-close"
+                  aria-label="Close"
+                  onClick={() => setShowModal(false)}
+                ></button>
+              </div>
+              <div className="modal-body">
+                {modalData && (
+                  <div>
+                    {modalData.errors && modalData.errors.length > 0 && (
+                      <div className="alert alert-warning">
+                        <h6>Issues found:</h6>
+                        <ul className="mb-0">
+                          {modalData.errors.map((error, index) => (
+                            <li key={index}>{error}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                    
+                    {modalData.warnings && modalData.warnings.length > 0 && (
+                      <div className="alert alert-info">
+                        <h6>Warnings:</h6>
+                        <ul className="mb-0">
+                          {modalData.warnings.map((warning, index) => (
+                            <li key={index}>{warning}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                    
+                    {modalData.message && (
+                      <div className="alert alert-success">
+                        {modalData.message}
+                      </div>
+                    )}
+                    
+                    {modalData.summary && (
+                      <div>
+                        <h6>Dataset Summary:</h6>
+                        <p>{modalData.summary}</p>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+              <div className="modal-footer">
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  onClick={handleModifyForm}
+                  disabled={isSubmitting}
+                >
+                  Modify Form
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  onClick={handleFinalSubmit}
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? 'Submitting...' : 'Submit Dataset'}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
       {submitted && (
         <div className="alert alert-success" role="alert">
           Your request to insert a new resource in the CHe Cloud has been sent successfully, check the GitHub repository for updates: <a href='https://github.com/GabrieleT0/CHe-Cloud' target="_blank" rel="noopener noreferrer">https://github.com/GabrieleT0/CHe-Cloud</a>
