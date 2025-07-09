@@ -1,6 +1,9 @@
 from flask import Flask, request, jsonify
 from generate_weather_station_data import GenerateWeatherStationData
+from flask_cors import CORS
+
 app = Flask(__name__)
+CORS(app)
 
 
 weather_station_data = GenerateWeatherStationData()
@@ -8,6 +11,12 @@ weather_station_data = GenerateWeatherStationData()
 @app.route("/sparql_endpoint", methods=["GET"])
 def sparql_endpoint():
     sparql_data = weather_station_data.group_by_metric_value('Sparql endpoint')
+
+    return jsonify(sparql_data)
+
+@app.route("/rdf_dump", methods=["GET"])
+def rdf_dump():
+    sparql_data = weather_station_data.group_by_metric_value('Availability of RDF dump (metadata)')
 
     return jsonify(sparql_data)
 
