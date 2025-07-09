@@ -10,165 +10,192 @@ import MinimalTable from '../components/minimal_table';
 import { renderValueAsLink } from '../utils';
 import MaterialTable from '../components/material_table';
 
-function Dashboard(){
-    const [sparql_data, setSparqlData] = useState({})
-    const [rdf_dump_data, setRdfDumpData] = useState({})
-    const [license_data, setLicenseData] = useState({})
-    const [mediatype_data, setMediaTypeData] = useState({})
-    const [fair_stats_data, setFairStatsData] = useState({})
-    const [only_fair_stats, setOnlyFairStats] = useState({})
-    const [datasets_stats, setDatasetsStats] = useState({})
-    const [datasets_ontologies, setDatasetsOntologies] = useState({})
-    const [license_table, setLicenseTable] = useState(false)
+function Dashboard() {
+    const [sparql_data, setSparqlData] = useState({});
+    const [rdf_dump_data, setRdfDumpData] = useState({});
+    const [license_data, setLicenseData] = useState({});
+    const [mediatype_data, setMediaTypeData] = useState({});
+    const [fair_stats_data, setFairStatsData] = useState({});
+    const [only_fair_stats, setOnlyFairStats] = useState({});
+    const [datasets_stats, setDatasetsStats] = useState({});
+    const [datasets_ontologies, setDatasetsOntologies] = useState({});
+    const [license_table, setLicenseTable] = useState(false);
+    const [sparql_table, setSparqlTable] = useState(false);
+    const [rdf_table, setRdfTable] = useState(false);
+    const [media_table, setMediaTable] = useState(false);
 
     useEffect(() => {
-        async function getSparqlData(){
+        async function fetchData() {
             try {
-                const response = await axios.get(`${dahboard_backend_url}/sparql_endpoint`);
-                setSparqlData(response.data)
+                const [
+                    sparqlRes,
+                    rdfRes,
+                    statsRes,
+                    fairRes,
+                    licenseRes,
+                    mediaRes
+                ] = await Promise.all([
+                    axios.get(`${dahboard_backend_url}/sparql_endpoint`),
+                    axios.get(`${dahboard_backend_url}/rdf_dump`),
+                    axios.get(`${dahboard_backend_url}/datasets_stats`),
+                    axios.get(`${dahboard_backend_url}/fair_stats`),
+                    axios.get(`${dahboard_backend_url}/license`),
+                    axios.get(`${dahboard_backend_url}/media_type`)
+                ]);
+
+                setSparqlData(sparqlRes.data);
+                setRdfDumpData(rdfRes.data);
+                setDatasetsOntologies({
+                    datasets: statsRes.data.datasets,
+                    ontologies: statsRes.data.ontologies,
+                });
+                delete statsRes.data.datasets
+                delete statsRes.data.ontologies
+                setDatasetsStats(statsRes.data);
+                const fairOnly = { 'FAIR score': fairRes.data['FAIR score'] };
+                delete fairRes.data['FAIR score'];
+                setOnlyFairStats(fairOnly);
+                setFairStatsData(fairRes.data);
+
+                setLicenseData(licenseRes.data);
+                setMediaTypeData(mediaRes.data);
+
             } catch (error) {
-            console.error("Error:",error)
+                console.error("Data fetch error:", error);
             }
-        } 
-        getSparqlData();
-
-        async function getDatasetsStats(){
-            try {
-                const response = await axios.get(`${dahboard_backend_url}/datasets_stats`);
-                setDatasetsStats(response.data)
-                const only_dat_ont = {
-                    datasets : response.data.datasets,
-                    ontologies : response.data.ontologies,
-                }
-                setDatasetsOntologies(only_dat_ont)
-            } catch (error) {
-            console.error("Error:",error)
-            }
-        } 
-        getDatasetsStats();
-
-        async function getFairStats(){
-            try {
-                const response = await axios.get(`${dahboard_backend_url}/fair_stats`);
-                const l = {
-                    'FAIR score' : response.data['FAIR score']
-                }
-                setOnlyFairStats(l)
-                delete response.data['FAIR score']
-                setFairStatsData(response.data)
-            } catch (error) {
-            console.error("Error:",error)
-            }
-        } 
-        getFairStats();
-
-        async function getLicense(){
-            try {
-                const response = await axios.get(`${dahboard_backend_url}/license`);
-                console.log(response.data)
-                setLicenseData(response.data)
-            } catch (error) {
-            console.error("Error:",error)
-            }
-        } 
-        getLicense();
-
-    }, [])
-
-    useEffect(() => {
-        if(license_data){
-            let data = []
-            const columns = [
-                {
-                    accessorKey: 'license',
-                    header: 'Machine Redeable license',
-                    size : 50,
-                },
-                {
-                    accessorKey: 'count',
-                    header: 'Count',
-                    size:5
-                }
-            ]
-            for (const [key, value] of Object.entries(license_data)) {
-                if(key !== 'False'){
-                    data.push(
-                        {
-                            license : renderValueAsLink(key),
-                            count : value
-                        }
-                    )
-                }
-            }
-            setLicenseTable(<MaterialTable columns_value={columns} data_table={data}/>)
         }
-    },[license_data])
 
+        fetchData();
+    }, []);
+
+    useEffect(() => {
+        if (license_data) {
+            const data = Object.entries(license_data).filter(([k]) => k !== 'False').map(([key, value]) => ({
+                license: renderValueAsLink(key),
+                count: value
+            }));
+            setLicenseTable(<MaterialTable columns_value={[
+                { accessorKey: 'license', header: 'Machine-Readable License', size: 50 },
+                { accessorKey: 'count', header: 'Count', size: 5 }
+            ]} data_table={data} />);
+        }
+
+        if (sparql_data) {
+            const data = Object.entries(sparql_data).filter(([k]) => k !== 'False').map(([key, value]) => {
+                let label = key;
+                if (key === '-') label = 'Not indicated';
+                else if (key === 'offline') label = 'Offline';
+                else if (key === 'Available') label = 'Online';
+                else if (key === 'Restricted access to the endpoint') label = 'Access protected';
+                return { sparql: label, count: value };
+            });
+
+            setSparqlTable(<MinimalTable columns_value={[
+                { accessorKey: 'sparql', header: 'SPARQL Endpoint Status', size: 50 },
+                { accessorKey: 'count', header: 'Count', size: 5 }
+            ]} data_table={data} />);
+        }
+
+        if (rdf_dump_data) {
+            const data = Object.entries(rdf_dump_data).filter(([k]) => k !== 'False').map(([key, value]) => {
+                let label = key;
+                if (key === '1') label = 'Online';
+                else if (key === '0') label = 'Offline';
+                else if (key === '-1') label = 'Not indicated';
+                return { rdf: label, count: value };
+            });
+
+            setRdfTable(<MinimalTable columns_value={[
+                { accessorKey: 'rdf', header: 'RDF Dump Status', size: 50 },
+                { accessorKey: 'count', header: 'Count', size: 5 }
+            ]} data_table={data} />);
+        }
+
+        if (mediatype_data) {
+            const data = Object.entries(mediatype_data).filter(([k]) => k !== 'False').map(([key, value]) => ({
+                media: key,
+                count: value
+            }));
+
+            setMediaTable(<MaterialTable columns_value={[
+                { accessorKey: 'media', header: 'Media Type', size: 50 },
+                { accessorKey: 'count', header: 'Count', size: 5 }
+            ]} data_table={data} />);
+        }
+    }, [license_data, sparql_data, rdf_dump_data, mediatype_data]);
 
     return (
-        <>
-            <div className="mt-2 ms-3">
+        <div className="container-fluid mt-4 px-4">
+            <div className="d-flex justify-content-start gap-2 mb-3">
+                <Link to="/" className="btn btn-outline-success">Return to the Cloud</Link>
                 <Link to="/search" className="btn btn-outline-success">Search</Link>
-                <Link to="/" className="btn btn-outline-success" style={{marginLeft: '5px'}}>Return to the Cloud</Link>
+                <Link to="/add-dataset" className="btn btn-outline-success">Add a Dataset</Link>
             </div>
-            <div className="card shadow-sm p-4 mb-5">
-                <Row>
-                    {datasets_stats ? (
-                        <>
-                            <Col mb={4} sm={6} >
-                                <div className="card shadow-sm p-3">
-                                    <h5 className="card-title text-center"></h5>
-                                    {delete datasets_stats.datasets}
-                                    {delete datasets_stats.ontologies}
-                                    <DonutChart categories={Object.keys(datasets_ontologies)} seriesData={Object.values(datasets_ontologies)} title={'Resources in the CHeCLOUD'} />
-                                </div>
-                            </Col>
-                            <Col mb={4} sm={6} >
-                                <div className="card shadow-sm p-3">
-                                    <h5 className="card-title text-center"></h5>
-                                    {delete datasets_stats.datasets}
-                                    {delete datasets_stats.ontologies}
-                                    <PieChart categories={Object.keys(datasets_stats)} seriesData={Object.values(datasets_stats)} title={'Dataset by Cultural Heritage subcategory'} />
-                                </div>
-                            </Col>
-                            {fair_stats_data ? (
-                                <>
-                                    <Col mb={4} sm={6} >
-                                        <div className="card shadow-sm p-3">
-                                            <h5 className="card-title text-center"></h5>
-                                            <BoxPlot seriesData={fair_stats_data} title={'F-A-I-R score distribution'} />
-                                        </div>
-                                    </Col>
-                                    <Col mb={4} sm={6} >
-                                        <div className="card shadow-sm p-3">
-                                            <h5 className="card-title text-center"></h5>
-                                            <BoxPlot categories={Object.keys(only_fair_stats)} seriesData={only_fair_stats} title={'FAIR score distribution'} />
-                                        </div>
-                                    </Col>
-                                </>
-                                ) : (
-                                    <p>Loading data</p>
-                                )}
-                        </>
-                    ) : ( 
-                        <p>Loading data</p>
-                    )}
+
+            <div className="card shadow p-4 mb-5 bg-light">
+                <Row className="gy-4">
+                    <Col md={4}>
+                        <div className="card h-100 shadow-sm border-0 p-3 bg-white">
+                            <h6 className="text-center fw-bold">Resources in the CHeCLOUD</h6>
+                            <DonutChart categories={Object.keys(datasets_ontologies)} seriesData={Object.values(datasets_ontologies)} height={200} />
+                        </div>
+                    </Col>
+                    <Col md={5}>
+                        <div className="card h-100 shadow-sm border-0 p-3 bg-white">
+                            <h6 className="text-center fw-bold">Datasets by Cultural Heritage Subcategory</h6>
+                            <PieChart categories={Object.keys(datasets_stats)} seriesData={Object.values(datasets_stats)} height={200} />
+                        </div>
+                    </Col>
+                    <Col md={3}>
+                        <div className="card shadow-sm border-0 p-3 bg-white">
+                            <h6 className="text-center fw-bold">SPARQL Endpoints</h6>
+                            {sparql_table}
+                        </div>
+                    </Col>
                 </Row>
-                <Row>
-                    {license_data ? (
-                         <Col mb={4} sm={5} >
+
+                <hr className="my-5" />
+
+                <Row className="gy-4">
+                    <Col md={4}>
+                        <div className="card shadow-sm border-0 p-3 bg-white">
+                            <h6 className="text-center fw-bold">FAIR Score Distribution</h6>
+                            <BoxPlot categories={Object.keys(only_fair_stats)} seriesData={only_fair_stats} height={250}/>
+                        </div>
+                    </Col>
+                    <Col md={5}>
+                        <div className="card shadow-sm border-0 p-3 bg-white">
+                            <h6 className="text-center fw-bold">F-A-I-R Score Distribution</h6>
+                            <BoxPlot seriesData={fair_stats_data} height={250}/>
+                        </div>
+                    </Col>
+                    <Col md={3}>
+                        <div className="card shadow-sm border-0 p-3 bg-white">
+                            <h6 className="text-center fw-bold">RDF Dumps</h6>
+                            {rdf_table}
+                        </div>
+                    </Col>
+                </Row>
+
+                <hr className="my-5" />
+
+                <Row className="gy-4">
+                    <Col md={6}>
+                        <div className="card shadow-sm border-0 p-3 bg-white">
+                            <h6 className="text-center fw-bold">Licensing Overview</h6>
                             {license_table}
-                        </Col>
-                    ) : (
-                        <p>Loading data</p>
-                    )}
+                        </div>
+                    </Col>
+                    <Col md={6}>
+                        <div className="card shadow-sm border-0 p-3 bg-white">
+                            <h6 className="text-center fw-bold">Media Types</h6>
+                            {media_table}
+                        </div>
+                    </Col>
                 </Row>
-
             </div>
-        </>
-    )
-
-
+        </div>
+    );
 }
 
 export default Dashboard;

@@ -31,14 +31,13 @@ const BoxPlot = ({ title, categories = ["F score", "A score", "I score", "R scor
             type: 'boxPlot',
             height: height,
         },
-        colors: ['#008FFB', '#FEB019'],
         title: {
             text: title,
             align: 'left',
         },
         xaxis: {
             type: 'category',
-        }
+        },
     };
 
     return (

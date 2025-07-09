@@ -26,7 +26,7 @@ const DonutChart = ({ title, categories, seriesData, height = 350 }) => {
               position: 'bottom'
             }
           }
-        }]
+        }],
       };
 
     const series = seriesData;
