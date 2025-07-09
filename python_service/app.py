@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from generate_weather_station_data import GenerateWeatherStationData
 from flask_cors import CORS
+from collections import defaultdict
 
 app = Flask(__name__)
 CORS(app)
@@ -30,7 +31,13 @@ def license():
 def media_type():
     media_type = weather_station_data.group_by_metric_value_list('metadata-media-type')
 
-    return jsonify(media_type)
+    # Mantain only the mediatype, discard the charset and sum the values of the duplicated key
+    aggregated = defaultdict(int)
+    for k, v in media_type.items():
+        main_type = k.split(';')[0].strip()
+        aggregated[main_type] += v
+        
+    return jsonify(aggregated)
 
 @app.route("/fair_stats", methods=["GET"])
 def fair_stats():
