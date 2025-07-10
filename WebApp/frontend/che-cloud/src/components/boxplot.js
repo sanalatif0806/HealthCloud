@@ -38,6 +38,14 @@ const BoxPlot = ({ title, categories = ["F score", "A score", "I score", "R scor
         xaxis: {
             type: 'category',
         },
+        plotOptions: {
+            boxPlot: {
+                colors: {
+                upper: '#5e7e7d',
+                lower: '#a5b7b6'
+                }
+            }
+        }
     };
 
     return (
