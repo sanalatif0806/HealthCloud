@@ -38,6 +38,9 @@ const BoxPlot = ({ title, categories = ["F score", "A score", "I score", "R scor
         xaxis: {
             type: 'category',
         },
+        yaxis: {
+            min: 0,
+        },
         plotOptions: {
             boxPlot: {
                 colors: {
