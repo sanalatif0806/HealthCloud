@@ -23,6 +23,8 @@ function Dashboard() {
     const [sparql_table, setSparqlTable] = useState(false);
     const [rdf_table, setRdfTable] = useState(false);
     const [media_table, setMediaTable] = useState(false);
+    const [vocab_data, setVocabData] = useState(false);
+    const [vocab_table, setVocabTable] = useState(false);
 
     useEffect(() => {
         async function fetchData() {
@@ -33,14 +35,16 @@ function Dashboard() {
                     statsRes,
                     fairRes,
                     licenseRes,
-                    mediaRes
+                    mediaRes,
+                    vocabRes,
                 ] = await Promise.all([
                     axios.get(`${dahboard_backend_url}/sparql_endpoint`),
                     axios.get(`${dahboard_backend_url}/rdf_dump`),
                     axios.get(`${dahboard_backend_url}/datasets_stats`),
                     axios.get(`${dahboard_backend_url}/fair_stats`),
                     axios.get(`${dahboard_backend_url}/license`),
-                    axios.get(`${dahboard_backend_url}/media_type`)
+                    axios.get(`${dahboard_backend_url}/media_type`),
+                    axios.get(`${dahboard_backend_url}/vocabularies_used`)
                 ]);
 
                 setSparqlData(sparqlRes.data);
@@ -59,7 +63,7 @@ function Dashboard() {
 
                 setLicenseData(licenseRes.data);
                 setMediaTypeData(mediaRes.data);
-
+                setVocabData(vocabRes.data)
             } catch (error) {
                 console.error("Data fetch error:", error);
             }
@@ -122,7 +126,18 @@ function Dashboard() {
                 { accessorKey: 'count', header: 'Count', size: 5 }
             ]} data_table={data} />);
         }
-    }, [license_data, sparql_data, rdf_dump_data, mediatype_data]);
+
+        if(vocab_data){
+            const data = Object.entries(vocab_data).filter(([k]) => k !== 'False').map(([key, value]) => ({
+                ontology: renderValueAsLink(key),
+                count: value
+            }));
+            setVocabTable(<MaterialTable columns_value={[
+                { accessorKey: 'ontology', header: 'Ontology', size: 50 },
+                { accessorKey: 'count', header: 'Count', size: 5 }
+            ]} data_table={data} />);
+        }
+    }, [license_data, sparql_data, rdf_dump_data, mediatype_data, vocab_data]);
 
     return (
         <div className="container-fluid mt-4 px-4">
@@ -193,6 +208,16 @@ function Dashboard() {
                         </div>
                     </Col>
                 </Row>
+
+                <hr className="my-5" />
+                    <Row className="gy-4">
+                        <Col md={4}>
+                            <div className="card shadow-sm border-0 p-3 bg-white">
+                                <h6 className="text-center fw-bold">Ontologies used</h6>
+                                {vocab_table}
+                            </div>
+                        </Col>
+                    </Row>
             </div>
         </div>
     );
