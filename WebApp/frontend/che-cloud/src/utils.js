@@ -35,6 +35,7 @@ function isValidUrl(value){
 }
 
 function renderValueAsLink(value) {
+    value = value.replace('#','')
     if (isValidUrl(value)) {
       return <a href={value.startsWith('http') ? value : `https://${value}`} target="_blank" rel="noopener noreferrer">{value}</a>;
     }
