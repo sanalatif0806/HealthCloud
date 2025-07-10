@@ -15,6 +15,9 @@ const PieChart = ({ title, categories, seriesData, height = 350 }) => {
           text : title,
           align : 'center'
         },
+        legend: {
+              position: 'bottom',
+        },
         labels: formattedCategories,
         responsive: [{
           breakpoint: 480,
@@ -22,9 +25,6 @@ const PieChart = ({ title, categories, seriesData, height = 350 }) => {
             chart: {
               width: 200
             },
-            legend: {
-              position: 'bottom'
-            }
           }
         }],
       };
