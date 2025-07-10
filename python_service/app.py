@@ -54,4 +54,8 @@ def datasets_stats():
 
     return datasets_stats
 
+@app.route("/vocabularies_used", methods=["GET"])
+def vocabularies_used():
+    vocabularies_stats = weather_station_data.group_by_metric_value_list('Vocabularies')
 
+    return vocabularies_stats
