@@ -60,10 +60,13 @@ def load_latest_df(index_from_last=3):
         shutil.copy(csv_file_path, SAVED_CSV_PATH)  # Save CSV for reuse
         df = pd.read_csv(SAVED_CSV_PATH)
         return df
+    except:
+        return pd.read_csv(SAVED_CSV_PATH)
     finally:
         if os.path.exists(TAR_SAVE_PATH):
             os.remove(TAR_SAVE_PATH)
         if os.path.exists(EXTRACT_DIR):
             shutil.rmtree(EXTRACT_DIR)
+
 
 load_latest_df()
