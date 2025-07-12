@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, forwardRef } from 'react';
 import { base_url } from '../api';
+import { useLocation } from 'react-router-dom';
 
 const FormComponent = () => {
   const [formData, setFormData] = useState({
@@ -36,6 +37,7 @@ const FormComponent = () => {
     links: [], //todo
     time: '',
     triples: 0,
+    category: '', 
   });
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(null);
@@ -46,6 +48,75 @@ const FormComponent = () => {
   const [modalData, setModalData] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isInitialSubmitting, setIsInitialSubmitting] = useState(false);
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const dataset_id = queryParams.get('dataset_id');
+
+    useEffect(() => {
+    if (dataset_id) {
+      const fetchDataset = async () => {
+        try {
+          const response = await fetch(`${base_url}/CHe_cloud_data/dataset_metadata/${dataset_id}`);
+          if (!response.ok) throw new Error('Failed to fetch dataset');
+          const data = await response.json();
+          setFormData(prev => ({
+            ...prev,
+            ...data,
+            description: typeof data.description === 'string'
+              ? { en: data.description }
+              : (data.description || { en: '' }),
+            sparql : [{
+              access_url: data.sparql[0]?.access_url || '',
+              title: data.sparql[0]?.title || '',
+              description: data.sparql[0]?.description || ''
+            }] || [],
+            full_download: Array.isArray(data.full_download)
+            ? data.full_download.map(item => ({
+              title: item.title || '',
+              download_url: item.download_url || '',
+              description: item.description || ''
+            }))
+            : [],
+            example: Array.isArray(data.example) 
+              ? data.example.map(item => ({
+                  title: item.title || '',
+                  access_url: item.access_url || '',
+                  description: item.description || ''
+                }))
+              : [],
+            other_download: Array.isArray(data.other_download)
+              ? data.other_download.map(item => ({
+                  title: item.title || '',
+                  access_url: item.access_url || '',
+                  description: item.description || '',
+                }))
+              : [],
+            contact_point: data.contact_point || { name: '', email: '' },
+            owner: data.owner || { name: '', email: '' },
+            keywords: Array.isArray(data.keywords) ? data.keywords : [],
+            newKeyword: "",
+            Image: data.Image || '',
+            namespace: data.namespace || '',
+            links: Array.isArray(data.links) ? data.links : [],
+            time: data.time || '',
+            triples: data.triples || 0,
+            identifier: data.identifier || '',
+            title: data.title || '',
+            doi: data.doi || '',
+            license: data.license || '',
+            website: data.website || '',
+            domain: data.domain || "cultural-heritage",
+            category: ['ch-tangible', 'ch-intangible', 'ch-natural','ch-generic'].find(k => data.keywords.includes(k)) || ''
+          }));
+          if (data.sparql[0]?.access_url)
+            setShowSparqlForm(true);
+        } catch (err) {
+          setError('Could not prefill form: ' + (err.message || 'Unknown error'));
+        }
+      };
+      fetchDataset();
+    }
+  }, [dataset_id]);
 
 
   const handleChange = (e) => {
@@ -53,14 +124,16 @@ const FormComponent = () => {
     if (name === 'doi') {
         setDoiValid(DOI_REGEX.test(value)); 
     }
-
-    if (name === 'sparql-url' || name === 'sparql-title') {
+    if (name.startsWith('sparql-')){
+        const field = name.split('-')[1]; 
+        const sparql = [...formData.sparql];
+        sparql[0] = {
+          ...sparql[0],
+          [field]: value
+        };
         setFormData(prev => ({
           ...prev,
-          sparql: {
-            ...prev.sparql,
-            [name.split('-')[1]]: value // split sparql-url into url and sparql-title into title
-          }
+          sparql: sparql
         }));
       } else if (name.startsWith('full_download-')) {
         const [_, index, field] = name.split('-'); // e.g., resource-0-title, resource-0-url, resource-0-description
@@ -110,6 +183,7 @@ const FormComponent = () => {
       
           return {
             ...prev,
+            category: value,
             keywords: updatedKeywords
           };
         });
@@ -250,7 +324,8 @@ const FormComponent = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           'formData': formData,
-          'llm_topic': modalData.llm_response
+          'llm_topic': modalData.llm_response,
+          'is_update': dataset_id ? true : false,
           })
       });
 
@@ -464,7 +539,21 @@ const FormComponent = () => {
       )}
       {submitted && (
         <div className="alert alert-success" role="alert">
-          Your request to insert a new resource in the CHe Cloud has been sent successfully, check the GitHub repository for updates: <a href='https://github.com/GabrieleT0/CHe-Cloud' target="_blank" rel="noopener noreferrer">https://github.com/GabrieleT0/CHe-Cloud</a>
+          {dataset_id ? (
+            <>
+              Your request to update <strong>{dataset_id}</strong> in the CHe Cloud has been sent successfully, check the GitHub repository for updates:{' '}
+              <a href="https://github.com/GabrieleT0/CHe-Cloud" target="_blank" rel="noopener noreferrer">
+                https://github.com/GabrieleT0/CHe-Cloud
+              </a>
+            </>
+          ) : (
+            <>
+              Your request to insert a new resource in the CHe Cloud has been sent successfully, check the GitHub repository for updates:{' '}
+              <a href="https://github.com/GabrieleT0/CHe-Cloud" target="_blank" rel="noopener noreferrer">
+                https://github.com/GabrieleT0/CHe-Cloud
+              </a>
+            </>
+          )}
         </div>
       )}
 
@@ -587,6 +676,7 @@ const FormComponent = () => {
                 id="contact-point-name"
                 name="contact-point-name"
                 onChange={handleChange}
+                value={formData.contact_point.name}
                 required
               />
               <div className="invalid-feedback">Please enter a valid Name.</div>
@@ -599,6 +689,7 @@ const FormComponent = () => {
                 id="contact-point-email"
                 name="contact-point-email"
                 onChange={handleChange}
+                value={formData.contact_point.email}
                 required
               />
               <div className="invalid-feedback">Please enter a valid e-mail.</div>
@@ -721,6 +812,7 @@ const FormComponent = () => {
         id="sub-category"
         name="sub-category"
         onChange={handleChange}
+        value={formData.category}
         required
       >
         <option value="">-- Select a sub-category --</option>
@@ -769,13 +861,14 @@ const FormComponent = () => {
           <div className="border p-3 mt-3 mb-4 rounded">
             <h5>SPARQL Endpoint</h5>
             <div className="mb-3">
-              <label htmlFor="sparql-url" className="form-label">URL</label>
+              <label htmlFor="sparql-access_url" className="form-label">URL</label>
               <input
                 type="url"
                 className="form-control"
-                id="sparql-url"
-                name="sparql-url"
+                id="sparql-access_url"
+                name="sparql-access_url"
                 onChange={handleChange}
+                value={formData.sparql[0].access_url || ''}
                 required
               />
               <div className="invalid-feedback">Please enter a valid URL.</div>
@@ -788,6 +881,7 @@ const FormComponent = () => {
                 className="form-control"
                 id="sparql-title"
                 name="sparql-title"
+                value={formData.sparql[0].title || ''}
                 onChange={handleChange}
               />
               <div className="invalid-feedback">Please enter the SPARQL endpoint title.</div>
@@ -800,6 +894,7 @@ const FormComponent = () => {
                 className="form-control"
                 id="sparql-description"
                 name="sparql-description"
+                value={formData.sparql[0].description || ''}
                 onChange={handleChange}
               />
               <div className="invalid-feedback">Please enter the SPARQL endpoint description.</div>
@@ -820,6 +915,7 @@ const FormComponent = () => {
                 className="form-control"
                 id={`full_download-${index}-title`}
                 name={`full_download-${index}-title`}
+                value={formData.full_download[index]?.title}
                 onChange={handleChange}
               />
             </div>
@@ -831,6 +927,7 @@ const FormComponent = () => {
                 className="form-control"
                 id={`full_download-${index}-download_url`}
                 name={`full_download-${index}-download_url`}
+                value={formData.full_download[index]?.download_url}
                 onChange={handleChange}
                 required
               />
@@ -843,6 +940,7 @@ const FormComponent = () => {
                 className="form-control"
                 id={`full_download-${index}-description`}
                 name={`full_download-${index}-description`}
+                value={formData.full_download[index]?.description}
                 onChange={handleChange}
               />
             </div>
@@ -864,13 +962,13 @@ const FormComponent = () => {
             <h5>Example {index + 1}</h5>
 
             <div className="mb-3">
-              <label htmlFor={`full_download-${index}-title`} className="form-label">Title</label>
+              <label htmlFor={`example-${index}-title`} className="form-label">Title</label>
               <input
                 type="text"
                 className="form-control"
-                id={`full_download-${index}-title`}
-                name={`full_download-${index}-title`}
-                value={resource.title}
+                id={`example-${index}-title`}
+                name={`example-${index}-title`}
+                value={formData.example[index]?.title}
                 onChange={handleChange}
               />
             </div>
@@ -882,6 +980,7 @@ const FormComponent = () => {
                 className="form-control"
                 id={`example-${index}-access_url`}
                 name={`example-${index}-access_url`}
+                value={formData.example[index]?.access_url}
                 onChange={handleChange}
                 required
               />
@@ -894,6 +993,7 @@ const FormComponent = () => {
                 className="form-control"
                 id={`example-${index}-description`}
                 name={`example-${index}-description`}
+                value={formData.example[index]?.description}
                 onChange={handleChange}
               />
             </div>
@@ -921,6 +1021,7 @@ const FormComponent = () => {
                 className="form-control"
                 id={`other_download-${index}-title`}
                 name={`other_download-${index}-title`}
+                value={formData.other_download[index]?.title}
                 onChange={handleChange}
               />
             </div>
@@ -932,6 +1033,7 @@ const FormComponent = () => {
                 className="form-control"
                 id={`other_download-${index}-access_url`}
                 name={`other_download-${index}-access_url`}
+                value={formData.other_download[index]?.access_url}
                 onChange={handleChange}
                 required
               />
@@ -944,6 +1046,7 @@ const FormComponent = () => {
                 className="form-control"
                 id={`other_download-${index}-description`}
                 name={`other_download-${index}-description`}
+                value={formData.other_download[index]?.description}
                 onChange={handleChange}
               />
             </div>

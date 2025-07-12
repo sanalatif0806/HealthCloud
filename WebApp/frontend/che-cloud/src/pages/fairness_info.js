@@ -27,7 +27,6 @@ function FairnessInfo(){
                 sanitizedId = sanitizedId.replace(/[!"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~]/g, "");
                 sanitizedId = sanitizedId.replace(/\s+/g, "");
                 const response = await axios.get(`${base_url}/CHe_cloud_data/fairness_data/${sanitizedId}`);
-                console.log("Fairness Data:", response.data);
                 setFairnessData(response.data)
             } catch (error) {
             console.error("Error:",error)
@@ -80,9 +79,25 @@ function FairnessInfo(){
     );
     return (
         <>
-            <div className="mt-2 ms-3">
-                <Link to="/search" className="btn btn-outline-success">Search</Link>
-                <Link to="/" className="btn btn-outline-success" style={{marginLeft: '5px'}}>Return to the Cloud</Link>
+            <div className="position-relative mt-2 mx-3">
+            <div>
+                <Link to="/search" className="btn btn-outline-success me-2">Search</Link>
+                <Link to="/" className="btn btn-outline-success">Return to the Cloud</Link>
+            </div>
+            <Link
+                to={`/add-dataset?dataset_id=${dataset_id}`}
+                className="btn btn-warning btn-sm shadow"
+                style={{
+                position: 'absolute',
+                top: 0,
+                right: 0,
+                fontWeight: '500',
+                letterSpacing: '0.3px',
+                }}
+                title="Click to request a change to this dataset's metadata"
+            >
+                ✏️ Request Metadata Modification
+            </Link>
             </div>
             <div className="container mt-3">
                 <div className="text-center mb-4">
@@ -124,6 +139,17 @@ function FairnessInfo(){
                         ) : (
                             <Col md={6} className="mb-3">
                                 <strong>License: </strong>Not specified
+                            </Col>
+                        )}
+                        {dataset_metadata.contact_point.email || dataset_metadata.contact_point.name ? (
+                            <Col md={6} className="mb-3">
+                                <strong>Contact point</strong> <br />
+                                <strong>email: </strong>{dataset_metadata.contact_point.email} <br />
+                                <strong>name: </strong>{dataset_metadata.contact_point.name}
+                            </Col>
+                        ) : (
+                            <Col md={6} className="mb-3">
+                                <strong>Contact point not specified</strong>
                             </Col>
                         )}
                         {dataset_metadata.sparql[0] ? (

@@ -24,7 +24,7 @@ def merge_cloud_with_monitoring_requests(path_dataset_to_include_in_the_cloud):
     json_files.append(path_dataset_to_include_in_the_cloud)
     
     merged_data = {}
-    for path in json_files:
+    for path in reversed(json_files):
         path = os.path.abspath(path)
         with open(path, 'r', encoding='utf-8') as file:
             data = json.load(file)

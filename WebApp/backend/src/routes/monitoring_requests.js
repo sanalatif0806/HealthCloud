@@ -16,6 +16,7 @@ router.post('/submit', async (req, res) => {
   const fileName = fileData.identifier || `request-${Date.now()}`;
   const monitoring_request = {};
   monitoring_request[fileData.identifier] = fileData;
+  const isUpdate = req.body.is_update || false;
   
   try {
     const git = simpleGit();
@@ -42,11 +43,20 @@ router.post('/submit', async (req, res) => {
     console.log(`File exists: ${fs.existsSync(targetFilePath)}`);
 
     const timestamp = Date.now();
-    let branchName = `monitoring-request-${fileData.identifier}-${timestamp}`;
+    let branchName;
+    if (isUpdate) {
+      branchName = `update-metadata-request-${fileData.identifier}-${timestamp}`;
+    }else {
+      branchName = `monitoring-request-${fileData.identifier}-${timestamp}`;
+    }
 
     const existingBranches = await repoGit.branch();
     if (existingBranches.all.includes(branchName)) {
-      branchName = `monitoring-request-${fileData.identifier}-${timestamp}-${Math.floor(Math.random() * 1000)}`;
+      if (isUpdate) {
+        branchName = `update-metadata-request-${fileData.identifier}-${timestamp}-${Math.floor(Math.random() * 1000)}`;
+      } else {
+        branchName = `monitoring-request-${fileData.identifier}-${timestamp}-${Math.floor(Math.random() * 1000)}`;
+      }
     }
 
     console.log(`Creating and checking out branch: ${branchName}`);
@@ -73,15 +83,26 @@ router.post('/submit', async (req, res) => {
 
     // Commit the changes
     console.log('Committing changes...');
-    await repoGit.commit(`Add monitoring request: ${fileName}`, undefined, { '--no-verify': null });
+    let commitMessage;
+    let pr_message;
+    if (isUpdate) {
+      commitMessage = `Update metadata request: ${fileName}`;
+    } else {
+      commitMessage = `Add monitoring request: ${fileName}`;
+    }
+    await repoGit.commit(commitMessage, undefined, { '--no-verify': null });
 
     // Force push the branch to remote
     console.log(`Pushing branch ${branchName} to origin...`);
     await repoGit.push('origin', branchName, { '--force': null });
     const repoName = process.env.REPO_NAME
-    const prTitle = `Monitoring Request: ${fileData.title}`;
-    const prBody = `This PR is a request to insert a new dataset into the CHeCLOUD uploaded via the form.\n\n**Identifier**: ${fileData.identifier}\n**Title**: ${fileData.title}\n**Description**: ${fileData.description.en}\n**LLM Topic**: ${llm_topic?.category || 'Not classified'}${llm_topic?.sub_category ? ` - ${llm_topic.sub_category}` : ''}`;
-
+    const prTitle = commitMessage
+    let prBody;
+    if (isUpdate) {
+      prBody = `This PR is a request to update the metadata of the following resource in the CHeCLOUD.\n\n**Identifier**: ${fileData.identifier}\n**Title**: ${fileData.title}\n**Description**: ${fileData.description.en}\n**LLM Topic**: ${llm_topic?.category || 'Not classified'}${llm_topic?.sub_category ? ` - ${llm_topic.sub_category}` : ''}`;
+    } else {
+      prBody = `This PR is a request to insert a new dataset into the CHeCLOUD uploaded via the form.\n\n**Identifier**: ${fileData.identifier}\n**Title**: ${fileData.title}\n**Description**: ${fileData.description.en}\n**LLM Topic**: ${llm_topic?.category || 'Not classified'}${llm_topic?.sub_category ? ` - ${llm_topic.sub_category}` : ''}`;
+    }
     try {
       const prResponse = await axios.post(
         `https://api.github.com/repos/${process.env.GIT_USERNAME}/${repoName}/pulls`,
