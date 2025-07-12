@@ -1,6 +1,7 @@
 import React from 'react';
 import FormComponent from '../components/add_dataset_form';
 import { useNavigate } from 'react-router-dom';
+import Footer from '../components/footer';
 
 const AddDataset = () => {
   const navigate = useNavigate();
@@ -40,6 +41,7 @@ const AddDataset = () => {
         <p className="mb-4 text-muted"><span className="fw-bold">N.B:</span> If you fill in all the fields, your dataset will have a better chance of having a higher FAIRness score.</p>
         <FormComponent />
       </section>
+      <Footer />
     </main>
     </>
   );

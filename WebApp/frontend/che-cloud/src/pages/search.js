@@ -2,6 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { base_url } from '../api';
 import { useNavigate } from 'react-router-dom';
+import Footer from '../components/footer';
 
 function Search() {
   const [name, setName] = useState('');
@@ -41,7 +42,7 @@ function Search() {
   const generateDatasetLink = (id) => `/CHe-cloud/fairness-info?dataset_id=${id}`;
   return (
     <>
-        <div className="container mt-3 pb-1">
+        <div className="container mt-3 pb-1 min-vh-100">
                     <button 
             onClick={handleCheCloud}
             style={{
@@ -113,6 +114,7 @@ function Search() {
             )
         )}
         </div>
+        <Footer />
     </>
   );
 }

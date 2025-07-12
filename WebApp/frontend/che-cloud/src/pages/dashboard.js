@@ -9,6 +9,7 @@ import DonutChart from '../components/donut_chart';
 import MinimalTable from '../components/minimal_table';
 import { renderValueAsLink } from '../utils';
 import MaterialTable from '../components/material_table';
+import Footer from '../components/footer';
 
 function Dashboard() {
     const [sparql_data, setSparqlData] = useState({});
@@ -219,6 +220,7 @@ function Dashboard() {
                         </Col>
                     </Row>
             </div>
+            <Footer />
         </div>
     );
 }
