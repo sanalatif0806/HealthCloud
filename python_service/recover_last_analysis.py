@@ -67,6 +67,3 @@ def load_latest_df(index_from_last=3):
             os.remove(TAR_SAVE_PATH)
         if os.path.exists(EXTRACT_DIR):
             shutil.rmtree(EXTRACT_DIR)
-
-
-load_latest_df()
