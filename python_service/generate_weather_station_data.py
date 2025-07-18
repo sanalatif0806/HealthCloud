@@ -85,6 +85,14 @@ class GenerateWeatherStationData:
             'generic' : generic
         }
     
+    def extract_values_in_column(self, columns):
+        """
+        Extract the values from the specified columns in the analysis_data DataFrame.
+        """
+        result = self.checloud_df.extract_values_in_column(columns)
+
+        return result.to_dict(orient='records')
+    
 
 def convert_np_floats(obj):
     if isinstance(obj, dict):

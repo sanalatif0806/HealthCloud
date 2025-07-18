@@ -244,3 +244,11 @@ class PunctualQualityEvaluation:
         }
 
         return result
+    
+    def extract_values_in_column(self,columns):
+        '''
+            Extract the values from the specified columns in the analysis_data DataFrame.
+        '''
+        result = self.analysis_data[columns]
+
+        return result

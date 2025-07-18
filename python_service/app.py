@@ -59,3 +59,15 @@ def vocabularies_used():
     vocabularies_stats = weather_station_data.group_by_metric_value_list('Vocabularies')
 
     return vocabularies_stats
+
+@app.route("/all_fair_score", methods=["GET"])
+def all_fair_score():
+    fair_score = weather_station_data.extract_values_in_column(['KG name','KG id','FAIR score'])
+
+    return fair_score
+
+@app.route("/all_single_fair_score", methods=["GET"])
+def all_single_fair_score():
+    fair_score = weather_station_data.extract_values_in_column(['KG name','KG id','F score', 'A score', 'I score', 'R score'])
+
+    return fair_score

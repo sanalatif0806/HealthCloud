@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { dahboard_backend_url } from '../api';
 import { Row, Col } from 'react-bootstrap';
 import PieChart from '../components/pie_chart';
-import axios from 'axios';
+import axios, { all } from 'axios';
 import { Link } from 'react-router-dom';
 import BoxPlot from '../components/boxplot';
 import DonutChart from '../components/donut_chart';
@@ -26,6 +26,11 @@ function Dashboard() {
     const [media_table, setMediaTable] = useState(false);
     const [vocab_data, setVocabData] = useState(false);
     const [vocab_table, setVocabTable] = useState(false);
+    const [all_fair_score, setAllFairScore] = useState(false);
+    const [all_single_fair_score, setAllSingleFairScore] = useState(false);
+    const [all_fair_tab, setAllFairTab] = useState(false);
+    const [single_fair_tab, setSingleFairTab] = useState(false);
+
 
     useEffect(() => {
         async function fetchData() {
@@ -38,6 +43,8 @@ function Dashboard() {
                     licenseRes,
                     mediaRes,
                     vocabRes,
+                    allFairScoreRes,
+                    allSingleFairScoreRes
                 ] = await Promise.all([
                     axios.get(`${dahboard_backend_url}/sparql_endpoint`),
                     axios.get(`${dahboard_backend_url}/rdf_dump`),
@@ -45,7 +52,9 @@ function Dashboard() {
                     axios.get(`${dahboard_backend_url}/fair_stats`),
                     axios.get(`${dahboard_backend_url}/license`),
                     axios.get(`${dahboard_backend_url}/media_type`),
-                    axios.get(`${dahboard_backend_url}/vocabularies_used`)
+                    axios.get(`${dahboard_backend_url}/vocabularies_used`),
+                    axios.get(`${dahboard_backend_url}/all_fair_score`),
+                    axios.get(`${dahboard_backend_url}/all_single_fair_score`)
                 ]);
 
                 setSparqlData(sparqlRes.data);
@@ -64,7 +73,9 @@ function Dashboard() {
 
                 setLicenseData(licenseRes.data);
                 setMediaTypeData(mediaRes.data);
-                setVocabData(vocabRes.data)
+                setVocabData(vocabRes.data);
+                setAllFairScore(allFairScoreRes.data);
+                setAllSingleFairScore(allSingleFairScoreRes.data);
             } catch (error) {
                 console.error("Data fetch error:", error);
             }
@@ -116,6 +127,52 @@ function Dashboard() {
             ]} data_table={data} />);
         }
 
+        if (all_fair_score) {
+            const data = all_fair_score.map(item => ({
+                kg_name: (
+                <a
+                href={`./fairness-info?dataset_id=${item['KG id']}`}
+                target="_blank"   
+                rel="noopener noreferrer"
+                style={{ color: '#1976d2', textDecoration: 'none' }}
+                >
+                {item['KG name']}
+                </a>
+            ),
+                count: parseFloat(item['FAIR score'])
+            }));
+            setAllFairTab(<MaterialTable columns_value={[
+                { accessorKey: 'kg_name', header: 'Dataset Name', size: 50 },
+                { accessorKey: 'count', header: 'FAIR score', size: 5 }
+            ]} data_table={data} />);
+        }
+
+        if(all_single_fair_score){
+            const data = all_single_fair_score.map(item => ({
+                count: (
+                <a
+                href={`./fairness-info?dataset_id=${item['KG id']}`}
+                target="_blank"   
+                rel="noopener noreferrer"
+                style={{ color: '#1976d2', textDecoration: 'none' }}
+                >
+                {item['KG name']}
+                </a>
+            ),
+                f: parseFloat(item['F score']),
+                a: parseFloat(item['A score']),
+                i: parseFloat(item['I score']),
+                r: parseFloat(item['R score'])
+
+            }));
+            setSingleFairTab(<MaterialTable columns_value={[
+                { accessorKey: 'count', header: 'Dataset Name', size: 50 },
+                { accessorKey: 'f', header: 'F score', size: 5 },
+                { accessorKey: 'a', header: 'A score', size: 5 },
+                { accessorKey: 'i', header: 'I score', size: 5 },
+                { accessorKey: 'r', header: 'R score', size: 5 }
+            ]} data_table={data} />);
+        }
         if (mediatype_data) {
             const data = Object.entries(mediatype_data).filter(([k]) => k !== 'False').map(([key, value]) => ({
                 media: key,
@@ -218,7 +275,23 @@ function Dashboard() {
                                 {vocab_table}
                             </div>
                         </Col>
+                        <Col md={8}>
+                        <div className="card shadow-sm border-0 p-3 bg-white">
+                            <h6 className="text-center fw-bold">(F-A-I-R) score per Dataset</h6>
+                            {single_fair_tab}
+                        </div>
+                    </Col>
                     </Row>
+                <hr className="my-5" />
+                
+                <Row className="gy-4">
+                    <Col md={6}>
+                        <div className="card shadow-sm border-0 p-3 bg-white">
+                            <h6 className="text-center fw-bold">FAIR Score per Dataset</h6>
+                            {all_fair_tab}
+                        </div>
+                    </Col>
+                </Row>
             </div>
             <Footer />
         </div>
