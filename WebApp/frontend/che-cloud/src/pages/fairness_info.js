@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { use, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { base_url, kghb_url } from '../api';
 import axios from 'axios';
@@ -8,6 +8,9 @@ import GaugeChart from '../components/gauge_chart';
 import { Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Footer from '../components/footer';
+import { formatFairnessDataForBrushChart } from '../utils';
+import BrushChart from '../components/line_chart';
+
 
 function FairnessInfo(){
     const location = useLocation();
@@ -16,6 +19,10 @@ function FairnessInfo(){
     const [fairness_data, setFairnessData] = useState({});
     const [dataset_metadata, setDatasetMetadata] = useState(false);
     const [showDownloads, setShowDownloads] = useState(false);
+    const [fairness_ot, setFairnessOt] = useState(false);
+    const [brushSeriesFairness, setBrushSeriesFairness] = useState([]);
+    const [minDate, setMinDate] = useState(null);
+    const [maxDate, setMaxDate] = useState(null);
 
     useEffect(() => {
         async function getFairnessData(){
@@ -27,7 +34,9 @@ function FairnessInfo(){
                 sanitizedId = sanitizedId.replace(/[!"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~]/g, "");
                 sanitizedId = sanitizedId.replace(/\s+/g, "");
                 const response = await axios.get(`${base_url}/CHe_cloud_data/fairness_data/${sanitizedId}`);
+                const responseOT = await axios.get(`${kghb_url}/fairness/fairness_over_time/${sanitizedId}`);
                 setFairnessData(response.data)
+                setFairnessOt(responseOT.data);
             } catch (error) {
             console.error("Error:",error)
             }
@@ -44,6 +53,15 @@ function FairnessInfo(){
         getJsonData();
     }, [])
 
+    useEffect(() => {
+        if (fairness_ot && Object.keys(fairness_ot).length > 0) {
+            const { seriesData, minDate, maxDate } = formatFairnessDataForBrushChart(fairness_ot);
+            setBrushSeriesFairness(seriesData);
+            setMinDate(minDate);
+            setMaxDate(maxDate);
+        }
+    }, [fairness_ot]);
+    
     const chartReady = fairness_data && Object.keys(fairness_data).length > 0;
     const chart_categories = [
         "F score",
@@ -232,6 +250,29 @@ function FairnessInfo(){
                 ) : (
                     <p className="text-center">Loading fairness data...</p>
                 )}
+                <Row className="g-4 mt-4">
+                    { fairness_ot ? (
+                        <Col md={12}>
+                            <div className="card shadow-sm p-3">
+                                <BrushChart
+                                    data={brushSeriesFairness}
+                                    xAxisLabel="Time"
+                                    yAxisLabel="Fairness Score"
+                                    minDate={minDate}
+                                    maxDate={maxDate}
+                                    height={340}
+                                    kg_name={dataset_metadata.title}
+                                />
+                            </div>
+                        </Col>
+                    ) : (
+                        <Col md={12}>
+                            <div className="card shadow-sm p-3">
+                                <h5 className="card-title text-center">Loading FAIRness data over time</h5>
+                            </div>
+                        </Col>
+                    )}
+                </Row>
             </div>
             <Footer />
         </>

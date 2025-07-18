@@ -42,5 +42,19 @@ function renderValueAsLink(value) {
     return value;
   }
 
+const formatFairnessDataForBrushChart = (data) => {
+  const seriesData = data
+    .map(entry => ({
+      x: new Date(entry.analysis_date).getTime(),
+      y: parseFloat(entry.FAIRness.fair_score),
+    }))
+    .sort((a, b) => a.x - b.x);
 
-export {sanitizeFilename, prepareDataForExport, renderValueAsLink}
+  const min = seriesData[0]?.x || null;
+  const max = seriesData[seriesData.length - 1]?.x || null;
+
+  return { seriesData, min, max };
+};
+
+
+export {sanitizeFilename, prepareDataForExport, renderValueAsLink, formatFairnessDataForBrushChart}
