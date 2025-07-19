@@ -8,24 +8,58 @@
     src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
   </script>
   <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background-color: #f9f9f9;
+      margin: 20px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #6fa990;
+    }
+
     table {
       width: 100%;
       border-collapse: collapse;
-      margin: 20px 0;
+      margin: 30px 0;
       font-size: 0.95em;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      background-color: white;
     }
-    table, th, td {
-      border: 1px solid #d0d0d0;
+
+    thead tr {
+      background-color: #6fa990;
+      color: #ffffff;
+      text-align: left;
     }
+
     th, td {
-      padding: 8px 12px;
+      padding: 12px 15px;
+      border: 1px solid #ddd;
       vertical-align: top;
     }
-    th {
-      background-color: #f5f5f5;
+
+    tbody tr:nth-child(even) {
+      background-color: #f3f3f3;
     }
+
+    tbody tr:hover {
+      background-color: #f1f9ff;
+    }
+
     td {
       white-space: pre-wrap;
+    }
+
+    td > mjx-container {
+      display: flex;
+      justify-content: center;
+    }
+
+    td.latex-center {
+      text-align: center;
+      vertical-align: middle;
     }
   </style>
 </head>
@@ -52,7 +86,7 @@
       <td>Metadata</td>
       <td></td>
       <td>Unique and persistent ID</td>
-      <td>
+      <td class="latex-center">
 \[
 \begin{cases}
 1, & \text{dataset registered in a search engine} \\
@@ -68,7 +102,7 @@
       <td>Data</td>
       <td>Availability</td>
       <td>URIs dereferenceability</td>
-      <td>\( \frac{|\text{Dereferencable}(U_g)|}{|U_g|} \), with \( |U_g| = 5000 \)</td>
+      <td class="latex-center">\( \frac{|\text{Dereferencable}(U_g)|}{|U_g|} \), with \( |U_g| = 5000 \)</td>
     </tr>
     
     <tr>
@@ -77,7 +111,7 @@
       <td>Metadata</td>
       <td></td>
       <td>Metadata availability via standard primary sources</td>
-      <td>
+      <td class="latex-center">
 \[
 \begin{cases}
 1, & \text{SPARQL endpoint, searchable engine, or VoID/DCAT} \\
@@ -91,7 +125,7 @@
       <td>F2</td>
       <td>Metadata</td>
       <td></td>
-      <td>Coverage of required attributes</td>
+      <td class="latex-center">Coverage of required attributes</td>
       <td>\( \frac{|\text{Covered metadata attributes}|}{|\text{Required metadata attributes}|} \)</td>
     </tr>
     
@@ -101,7 +135,7 @@
       <td>Metadata</td>
       <td></td>
       <td>Data referable via DOI</td>
-      <td>
+      <td class="latex-center">
 \[
 \begin{cases}
 1, & \text{metadata attach DOI(s) to data} \\
@@ -116,7 +150,7 @@
       <td>Metadata</td>
       <td></td>
       <td>Registered in a searchable engine</td>
-      <td>
+      <td class="latex-center">
 \[
 \begin{cases}
 1, & \text{dataset registered in any search engine} \\
@@ -131,7 +165,7 @@
       <td>Data</td>
       <td>Availability</td>
       <td>Working access point(s)</td>
-      <td>
+      <td class="latex-center">
 \[
 \begin{cases}
 1, & \text{operational SPARQL or accessible data dump} \\
@@ -162,7 +196,7 @@
       <td>(Meta)data</td>
       <td>Security</td>
       <td>Authentication & HTTPS support</td>
-      <td>
+      <td class="latex-center">
 \[
 \begin{cases}
 1, & \text{security requirements can be discovered via SPARQL} \\
@@ -177,7 +211,7 @@
       <td>Metadata</td>
       <td></td>
       <td>Registered in search engines</td>
-      <td>
+      <td class="latex-center">
 \[
 \begin{cases}
 1, & \text{dataset registered in any search engine} \\
@@ -192,7 +226,7 @@
       <td>Data</td>
       <td></td>
       <td>Standard & open representation format</td>
-      <td>
+      <td class="latex-center">
 \[
 \begin{cases}
 1, & \text{valid mediatypes or OWL/RDF(S)} \\
@@ -207,7 +241,7 @@
       <td>Metadata</td>
       <td></td>
       <td>VoID/DCAT description</td>
-      <td>
+      <td class="latex-center">
 \[
 \begin{cases}
 1, & \text{published according to VoID/DCAT specs} \\
@@ -221,7 +255,7 @@
       <td>I2</td>
       <td>(Meta)data</td>
       <td>Verifiability</td>
-      <td>Use of FAIR vocabularies</td>
+      <td class="latex-center">Use of FAIR vocabularies</td>
       <td>\( \frac{\# \text{FAIR vocabularies}}{\# \text{total vocabularies}} \)</td>
     </tr>
     
@@ -231,7 +265,7 @@
       <td>Data</td>
       <td>Interlinking</td>
       <td>Degree of connection</td>
-      <td>
+      <td class="latex-center">
 \[
 \begin{cases}
 1, & \text{contains link to another dataset} \\
@@ -246,7 +280,7 @@
       <td>(Meta)data</td>
       <td>Licensing</td>
       <td>Any license retrievable</td>
-      <td>
+      <td class="latex-center">
 \[
 \begin{cases}
 1, & \text{license explicitly reported} \\
@@ -261,7 +295,7 @@
       <td>(Meta)data</td>
       <td>Verifiability</td>
       <td>Publisher details</td>
-      <td>
+      <td class="latex-center">
 \[
 \begin{cases}
 1, & \text{publisher info explicitly reported} \\
@@ -276,7 +310,7 @@
       <td>Data</td>
       <td></td>
       <td>Data organized in standard ways</td>
-      <td>
+      <td class="latex-center">
 \[
 \begin{cases}
 1, & \text{SPARQL endpoint or valid data dump or OWL/RDFS} \\
