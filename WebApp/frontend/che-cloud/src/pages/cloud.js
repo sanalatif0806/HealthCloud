@@ -2,6 +2,7 @@ import Graph from "../components/Graph";
 import { base_url } from '../api';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FaGithub } from 'react-icons/fa';
 
 function Cloud(){
     const [data, setData] = useState({ nodes: [], links: [] });
@@ -27,6 +28,55 @@ function Cloud(){
 
     return (
         <div>
+            <div style={{
+                position: 'absolute',
+                top: '1rem',
+                right: '1rem',
+                display: 'flex',
+                gap: '1rem',
+                zIndex: 1000
+            }}>
+                <button
+                    onClick={() => window.open('https://github.com/GabrieleT0/CHe-CLOUD', '_blank')}
+                    style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '0.5rem',
+                        padding: '0.4rem 1rem',
+                        fontSize: '0.9rem',
+                        backgroundColor: '#333',
+                        color: '#fff',
+                        border: 'none',
+                        borderRadius: '5px',
+                        cursor: 'pointer',
+                        boxShadow: '0 2px 5px rgba(0,0,0,0.2)',
+                        transition: 'background-color 0.3s ease'
+                    }}
+                    onMouseOver={(e) => e.target.style.backgroundColor = '#24292e'}
+                    onMouseOut={(e) => e.target.style.backgroundColor = '#333'}
+                >
+                    <FaGithub size={18} />
+                    GitHub
+                </button>
+                <button
+                    onClick={() => window.open('https://gabrielet0.github.io/CHe-CLOUD/fair_mapping.html', '_blank')}
+                    style={{
+                        padding: '0.4rem 1rem',
+                        fontSize: '0.9rem',
+                        backgroundColor: '#4a90e2',
+                        color: '#fff',
+                        border: 'none',
+                        borderRadius: '5px',
+                        cursor: 'pointer',
+                        boxShadow: '0 2px 5px rgba(0,0,0,0.2)',
+                        transition: 'background-color 0.3s ease'
+                    }}
+                    onMouseOver={(e) => e.target.style.backgroundColor = '#3a7dc1'}
+                    onMouseOut={(e) => e.target.style.backgroundColor = '#4a90e2'}
+                >
+                    FAIR principles calculation
+                </button>
+            </div>
             <h1 style={{
                 textAlign: 'center',
                 fontSize: '3rem',
