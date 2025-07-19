@@ -43,17 +43,39 @@ function renderValueAsLink(value) {
   }
 
 const formatFairnessDataForBrushChart = (data) => {
-  const seriesData = data
-    .map(entry => ({
-      x: new Date(entry.analysis_date).getTime(),
-      y: parseFloat(entry.FAIRness.fair_score),
-    }))
-    .sort((a, b) => a.x - b.x);
+  const fairSeries = [];
+  const fSeries = [];
+  const aSeries = [];
+  const iSeries = [];
+  const rSeries = [];
 
-  const min = seriesData[0]?.x || null;
-  const max = seriesData[seriesData.length - 1]?.x || null;
+  data.forEach(entry => {
+    const x = new Date(entry.analysis_date).getTime();
+    const f = parseFloat(entry.FAIRness.f_score);
+    const a = parseFloat(entry.FAIRness.a_score);
+    const i = parseFloat(entry.FAIRness.i_score);
+    const r = parseFloat(entry.FAIRness.r_score);
+    const fair = parseFloat(entry.FAIRness.fair_score);
 
-  return { seriesData, min, max };
+    fairSeries.push({ x, y: fair });
+    fSeries.push({ x, y: f });
+    aSeries.push({ x, y: a });
+    iSeries.push({ x, y: i });
+    rSeries.push({ x, y: r });
+  });
+
+  const min = fairSeries[0]?.x || null;
+  const max = fairSeries[fairSeries.length - 1]?.x || null;
+
+  return {
+    fairSeries,
+    fSeries,
+    aSeries,
+    iSeries,
+    rSeries,
+    min,
+    max
+  };
 };
 
 

@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 import Footer from '../components/footer';
 import { formatFairnessDataForBrushChart } from '../utils';
 import BrushChart from '../components/line_chart';
+import ReactMarkdown from 'react-markdown';
 
 
 function FairnessInfo(){
@@ -23,6 +24,17 @@ function FairnessInfo(){
     const [brushSeriesFairness, setBrushSeriesFairness] = useState([]);
     const [minDate, setMinDate] = useState(null);
     const [maxDate, setMaxDate] = useState(null);
+    const [llmExplanation, setLlmExplanation] = useState('');
+    const [showExplanation, setShowExplanation] = useState(false);
+    const [loadingExplanation, setLoadingExplanation] = useState(false);
+    const [animatedText, setAnimatedText] = useState('');
+    const [done, setDone] = useState(false);
+    // Over time explanation
+    const [llmExplanationOT, setLlmExplanationOT] = useState('');
+    const [showExplanationOT, setShowExplanationOT] = useState(false);
+    const [loadingExplanationOT, setLoadingExplanationOT] = useState(false);
+    const [animatedTextOT, setAnimatedTextOT] = useState('');
+    const [doneOT, setDoneOT] = useState(false);
 
     useEffect(() => {
         async function getFairnessData(){
@@ -55,13 +67,25 @@ function FairnessInfo(){
 
     useEffect(() => {
         if (fairness_ot && Object.keys(fairness_ot).length > 0) {
-            const { seriesData, minDate, maxDate } = formatFairnessDataForBrushChart(fairness_ot);
-            setBrushSeriesFairness(seriesData);
-            setMinDate(minDate);
-            setMaxDate(maxDate);
+            const {   fairSeries,
+                        fSeries,
+                        aSeries,
+                        iSeries,
+                        rSeries,
+                        min,
+                        max } = formatFairnessDataForBrushChart(fairness_ot);
+            const brushSeriesFairness = [
+                { name: "F score", data: fSeries, type: "column" },
+                { name: "A score", data: aSeries, type: "column" },
+                { name: "I score", data: iSeries, type: "column" },
+                { name: "R score", data: rSeries, type: "column" },
+                { name: "FAIR score", data: fairSeries, type: "line" },
+            ];
+            setBrushSeriesFairness(brushSeriesFairness);
+            setMinDate(min);
+            setMaxDate(max);
         }
     }, [fairness_ot]);
-    
     const chartReady = fairness_data && Object.keys(fairness_data).length > 0;
     const chart_categories = [
         "F score",
@@ -95,6 +119,69 @@ function FairnessInfo(){
     const f_values = f_chart_categories.map(category =>
         parseFloat(fairness_data[category] || 0)
     );
+    const fetchLlmExplanation = async () => {
+        setLoadingExplanation(true);
+        try {
+            const response = await axios.post(`${base_url}/llm/llm_explain_fair`,{
+                fair_data: fairness_data
+            });
+            setLlmExplanation(response.data || "No explanation returned.");
+            animateMarkdown(response.data.llm_response);
+            setShowExplanation(true);
+        } catch (error) {
+            console.error("Error fetching LLM explanation:", error);
+            setLlmExplanation("Failed to fetch explanation.");
+            setShowExplanation(true);
+        } finally {
+            setLoadingExplanation(false);
+        }
+    };
+
+    const fetchLlmExplanationOT = async () => {
+        setLoadingExplanationOT(true);
+        try {
+            const response = await axios.post(`${base_url}/llm/llm_explain_fairness_score_ot`,{
+                fair_data: fairness_ot
+            });
+            setLlmExplanationOT(response.data || "No explanation returned.");
+            animateMarkdownOT(response.data.llm_response);
+            setShowExplanationOT(true);
+        } catch (error) {
+            console.error("Error fetching LLM explanation:", error);
+            setLlmExplanationOT("Failed to fetch explanation.");
+            setShowExplanationOT(true);
+        } finally {
+            setLoadingExplanationOT(false);
+        }
+    };
+
+    const animateMarkdown = (text) => {
+        let index = 0;
+        setAnimatedText('');
+        setDone(false);
+        const interval = setInterval(() => {
+            setAnimatedText((prev) => prev + text.charAt(index));
+            index++;
+            if (index >= text.length) {
+                clearInterval(interval);
+                setDone(true);
+            }
+        }, 5); 
+    };
+
+    const animateMarkdownOT = (text) => {
+        let index = 0;
+        setAnimatedTextOT('');
+        setDoneOT(false);
+        const interval = setInterval(() => {
+            setAnimatedTextOT((prev) => prev + text.charAt(index));
+            index++;
+            if (index >= text.length) {
+                clearInterval(interval);
+                setDoneOT(true);
+            }
+        }, 5); 
+    };
     return (
         <>
             <div className="position-relative mt-2 mx-3">
@@ -218,6 +305,32 @@ function FairnessInfo(){
                             day: 'numeric'
                         })}</b>. Assessment provided by <a href='http://www.isislab.it:12280/kgheartbeat/kgheartbeat' target='_blank' rel="noopener noreferrer">KGHeartBeat</a>.
                     </small>
+                    <div className="my-3">
+                        <button className="btn btn-outline-secondary" onClick={fetchLlmExplanation}>
+                            {loadingExplanation ? 'Loading explanation...' : '🧠 Explain this assessment'}
+                        </button>
+                    </div>
+                    {showExplanation && (
+                        <div className="card shadow-sm p-3 my-3">
+                            <div className="d-flex justify-content-between align-items-center">
+                                <h5 className="mb-0">LLM Generated Explanation</h5>
+                                <button
+                                    className="btn btn-sm btn-outline-danger"
+                                    onClick={() => setShowExplanation(false)}
+                                    title="Close explanation"
+                                >
+                                    ✖
+                                </button>
+                            </div>
+                            <small>Model used: <b>{llmExplanation.model_used}</b></small>
+                            <hr />
+                            {!done ? (
+                                <pre>{animatedText}</pre> // Use <pre> or <div> to animate raw text
+                                ) : (
+                                <ReactMarkdown>{llmExplanation.llm_response}</ReactMarkdown> // Full rendering after animation
+                                )}
+                        </div>
+                    )}
                 </div>
                 {chartReady ? (
                     <Row className="g-4">
@@ -250,7 +363,33 @@ function FairnessInfo(){
                 ) : (
                     <p className="text-center">Loading fairness data...</p>
                 )}
-                <Row className="g-4 mt-4">
+                    <div className="mt-5">
+                        <button className="btn btn-outline-secondary" onClick={fetchLlmExplanationOT}>
+                            {loadingExplanationOT ? 'Loading explanation...' : '🧠 Explain the FAIR score over time'}
+                        </button>
+                    </div>
+                    {showExplanationOT && (
+                        <div className="card shadow-sm p-3 my-3">
+                            <div className="d-flex justify-content-between align-items-center">
+                                <h5 className="mb-0">LLM Generated Explanation</h5>
+                                <button
+                                    className="btn btn-sm btn-outline-danger"
+                                    onClick={() => setShowExplanationOT(false)}
+                                    title="Close explanation"
+                                >
+                                    ✖
+                                </button>
+                            </div>
+                            <small>Model used: <b>{llmExplanationOT.model_used}</b></small>
+                            <hr />
+                            {!doneOT ? (
+                                <pre>{animatedTextOT}</pre> // Use <pre> or <div> to animate raw text
+                                ) : (
+                                <ReactMarkdown>{llmExplanationOT.llm_response}</ReactMarkdown> // Full rendering after animation
+                                )}
+                        </div>
+                    )}
+                <Row className="g-1 mt-3">
                     { fairness_ot ? (
                         <Col md={12}>
                             <div className="card shadow-sm p-3">

@@ -4,7 +4,7 @@ import Chart from "react-apexcharts";
 
 const BrushChart = ({
   title = "FAIR score",
-  data,
+  data = [],         
   height = 300,
   minDate,
   maxDate,
@@ -13,11 +13,13 @@ const BrushChart = ({
   const mainOptions = {
     chart: {
       id: "main",
-      type: "scatter",
+      type: "line",
       height: height,
       toolbar: { autoSelected: "pan", show: false },
-      zoom: { enabled: false }
+      zoom: { enabled: false },
+     //stacked: true,
     },
+    colors: ['#005AA7', '#00AEEF', '#A2C516', '#E6C200', '#f61638ff'],
     title: {
       text: title,
       align: 'center',
@@ -89,18 +91,17 @@ const BrushChart = ({
     type: 'gradient'
   }
 };
-
   return (
     <div>
       <Chart
         options={mainOptions}
-        series={[{ name: "FAIR score", data }]}
+        series={data}
         type="line"
         height={height}
       />
       <Chart
         options={brushOptions}
-        series={[{ name: "FAIR score", data: data }]}
+        series={data.filter(s => s.name === "FAIR score")}
         type="area"
         height={130}
       />
