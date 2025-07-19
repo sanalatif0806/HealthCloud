@@ -142,14 +142,52 @@ router.get('/get_all', async (req, res) => {
 });
 
 router.get('/search', async (req, res) => {
-  const title = req.query.title || '';
+  const searchTerm = req.query.q || '';
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 10;
   const skip = (page - 1) * limit;
 
+  const allowedFields = ['title', 'description', 'identifier', 'keywords'];
+
+  // Normalize selected fields
+  let selectedFields = [];
+  const rawFields = req.query.fields;
+
+  if (typeof rawFields === 'string') {
+    selectedFields = rawFields.split(',').map(f => f.trim());
+  } else if (Array.isArray(rawFields)) {
+    selectedFields = rawFields.flatMap(f => f.split(',').map(f => f.trim()));
+  }
+
+  // Only keep allowed fields
+  selectedFields = selectedFields.filter(f => allowedFields.includes(f));
+
+  // If no fields selected AND no query, search all
+  if (selectedFields.length === 0 && searchTerm === '') {
+    selectedFields = allowedFields;
+  }
+
+  // If fields not selected but there's a search term, fallback to ['title']
+  if (selectedFields.length === 0) {
+    selectedFields = ['title'];
+  }
+
   try {
-    const collection = await getCollection()
-    const query = { title: { $regex: title, $options: 'i' } };
+    const collection = await getCollection();
+    let query = {};
+
+    if (searchTerm && selectedFields.length > 0) {
+      query.$or = selectedFields.map(field => {
+        if (field === 'description') {
+          return { 'description.en': { $regex: searchTerm, $options: 'i' } };
+        } else if (field === 'keywords') {
+          return { keywords: { $elemMatch: { $regex: searchTerm, $options: 'i' } } };
+        } else {
+          return { [field]: { $regex: searchTerm, $options: 'i' } };
+        }
+      });
+    }
+
     const projection = { title: 1, identifier: 1, _id: 0 };
 
     const [results, total] = await Promise.all([
@@ -163,6 +201,7 @@ router.get('/search', async (req, res) => {
       page,
       totalPages: Math.ceil(total / limit)
     });
+
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: err.message });
