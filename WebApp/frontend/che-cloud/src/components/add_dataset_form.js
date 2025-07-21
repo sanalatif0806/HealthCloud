@@ -491,9 +491,9 @@ const FormComponent = () => {
                 ></button>
               </div>
               <div className="modal-body">
-                {modalData && (
+                {modalData.llm_response.category && (
                   <div>                  
-                    {modalData.llm_response.category != '' ? (
+                    {modalData.llm_response != '' ? (
                       <div>
                         <b>LLM categorized your data as:</b> {modalData.llm_response.category} <br></br>
                         <b>LLM assign this sub-category: </b> 
