@@ -126,7 +126,6 @@ function FairnessInfo(){
                 fair_data: fairness_data
             });
             setLlmExplanation(response.data || "No explanation returned.");
-            animateMarkdown(response.data.llm_response);
             setShowExplanation(true);
         } catch (error) {
             console.error("Error fetching LLM explanation:", error);
@@ -144,7 +143,6 @@ function FairnessInfo(){
                 fair_data: fairness_ot
             });
             setLlmExplanationOT(response.data || "No explanation returned.");
-            animateMarkdownOT(response.data.llm_response);
             setShowExplanationOT(true);
         } catch (error) {
             console.error("Error fetching LLM explanation:", error);
@@ -155,33 +153,6 @@ function FairnessInfo(){
         }
     };
 
-    const animateMarkdown = (text) => {
-        let index = 0;
-        setAnimatedText('');
-        setDone(false);
-        const interval = setInterval(() => {
-            setAnimatedText((prev) => prev + text.charAt(index));
-            index++;
-            if (index >= text.length) {
-                clearInterval(interval);
-                setDone(true);
-            }
-        }, 5); 
-    };
-
-    const animateMarkdownOT = (text) => {
-        let index = 0;
-        setAnimatedTextOT('');
-        setDoneOT(false);
-        const interval = setInterval(() => {
-            setAnimatedTextOT((prev) => prev + text.charAt(index));
-            index++;
-            if (index >= text.length) {
-                clearInterval(interval);
-                setDoneOT(true);
-            }
-        }, 5); 
-    };
     return (
         <>
             <div className="position-relative mt-2 mx-3">
@@ -324,11 +295,7 @@ function FairnessInfo(){
                             </div>
                             <small>Model used: <b>{llmExplanation.model_used}</b></small>
                             <hr />
-                            {!done ? (
-                                <pre>{animatedText}</pre> // Use <pre> or <div> to animate raw text
-                                ) : (
-                                <ReactMarkdown>{llmExplanation.llm_response}</ReactMarkdown> // Full rendering after animation
-                                )}
+                            <ReactMarkdown>{llmExplanation.llm_response}</ReactMarkdown>
                         </div>
                     )}
                 </div>
@@ -382,11 +349,7 @@ function FairnessInfo(){
                             </div>
                             <small>Model used: <b>{llmExplanationOT.model_used}</b></small>
                             <hr />
-                            {!doneOT ? (
-                                <pre>{animatedTextOT}</pre> // Use <pre> or <div> to animate raw text
-                                ) : (
-                                <ReactMarkdown>{llmExplanationOT.llm_response}</ReactMarkdown> // Full rendering after animation
-                                )}
+                            <ReactMarkdown>{llmExplanationOT.llm_response}</ReactMarkdown>
                         </div>
                     )}
                 <Row className="g-1 mt-3">
