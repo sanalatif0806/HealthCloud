@@ -10,6 +10,9 @@ const BrushChart = ({
   maxDate,
   kg_name
 }) => {
+  const max = new Date(maxDate);
+  const lastThreeMonths = new Date(max);
+  lastThreeMonths.setMonth(max.getMonth() - 3);
   const mainOptions = {
     chart: {
       id: "main",
@@ -33,8 +36,6 @@ const BrushChart = ({
     },
     xaxis: {
       type: "datetime",
-      min: minDate,
-      max: maxDate
     },
     stroke: {
     width: 0
@@ -67,14 +68,10 @@ const BrushChart = ({
       target: "main",
       enabled: true
     },
-    selection: {
-      enabled: true,
-      xaxis: {
-        min: minDate,
-        max: maxDate
+  selection: {
+        enabled: true,
       }
-    }
-  },
+    },
   xaxis: {
     type: "datetime",
     tooltip: { enabled: false }
