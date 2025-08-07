@@ -1,7 +1,7 @@
 {
   "Rijksmuseum": {
-    "_id": "Rijksmuseum",
-    "identifier": "Rijksmuseum",
+    "_id": "rijksmuseum",
+    "identifier": "rijksmuseum",
     "title": "Rijksmuseum Collection",
     "doi": "",
     "license": "https://creativecommons.org/licenses/by/4.0/",
