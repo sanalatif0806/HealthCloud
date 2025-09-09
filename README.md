@@ -3,7 +3,7 @@
     <img src="WebApp/frontend/che-cloud/public/favicon.png" alt="Logo" width="80" height="80">
   </a>
 
-<h3 align="center">CHe CLOUD!</h3>
+<h3 align="center">CHeCLOUD</h3>
 
   <p align="center">
     CHe-Cloud is an open-source project aimed at creating the Cloud for visualizing Cultural Heritage Linked Open Data. For each resource indexed within the cloud it is possible to view its FAIRness and the main information contained in the resource metadata such as: description, license, SPARQL endpoint and Data Dump.
