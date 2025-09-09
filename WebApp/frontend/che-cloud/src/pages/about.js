@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 function About() {
   return (
     <div className="container-fluid mt-3 px-4">
-        <div className="d-flex justify-content-start gap-2 mb-3">
+        <div className="d-flex justify-content-start gap-2 mb-4">
+                <Link to="/" className="fw-bold fs-4 text-decoration-none" style={{color: '#8da89f'}}>CHeCLOUD</Link>
                 <Link to="/" className="d-flex align-items-center">
                 <img 
                     src="/favicon.png" 

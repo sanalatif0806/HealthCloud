@@ -156,7 +156,8 @@ function FairnessInfo(){
     return (
         <>
         <div className="container-fluid mt-3 px-4">
-            <div className="d-flex justify-content-start gap-2 mb-3">
+            <div className="d-flex justify-content-start gap-2 mb-4">
+                <Link to="/" className="fw-bold fs-4 text-decoration-none" style={{color: '#8da89f'}}>CHeCLOUD</Link>
                 <Link to="/" className="d-flex align-items-center">
                 <img 
                     src="/favicon.png" 
@@ -168,24 +169,20 @@ function FairnessInfo(){
                 <Link to="/add-dataset" className="btn btn-outline-success">Add a Dataset</Link>
                 <Link to="/dashboard" className="btn btn-outline-success">Dashboard</Link>
                 <Link to="/about" className="btn btn-outline-success">About</Link>
-          </div>
-        </div>
-            <div className="position-relative mt-2 mx-3">
             <Link
                 to={`/add-dataset?dataset_id=${dataset_id}`}
-                className="btn btn-warning btn-sm shadow"
+                className="btn btn-warning btn-sm shadow d-flex align-items-center justify-content-center"
                 style={{
-                position: 'absolute',
-                top: 0,
-                right: 0,
+                marginLeft: 'auto',
                 fontWeight: '500',
-                letterSpacing: '0.3px',
+                letterSpacing: '0.5px',
                 }}
                 title="Click to request a change to this dataset's metadata"
             >
                 ✏️ Request Metadata Modification
             </Link>
-            </div>
+          </div>
+        </div>
             <div className="container mt-3">
                 <div className="text-center mb-4">
                 {dataset_metadata?.keywords?.includes("ontology") ? (
