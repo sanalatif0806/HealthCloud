@@ -8,7 +8,7 @@ require('dotenv').config();
 const path = require('path');
 
 const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:3000';
-const fairness_page = 'CHe-cloud/fairness-info';
+const fairness_page = 'fairness-info';
 const khgeartbeatUrl = process.env.KGHEARTBEAT_API
 
 const keyMapping = {

@@ -65,7 +65,7 @@ function Search() {
     navigate('/');
   };
 
-  const generateDatasetLink = (id) => `/CHe-cloud/fairness-info?dataset_id=${id}`;
+  const generateDatasetLink = (id) => `/fairness-info?dataset_id=${id}`;
 
   return (
     <>

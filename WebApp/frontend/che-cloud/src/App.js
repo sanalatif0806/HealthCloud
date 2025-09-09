@@ -10,13 +10,13 @@ import Dashboard from './pages/dashboard';
 
 function App() {
   return (
-      <Router basename='/CHe-cloud'>
+      <Router basename='/'>
         <Routes>
-          <Route basename={'/CHe-cloud'} path='*' element={<Cloud />} /> 
-          <Route basename={'/CHe-cloud'} path='/fairness-info' element={<FairnessInfo />} />
-          <Route basename={'/CHe-cloud'} path='/add-dataset' element={<AddDataset />} />
-          <Route basename={'/CHe-cloud'} path='/search' element={<Search />} />
-          <Route basename={'/CHe-cloud'} path='/dashboard' element={<Dashboard />} />
+          <Route basename={'/'} path='*' element={<Cloud />} /> 
+          <Route basename={'/'} path='/fairness-info' element={<FairnessInfo />} />
+          <Route basename={'/'} path='/add-dataset' element={<AddDataset />} />
+          <Route basename={'/'} path='/search' element={<Search />} />
+          <Route basename={'/'} path='/dashboard' element={<Dashboard />} />
         </Routes>
       </Router>
   );

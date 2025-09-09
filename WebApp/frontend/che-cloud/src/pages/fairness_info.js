@@ -177,7 +177,7 @@ function FairnessInfo(){
             </div>
             <div className="container mt-3">
                 <div className="text-center mb-4">
-                {dataset_metadata.keywords.includes("ontology") ? (
+                {dataset_metadata?.keywords?.includes("ontology") ? (
                     <>
                     <h1 className="d-inline mb-4">{dataset_metadata.title}</h1>
                     <span className="badge bg-warning text-dark d-inline ms-2">Ontology</span>

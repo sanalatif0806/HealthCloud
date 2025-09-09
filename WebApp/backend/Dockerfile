@@ -1,14 +1,21 @@
-FROM node:18
+FROM node:22
 
 WORKDIR /app
 
-COPY package*.json ./
+# Copy package.json files first
+COPY src/package*.json ./src/
 
+WORKDIR /app/src
 RUN npm install
 
-COPY . .
+# Copy backend source code
+COPY src/ /app/src
 
-EXPOSE 3000
+# Copy the data folder (needed for llm.js)
+COPY data/ /app/data
 
-# Command to run the application
+COPY mongo_data/ /app/mongo_data
+
+EXPOSE 5005
+
 CMD ["node", "server.js"]
