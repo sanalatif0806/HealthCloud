@@ -3,6 +3,7 @@ import axios from 'axios';
 import { base_url } from '../api';
 import { useNavigate } from 'react-router-dom';
 import Footer from '../components/footer';
+import { Link } from 'react-router-dom';
 
 function Search() {
   const [name, setName] = useState('');
@@ -69,26 +70,22 @@ function Search() {
 
   return (
     <>
+          <div className="container-fluid mt-3 px-4">
+            <div className="d-flex justify-content-start gap-2 mb-3">
+                <Link to="/" className="d-flex align-items-center">
+                <img 
+                    src="/favicon.png" 
+                    alt="Cloud Logo" 
+                    style={{ height: "40px", width: "40px", marginRight: "7px" }} 
+                />
+                </Link>
+                <Link to="/search" className="btn btn-outline-success">Search</Link>
+                <Link to="/add-dataset" className="btn btn-outline-success">Add a Dataset</Link>
+                <Link to="/dashboard" className="btn btn-outline-success">Dashboard</Link>
+                <Link to="/about" className="btn btn-outline-success">About</Link>
+          </div>
+        </div>
       <div className="container mt-3 pb-1 min-vh-100">
-        <button 
-          onClick={handleCheCloud}
-          style={{
-            padding: '0.5rem 1.3rem',
-            fontSize: '1rem',
-            backgroundColor: '#8da89f',
-            color: '#fff',
-            border: 'none',
-            borderRadius: '5px',
-            cursor: 'pointer',
-            boxShadow: '0 2px 5px rgba(0,0,0,0.2)',
-            transition: 'background-color 0.3s ease'
-          }}
-          onMouseOver={(e) => e.target.style.backgroundColor = '#7b978c'}
-          onMouseOut={(e) => e.target.style.backgroundColor = '#8da89f'}
-        >
-          Return to CHe Cloud
-        </button>
-
         <h3 className="mb-4 mt-4">Search into the CHeCLOUD</h3>
 
         <form className="mb-4" onSubmit={handleSearch}>

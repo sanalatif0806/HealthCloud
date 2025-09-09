@@ -176,11 +176,19 @@ function Dashboard() {
     }, [license_data, sparql_data, rdf_dump_data, mediatype_data, vocab_data]);
 
     return (
-        <div className="container-fluid mt-4 px-4">
+        <div className="container-fluid mt-3 px-4">
             <div className="d-flex justify-content-start gap-2 mb-3">
-                <Link to="/" className="btn btn-outline-success">Return to the Cloud</Link>
+                <Link to="/" className="d-flex align-items-center">
+                <img 
+                    src="/favicon.png" 
+                    alt="Cloud Logo" 
+                    style={{ height: "40px", width: "40px", marginRight: "7px" }} 
+                />
+                </Link>
                 <Link to="/search" className="btn btn-outline-success">Search</Link>
                 <Link to="/add-dataset" className="btn btn-outline-success">Add a Dataset</Link>
+                <Link to="/dashboard" className="btn btn-outline-success">Dashboard</Link>
+                <Link to="/about" className="btn btn-outline-success">About</Link>
             </div>
 
             <div className="card shadow p-4 mb-5 bg-light">

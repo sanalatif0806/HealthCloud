@@ -26,6 +26,10 @@ function Cloud(){
         navigate('/dashboard')
     }
 
+    const handleAbout = () => {
+        navigate('/about')
+    }
+
     return (
         <div>
             <div style={{
@@ -87,8 +91,25 @@ function Cloud(){
                 textShadow: '1px 1px 2px rgba(0,0,0,0.1)',
                 animation: 'fadeIn 1s ease-in-out'
             }}>
-                CHe CLOUD!
+             CHeCLOUD
+            <img 
+                    src="/favicon.png" 
+                    alt="Cloud Logo" 
+                    style={{ height: "50px", width: "50px", marginLeft: "20px", marginBottom: "2px" }} 
+            />
             </h1>
+            <h3 style={{
+                textAlign: 'center',
+                fontSize: '2.3rem',
+                margin: '1rem 0',
+                color: '#8da89f',
+                fontFamily: 'Segoe UI, sans-serif',
+                letterSpacing: '1px',
+                textShadow: '1px 1px 2px rgba(0,0,0,0.1)',
+                animation: 'fadeIn 1s ease-in-out'
+            }}>
+                The Cultural Heritage Linked Open Data (sub)cloud
+            </h3>
             <div style={{ textAlign: 'left', marginBottom: '1.5rem', marginLeft: '2rem' }}>
                 <button 
                     onClick={handleSearch}
@@ -136,6 +157,7 @@ function Cloud(){
                         padding: '0.5rem 1.3rem',
                         fontSize: '1rem',
                         backgroundColor: '#8da89f',
+                        marginRight: '1rem',
                         color: '#fff',
                         border: 'none',
                         borderRadius: '5px',
@@ -147,6 +169,26 @@ function Cloud(){
                     onMouseOut={(e) => e.target.style.backgroundColor = '#8da89f'}
                 >
                     Ask to insert a new dataset
+                </button>
+                
+                <button 
+                    onClick={handleAbout}
+                    style={{
+                        padding: '0.5rem 1.3rem',
+                        marginRight: '1rem',
+                        fontSize: '1rem',
+                        backgroundColor: '#8da89f',
+                        color: '#fff',
+                        border: 'none',
+                        borderRadius: '5px',
+                        cursor: 'pointer',
+                        boxShadow: '0 2px 5px rgba(0,0,0,0.2)',
+                        transition: 'background-color 0.3s ease'
+                    }}
+                    onMouseOver={(e) => e.target.style.backgroundColor = '#7b978c'}
+                    onMouseOut={(e) => e.target.style.backgroundColor = '#8da89f'}
+                >
+                    About
                 </button>
             </div>
             <Graph data={data}/>

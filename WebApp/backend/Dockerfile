@@ -14,8 +14,6 @@ COPY src/ /app/src
 # Copy the data folder (needed for llm.js)
 COPY data/ /app/data
 
-COPY mongo_data/ /app/mongo_data
-
 EXPOSE 5005
 
 CMD ["node", "server.js"]

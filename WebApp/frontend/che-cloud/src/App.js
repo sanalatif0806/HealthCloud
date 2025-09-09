@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import AddDataset from './pages/add_dataset';
 import Search from './pages/search';
 import Dashboard from './pages/dashboard';
+import About from './pages/about';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route basename={'/'} path='/add-dataset' element={<AddDataset />} />
           <Route basename={'/'} path='/search' element={<Search />} />
           <Route basename={'/'} path='/dashboard' element={<Dashboard />} />
+          <Route basename={'/'} path='/about' element={<About />} />
         </Routes>
       </Router>
   );
