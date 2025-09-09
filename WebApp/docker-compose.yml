@@ -30,5 +30,12 @@ services:
       - ./backend/mongo_data:/mongo_data
       - ./backend/mongo_data/init-mongo.sh:/docker-entrypoint-initdb.d/init-mongo.s
 
+  python-service:
+    build: ../python_service/
+    container_name: che-cloud-python-service
+    ports:
+      - "5001:5001"
+
+
 volumes:
   mongo_data:
