@@ -13,7 +13,7 @@
     "bootstrap": "^5.3.5",
     "d3": "^7.9.0",
     "export-to-csv": "^1.4.0",
-    "jspdf": "^3.0.1",
+    "jspdf": "^3.0.2",
     "lucide-react": "^0.488.0",
     "material-react-table": "^3.2.1",
     "react": "^19.1.0",
