@@ -35,7 +35,9 @@ services:
     container_name: che-cloud-python-service
     ports:
       - "5001:5001"
-
+    volumes:
+      - python_service_data:/data
 
 volumes:
   mongo_data:
+  python_service_data:

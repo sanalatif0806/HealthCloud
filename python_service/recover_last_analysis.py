@@ -10,9 +10,10 @@ from datetime import datetime, timedelta
 load_dotenv()
 
 BASE_URL = os.getenv('KGHeartBeat_URL')
-TAR_SAVE_PATH = "latest_file.tar.gz"
-EXTRACT_DIR = "extracted_tar"
-SAVED_CSV_PATH = "latest_quality_snapshot.csv"
+BASE_DIR = '/data'
+TAR_SAVE_PATH = os.path.join(BASE_DIR, "latest_file.tar.gz")
+EXTRACT_DIR = os.path.join(BASE_DIR, "extracted_tar")
+SAVED_CSV_PATH = os.path.join(BASE_DIR, "latest_quality_snapshot.csv")
 MAX_AGE_DAYS = 14
 
 def is_csv_fresh(csv_path):
