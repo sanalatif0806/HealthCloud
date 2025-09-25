@@ -60,14 +60,8 @@ def vocabularies_used():
 
     return vocabularies_stats
 
-@app.route("/all_fair_score", methods=["GET"])
-def all_fair_score():
-    fair_score = weather_station_data.extract_values_in_column(['KG name','KG id','FAIR score'])
-
-    return fair_score
-
 @app.route("/all_single_fair_score", methods=["GET"])
 def all_single_fair_score():
-    fair_score = weather_station_data.extract_values_in_column(['KG name','KG id','F score', 'A score', 'I score', 'R score'])
+    fair_score = weather_station_data.extract_values_in_column(['KG name','KG id','F score', 'A score', 'I score', 'R score','FAIR score'])
 
     return fair_score

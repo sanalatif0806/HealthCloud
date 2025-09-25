@@ -155,29 +155,37 @@ function FairnessInfo(){
 
     return (
         <>
-            <div className="position-relative mt-2 mx-3">
-            <div>
-                <Link to="/search" className="btn btn-outline-success me-2">Search</Link>
-                <Link to="/" className="btn btn-outline-success">Return to the Cloud</Link>
-            </div>
+        <div className="container-fluid mt-3 px-4">
+            <div className="d-flex justify-content-start gap-2 mb-4">
+                <Link to="/" className="fw-bold fs-4 text-decoration-none" style={{color: '#8da89f'}}>CHeCLOUD</Link>
+                <Link to="/" className="d-flex align-items-center">
+                <img 
+                    src="/favicon.png" 
+                    alt="Cloud Logo" 
+                    style={{ height: "40px", width: "40px", marginRight: "7px" }} 
+                />
+                </Link>
+                <Link to="/search" className="btn btn-outline-success">Search</Link>
+                <Link to="/add-dataset" className="btn btn-outline-success">Add a Dataset</Link>
+                <Link to="/dashboard" className="btn btn-outline-success">Dashboard</Link>
+                <Link to="/about" className="btn btn-outline-success">About</Link>
             <Link
                 to={`/add-dataset?dataset_id=${dataset_id}`}
-                className="btn btn-warning btn-sm shadow"
+                className="btn btn-warning btn-sm shadow d-flex align-items-center justify-content-center"
                 style={{
-                position: 'absolute',
-                top: 0,
-                right: 0,
+                marginLeft: 'auto',
                 fontWeight: '500',
-                letterSpacing: '0.3px',
+                letterSpacing: '0.5px',
                 }}
                 title="Click to request a change to this dataset's metadata"
             >
                 ✏️ Request Metadata Modification
             </Link>
-            </div>
+          </div>
+        </div>
             <div className="container mt-3">
                 <div className="text-center mb-4">
-                {fairness_data.Ontology == 'True' ? (
+                {dataset_metadata?.keywords?.includes("ontology") ? (
                     <>
                     <h1 className="d-inline mb-4">{dataset_metadata.title}</h1>
                     <span className="badge bg-warning text-dark d-inline ms-2">Ontology</span>

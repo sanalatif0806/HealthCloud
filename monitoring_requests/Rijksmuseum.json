@@ -10,7 +10,7 @@
     },
     "sparql": [
       {
-        "access_url": "https://data.netwerkdigitaalerfgoed.nl/Rijksmuseum/exhibitions/sparql",
+        "access_url": "https://api.data.netwerkdigitaalerfgoed.nl/datasets/Rijksmuseum/exhibitions/sparql",
         "title": "",
         "description": "SPARQL endpoint"
       }
