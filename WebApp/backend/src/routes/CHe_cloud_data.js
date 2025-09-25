@@ -94,7 +94,7 @@ router.get('/all_ch_links', async (req, res) => {
 router.get('/fairness_data/:id', async (req, res) => {
     try{
         const targetId = req.params.id;
-        const response = await fetch(`http://isislab.it:12280/kgheartbeat/api/fairness/${targetId}`);
+        const response = await fetch(`https://kgheartbeat.di.unisa.it/kgheartbeat-api/fairness/${targetId}`);
         const data = await response.json();
         const mappedData = Object.fromEntries(
         Object.entries(data).map(([key, value]) => [
