@@ -30,12 +30,21 @@ function Cloud(){
         navigate('/about')
     }
 
-    return (
-        <div className="container-fluid mt-3 px-4">
-            <Navbar />
-            <Graph data={data}/>
-        </div>
-    )
+return (
+    <div className="container-fluid mt-3 px-4">
+    <Navbar />
+    <div className="d-flex flex-column justify-content-center align-items-center my-3">
+        <h2 style={{ fontFamily: "'Verdana', serif", color: "#3380af" }}>
+        <b>CHeCLOUD</b>
+        </h2>
+        <h3 style={{ fontFamily: "'Verdana', serif", color: "#3380af" }}>
+        the Cultural Heritage Linked Open Data Cloud
+        </h3>
+    </div>
+    <Graph data={data} />
+    </div>
+)
+
 }
 
 export default Cloud;
