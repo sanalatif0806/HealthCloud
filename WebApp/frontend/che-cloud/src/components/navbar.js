@@ -7,7 +7,7 @@ function NavBar() {
   return (
     <Navbar bg="light" expand="md" className="mb-4 shadow-sm">
       <Container fluid>
-        <Navbar.Brand as={Link} to="/" className="fw-bold fs-4 text-success">
+        <Navbar.Brand as={Link} to="/" className="fw-bold fs-4" style={{color:"#3380af"}}>
           CHeCLOUD
         </Navbar.Brand>
         <Link to="/">
