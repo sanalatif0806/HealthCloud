@@ -30,6 +30,7 @@ function NavBar() {
           </Offcanvas.Header>
           <Offcanvas.Body>
             <Nav className="me-auto"> {/* horizontal on desktop */}
+              <Nav.Link as={Link} to="/">Home</Nav.Link>
               <Nav.Link as={Link} to="/search">Search</Nav.Link>
               <Nav.Link as={Link} to="/add-dataset">Add a Dataset</Nav.Link>
               <Nav.Link as={Link} to="/dashboard">Dashboard</Nav.Link>
