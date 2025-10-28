@@ -11,6 +11,8 @@ import Footer from '../components/footer';
 import { formatFairnessDataForBrushChart } from '../utils';
 import BrushChart from '../components/line_chart';
 import ReactMarkdown from 'react-markdown';
+import Navbar from '../components/navbar';
+
 
 
 function FairnessInfo(){
@@ -156,19 +158,8 @@ function FairnessInfo(){
     return (
         <>
         <div className="container-fluid mt-3 px-4">
+            <Navbar />
             <div className="d-flex justify-content-start gap-2 mb-4">
-                <Link to="/" className="fw-bold fs-4 text-decoration-none" style={{color: '#8da89f'}}>CHeCLOUD</Link>
-                <Link to="/" className="d-flex align-items-center">
-                <img 
-                    src="/favicon.png" 
-                    alt="Cloud Logo" 
-                    style={{ height: "40px", width: "40px", marginRight: "7px" }} 
-                />
-                </Link>
-                <Link to="/search" className="btn btn-outline-success">Search</Link>
-                <Link to="/add-dataset" className="btn btn-outline-success">Add a Dataset</Link>
-                <Link to="/dashboard" className="btn btn-outline-success">Dashboard</Link>
-                <Link to="/about" className="btn btn-outline-success">About</Link>
             <Link
                 to={`/add-dataset?dataset_id=${dataset_id}`}
                 className="btn btn-warning btn-sm shadow d-flex align-items-center justify-content-center"

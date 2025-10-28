@@ -3,6 +3,7 @@ import FormComponent from '../components/add_dataset_form';
 import { useNavigate } from 'react-router-dom';
 import Footer from '../components/footer';
 import { Link } from 'react-router-dom';
+import Navbar from '../components/navbar';
 
 const AddDataset = () => {
   const navigate = useNavigate();
@@ -12,20 +13,7 @@ const AddDataset = () => {
   return (
     <>
       <div className="container-fluid mt-3 px-4">
-        <div className="d-flex justify-content-start gap-2 mb-3">
-                <Link to="/" className="fw-bold fs-4 text-decoration-none" style={{color: '#8da89f'}}>CHeCLOUD</Link>
-                <Link to="/" className="d-flex align-items-center">
-                <img 
-                    src="/favicon.png" 
-                    alt="Cloud Logo" 
-                    style={{ height: "40px", width: "40px", marginRight: "7px" }} 
-                />
-                </Link>
-                <Link to="/search" className="btn btn-outline-success">Search</Link>
-                <Link to="/add-dataset" className="btn btn-outline-success">Add a Dataset</Link>
-                <Link to="/dashboard" className="btn btn-outline-success">Dashboard</Link>
-                <Link to="/about" className="btn btn-outline-success">About</Link>
-        </div>
+      <Navbar />
         </div>
     <div style={{ textAlign: 'left', marginLeft: '3rem', marginTop: '1.5rem', marginBottom: '1.5rem' }}>
   </div>

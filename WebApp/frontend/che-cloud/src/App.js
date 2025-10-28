@@ -12,6 +12,8 @@ import About from './pages/about';
 import ReactGA from 'react-ga4'
 const GA_ID = process.env.REACT_APP_GA_ID
 
+const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+
 function App() {
   ReactGA.initialize(GA_ID);
   
@@ -22,6 +24,7 @@ function App() {
   return (
       <Router basename='/'>
         <Routes>
+          <Route path="/" element={isMobile ? <Dashboard /> : <Cloud />} />
           <Route basename={'/'} path='*' element={<Cloud />} /> 
           <Route basename={'/'} path='/fairness-info' element={<FairnessInfo />} />
           <Route basename={'/'} path='/add-dataset' element={<AddDataset />} />
