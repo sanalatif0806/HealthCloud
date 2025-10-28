@@ -273,7 +273,7 @@ function FairnessInfo(){
                             year: 'numeric',
                             month: 'long',
                             day: 'numeric'
-                        })}</b>. Assessment provided by <a href='http://www.isislab.it:12280/kgheartbeat/kgheartbeat' target='_blank' rel="noopener noreferrer">KGHeartBeat</a>.
+                        })}</b>. Assessment provided by <a href='https://kgheartbeat.di.unisa.it/' target='_blank' rel="noopener noreferrer">KGHeartBeat</a>.
                     </small>
                     <div className="my-3">
                         <button className="btn btn-outline-secondary" onClick={fetchLlmExplanation}>
