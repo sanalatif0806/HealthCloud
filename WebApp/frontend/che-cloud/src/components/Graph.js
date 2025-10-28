@@ -98,62 +98,72 @@ const StaticGraph = ({ data }) => {
             .range([minNodeSize, maxNodeSize])
             .clamp(true);
         
+        // Define the boundary between connected and isolated nodes (horizontal split)
+        const boundaryY = height * 0.7;
+
+        // Split nodes into connected and isolated remains the same
+
         // Pre-calculate positions for connected nodes using D3 force layout
-        // but run it synchronously without animation
         const simulation = d3.forceSimulation(connectedNodes)
             .force("link", d3.forceLink(validLinks).id(d => d.id).distance(150))
             .force("charge", d3.forceManyBody().strength(-25))
-            .force("center", d3.forceCenter(width / 3, height / 2))
-            .force("collide", d3.forceCollide(d => nodeSizeScale(incomingLinkCounts[d.id]) + 9)) // Adjust collision radius based on node size
-            .force("x", d3.forceX(width / 3).strength(0.05))
-            .force("y", d3.forceY(height / 2).strength(0.05));
-        
-        // Run the simulation immediately to completion
-        // This skips the animation and calculates final positions
+            .force("center", d3.forceCenter(width / 2, boundaryY / 2))
+            .force("collide", d3.forceCollide(d => nodeSizeScale(incomingLinkCounts[d.id]) + 9))
+            .force("x", d3.forceX(width / 2).strength(0.05))
+            .force("y", d3.forceY(boundaryY / 2).strength(0.05));
+
         for (let i = 0; i < 300; ++i) simulation.tick();
-        
-        // Calculate positions for isolated nodes in a grid
-        const isolatedNodesPerRow = Math.max(1, Math.floor(Math.sqrt(isolatedNodes.length)));
-        const rightSideStartX = boundaryX + 50;
-        const rightSideWidth = width - rightSideStartX - 30;
-        const xSpacing = Math.min(70, rightSideWidth / isolatedNodesPerRow);
-        const ySpacing = Math.min(70, (height - 100) / (Math.ceil(isolatedNodes.length / isolatedNodesPerRow) || 1));
-        
+
+        // Calculate positions for isolated nodes in a grid below connected nodes
+        const isolatedCols = Math.ceil(Math.sqrt(isolatedNodes.length));
+        const colSpacing = 60; 
+        const rowSpacing = 80; 
+        const maxCols = Math.floor(width / colSpacing) || 1; // max number of columns that fit horizontally
+        const marginLeft = 50;   // left margin
+        const marginRight = 50;
+        const availableWidth = width - marginLeft - marginRight;
+
         isolatedNodes.forEach((node, i) => {
-            const row = Math.floor(i / isolatedNodesPerRow);
-            const col = i % isolatedNodesPerRow;
-            node.x = rightSideStartX + col * xSpacing;
-            node.y = 100 + row * ySpacing;
+            const row = Math.floor(i / maxCols);
+            const col = i % maxCols;
+
+            // Center row horizontally
+            const nodesInRow = Math.min(maxCols, isolatedNodes.length - row * maxCols);
+            const rowWidth = nodesInRow * colSpacing;
+            const startX = marginLeft + (availableWidth - rowWidth) / 2 + colSpacing / 2;
+
+            node.x = startX + col * colSpacing;
+            node.y = boundaryY + 80 + row * rowSpacing;
         });
-        
-        // Ensure all connected nodes stay within boundaries
+
+        // Ensure connected nodes stay within top area
         connectedNodes.forEach(node => {
-            node.x = Math.min(Math.max(node.x, 30), boundaryX - 40);
-            node.y = Math.min(Math.max(node.y, 30), height - 30);
+            node.x = Math.min(Math.max(node.x, 30), width - 30);
+            node.y = Math.min(Math.max(node.y, 30), boundaryY - 30);
         });
-        
-        // Draw the divider line
+
+        // Draw the horizontal divider line
         svg.append("line")
-            .attr("x1", boundaryX)
-            .attr("y1", 0)
-            .attr("x2", boundaryX)
-            .attr("y2", height)
+            .attr("x1", 0)
+            .attr("y1", boundaryY)
+            .attr("x2", width)
+            .attr("y2", boundaryY)
             .attr("stroke", "#ccc")
             .attr("stroke-dasharray", "5,5")
             .attr("stroke-width", 1);
-        
-        // Add a label for isolated nodes section
+
+        // Add label for isolated nodes
         if (isolatedNodes.length > 0) {
             svg.append("text")
-                .attr("x", boundaryX + (width - boundaryX) / 2)
-                .attr("y", 30)
+                .attr("x", width / 2)
+                .attr("y", boundaryY + 30)
                 .attr("text-anchor", "middle")
                 .attr("font-size", "14px")
                 .attr("font-family", "Arial")
                 .attr("font-weight", "bold")
                 .text("Isolated Nodes");
         }
-        
+            
         // Draw links
         svg.append("g")
             .selectAll("line")
@@ -533,7 +543,7 @@ const StaticGraph = ({ data }) => {
           }}
         >
           {/* Graph Area */}
-          <div style={{ flex: 1, position: "relative" }}>
+          <div style={{ flex: 1, position: "relative", overflowY: "auto" }}>
             <svg id="graph" width="100%" height="100%">
               {data.nodes.length === 0 && (
                 <text x="50%" y="50%" textAnchor="middle" fontSize="16px" fill="#555">
